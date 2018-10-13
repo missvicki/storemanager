@@ -54,7 +54,7 @@ body{
         margin-top: 60px;
         width: 82%;
     }
-    .sales-form{
+    .sales-form, .add-form, .add2-form,.modify-form{
         margin-left: 64px;
         margin-top: 60px;
         width: 82%;
@@ -71,6 +71,11 @@ body{
     .add-form .add-section form .formwrap input[type="email"], .add-form .add-section form .form-wrap input[type="password"], 
     .add-form .add-section form .form-wrap input[type="text"],
       .add-form .add-section form .form-wrap input[type="number"],  .add-form .add-section form .form-wrap input[type="file"], .add-form select{
+        width: 94%;
+    }
+    .add2-form .add2-section form .formwrap input[type="email"], .add2-form .add-section form .form-wrap input[type="password"], 
+    .add2-form .add2-section form .form-wrap input[type="text"],
+      .add2-form .add2-section form .form-wrap input[type="number"],  .add2-form .add2-section form .form-wrap input[type="file"], .add2-form select{
         width: 94%;
     }
     .modify-form .modify-section form .formwrap input[type="email"], 
@@ -102,7 +107,7 @@ body{
         width: 90%;
         margin-left: 3.5%;
     }
-    .sales-form, .add-form{
+    .sales-form, .add-form, .add2-form, .modify-form{
         width: 90%;
         margin-left: 3.5%;
     }
@@ -110,7 +115,7 @@ body{
     .login-form .login-section{
         border: 3px solid turquoise;
     }
-    .sales-form .sales-section, .add-form .add-section, .modify-form .modify-section{
+    .sales-form .sales-section, .add-form .add-section, .modify-form .modify-section, .add2-form .add2-section{
         border: 3px solid turquoise;
     }
     header.dash .logo-section{
@@ -164,7 +169,7 @@ header h1{
     min-width: 15%;
 }
 
-.sales-form, .add-form{
+.sales-form, .add-form, .add2-form{
     float: left;
     min-width: 15%;
 }
@@ -175,14 +180,15 @@ header h1{
     border-bottom: 3px solid turquoise;
     margin: 15px 0px 0px 15px;
     padding: 15px 15px 15px 15px;
-    max-width: 10%;
+    max-width: 89%;
 }
-.sales-form .sales-section, .add-form .add-section, .modify-form .modify-section{
+.sales-form .sales-section, .add-form .add-section, .modify-form .modify-section, .add2-form .add2-section{
     border-left: 3px solid turquoise;
     border-top: 3px solid turquoise;
     border-bottom: 3px solid turquoise;
     margin: 0;
     padding: 0;
+    max-width: 80%;
 }
 .login-form .login-section h1{
     color: grey;
@@ -199,6 +205,7 @@ header h1{
 }
 .sales-form .sales-section form .form-wrap, .sales-form .sales-section form .form-wrap label, 
 .add-form .add-section form .form-wrap, .add-form .add-section form .form-wrap label,
+.add2-form .add2-section form .form-wrap, .add2-form .add2-section form .formwrap label,
 .modify-form .modify-section form .form-wrap, .modify-form .modify-section form .form-wrap label{
     display: block;
     
@@ -207,7 +214,8 @@ header h1{
     margin-bottom: 10px;
     margin-left: 10px;
 }
-.sales-form .sales-section form .form-wrap, .add-form .add-section form .form-wrap, .modify-form .modify-section form .form-wrap{
+.sales-form .sales-section form .form-wrap, .add2-form .add2-section form .form-wrap,
+.add-form .add-section form .form-wrap, .modify-form .modify-section form .form-wrap{
     margin-bottom: 10px;
     margin-left: 5px;
 }
@@ -218,6 +226,7 @@ header h1{
 }
 .sales-form .sales-section form .form-wrap label, .sales-form .sales-section form .form-wrap span,
  .add-form .add-section form .form-wrap label, .add-form .add-section form .form-wrap span,
+ .add2-form .add2-section form .form-wrap label, .add2-form .add2-section form .form-wrap span,
  .modify-form .modify-section form .form-wrap label, .modify-form .modify-section form .form-wrap span{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-bottom: 5px;
@@ -231,7 +240,10 @@ header h1{
 .modify-form .modify-section form .form-wrap input[type="email"],
 .modify-form .modify-section form .form-wrap input[type="text"],
 .modify-form .modify-section form .form-wrap input[type="number"],
-.modify-form select{
+.modify-form select,
+.add2-form .add2-section form .form-wrap input[type="text"],
+      .add2-form .add2-section form .form-wrap input[type="number"], 
+       .add2-form .add2-section form .form-wrap input[type="file"], .add2-form select{
     min-width: 89%;
     padding: 8px 10px;
     border: none;
@@ -244,7 +256,8 @@ header h1{
     border-bottom: 1.5px solid #40e0d0;
 }
 .login-form .login-section form .form-wrap input[type="button"], .add-form .add-section form .form-wrap input[type="button"]
-, .modify-form .modify-section form .form-wrap input[type="button"]{
+, .modify-form .modify-section form .form-wrap input[type="button"], 
+.add2-form .add2-section form .form-wrap input[type="button"]{
     border: none;
     background-color: #262626;
     color: white;
@@ -271,7 +284,8 @@ header h1{
 .login-form .login-section form input[type="button"]:hover, .modify-form .modify-section form input[type="button"]:hover{
     background: #40e0d0;
 }
-.sales-form .sales-section form input[type="button"]:hover, .add-form .add-section form input[type="button"]:hover{
+.sales-form .sales-section form input[type="button"]:hover, .add-form .add-section form input[type="button"]:hover
+,.add2-form .add2-section form .form-wrap input[type="button"]:hover{
     background: #40e0d0;
 }
 /**Dashboard css**/
@@ -402,6 +416,7 @@ aside ul.menu li a.selected{
     margin: 25px 1% 25px 1%;
     color: white;
 }
+
 .tabs h1{
     margin: 25px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
@@ -411,6 +426,8 @@ aside ul.menu li a.selected{
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     text-align: center;
+    text-size-adjust: 1.5em;
+    color: white;
 }
 .tabs.attendants{
     background-color: #40e0d0;
@@ -430,6 +447,31 @@ aside ul.menu li a.selected{
 .tabs.productsun{
     background-color: rgb(187, 69, 22);
 }
+.tabs.all{
+    background-color: #40e0d0;
+}
+.tabs.detergent{
+    background-color: #e05d6f;
+}
+.tabs.wcosmetics{
+    background-color: #0b5e80;
+}
+.tabs.mcosmetics{
+    background-color: #cae761;
+}
+.tabs.schoolm{
+    background-color: #740816;
+}
+.tabs.food{
+    background-color: rgba(9, 156, 58, 0.568);
+}
+.tabs.utilities{
+    background-color: rgb(187, 69, 22);
+}
+.tabs.baked{
+    background-color: rgb(107, 127, 151);
+}
+
 
 .form-radio:checked::before
 {
