@@ -1,0 +1,571 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,600,600i,700|Niramit:200,400,500i,600|Roboto+Mono:100,100i,400|Roboto:100,400,400i,500,700|Source+Sans+Pro');
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+      url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+      url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+  }
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+html { font-size:100%; }
+
+img{
+    max-width: 100%;
+}
+body{
+    font-family: Muli;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@media (min-width: 768px) and (max-width: 1024px){
+    .login-form{
+        margin-left: 64px;
+        margin-top: 60px;
+        width: 82%;
+    }
+    .sales-form, .add-form, .add2-form,.modify-form{
+        margin-left: 64px;
+        margin-top: 60px;
+        width: 82%;
+    }
+    .login-form .login-section{
+        border: 3px solid turquoise;
+    }
+    .sales-form .sales-section{
+        border: 3px solid turquoise;
+    }
+    .login-form .login-section form .formwrap input[type="email"], .login-form .login-section form .form-wrap input[type="password"]{
+        width: 94%;
+    }
+    .add-form .add-section form .formwrap input[type="email"], .add-form .add-section form .form-wrap input[type="password"], 
+    .add-form .add-section form .form-wrap input[type="text"],
+      .add-form .add-section form .form-wrap input[type="number"],  .add-form .add-section form .form-wrap input[type="file"], .add-form select{
+        width: 94%;
+    }
+    .add2-form .add2-section form .formwrap input[type="email"], .add2-form .add-section form .form-wrap input[type="password"], 
+    .add2-form .add2-section form .form-wrap input[type="text"],
+      .add2-form .add2-section form .form-wrap input[type="number"],  .add2-form .add2-section form .form-wrap input[type="file"], .add2-form select{
+        width: 94%;
+    }
+    .modify-form .modify-section form .formwrap input[type="email"], 
+    .modify-form .modify-section form .form-wrap input[type="text"],
+    .modify-form .modify-section form .form-wrap input[type="number"],
+     .modify-form select
+    {
+        width: 94%;
+    }
+ .sales-form .sales-section form .form-wrap input[type="date"], .sales-form .sales-section form .form-wrap input[type="text"]{
+        width: 94%;
+    }
+    .main-section aside{
+        display: none;
+        width: 25%;
+    }
+    .main-section .content{
+        width: 100%;
+        margin-left: 0px;
+    }
+    .sale table tbody tr{
+        font-size: 14px;
+    }
+
+
+}
+@media only screen and (max-width: 768px){
+    .login-form{
+        width: 90%;
+        margin-left: 3.5%;
+    }
+    .sales-form, .add-form, .add2-form, .modify-form{
+        width: 90%;
+        margin-left: 3.5%;
+    }
+
+    .login-form .login-section{
+        border: 3px solid turquoise;
+    }
+    .sales-form .sales-section, .add-form .add-section, .modify-form .modify-section, .add2-form .add2-section{
+        border: 3px solid turquoise;
+    }
+    header.dash .logo-section{
+        padding-top: 5px;
+    }
+    .main-section .content{
+        width: 100%;
+        margin-left: 0px;
+    }
+    .tab-section{
+        margin-top: 0px;
+    }
+    .content .main-info .down-section .tab-section .tabs{
+        width: 100%;
+    }
+    .sale table tbody tr{
+        font-size: 12px;
+    }
+}
+.container{
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+header{
+    overflow: auto;
+    width: 100%;
+    padding: 15px 0px;
+}
+header h1{
+    float: left;
+    margin: 10px 0px 0px 35px;
+    padding: 0px 0px 0px 0px;
+    color: rgb(6, 194, 62);
+}
+.login-content{
+    width: 100%;
+    overflow: hidden;
+}
+.login-form{
+    float: left;
+    min-width: 25%;
+}
+.modify-form{
+    float: left;
+    margin-top: 20px;
+    min-width: 15%;
+}
+
+.sales-form, .add-form, .add2-form{
+    float: left;
+    min-width: 15%;
+}
+.login-form .login-section{
+    background: #fff;
+    border-left: 3px solid turquoise;
+    border-top: 3px solid turquoise;
+    border-bottom: 3px solid turquoise;
+    margin: 15px 0px 0px 15px;
+    padding: 15px 15px 15px 15px;
+    max-width: 89%;
+}
+.sales-form .sales-section, .add-form .add-section, .modify-form .modify-section, .add2-form .add2-section{
+    border-left: 3px solid turquoise;
+    border-top: 3px solid turquoise;
+    border-bottom: 3px solid turquoise;
+    margin: 0;
+    padding: 0;
+    max-width: 80%;
+}
+.login-form .login-section h1{
+    color: grey;
+    margin: 5px 0px 30px 0px;
+}
+.login-form .login-section form{
+    padding-bottom: 10px;
+    border-bottom: 1px solid silver;
+}
+
+.login-form .login-section form .form-wrap, .login-form .login-section form .form-wrap label{
+    display: block;
+    
+}
+.sales-form .sales-section form .form-wrap, .sales-form .sales-section form .form-wrap label, 
+.add-form .add-section form .form-wrap, .add-form .add-section form .form-wrap label,
+.add2-form .add2-section form .form-wrap, .add2-form .add2-section form .formwrap label,
+.modify-form .modify-section form .form-wrap, .modify-form .modify-section form .form-wrap label{
+    display: block;
+    
+}
+.login-form .login-section form .form-wrap{
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.sales-form .sales-section form .form-wrap, .add2-form .add2-section form .form-wrap,
+.add-form .add-section form .form-wrap, .modify-form .modify-section form .form-wrap{
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+.login-form .login-section form .form-wrap label, .login-form .login-section form .form-wrap span{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 5px;
+    color: #40e0d0; 
+}
+.sales-form .sales-section form .form-wrap label, .sales-form .sales-section form .form-wrap span,
+ .add-form .add-section form .form-wrap label, .add-form .add-section form .form-wrap span,
+ .add2-form .add2-section form .form-wrap label, .add2-form .add2-section form .form-wrap span,
+ .modify-form .modify-section form .form-wrap label, .modify-form .modify-section form .form-wrap span{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 5px;
+    color: #171717; 
+}
+.login-form .login-section form .form-wrap input[type="email"], .login-form .login-section form .form-wrap input[type="password"],
+.add-form .add-section form .form-wrap input[type="email"], .add-form .add-section form .form-wrap input[type="password"],
+.add-form .add-section form .form-wrap input[type="text"],
+.add-form .add-section form .form-wrap input[type="number"],
+.add-form .add-section form .form-wrap input[type="file"],.add-form select,
+.modify-form .modify-section form .form-wrap input[type="email"],
+.modify-form .modify-section form .form-wrap input[type="text"],
+.modify-form .modify-section form .form-wrap input[type="number"],
+.modify-form select,
+.add2-form .add2-section form .form-wrap input[type="text"],
+      .add2-form .add2-section form .form-wrap input[type="number"], 
+       .add2-form .add2-section form .form-wrap input[type="file"], .add2-form select{
+    min-width: 89%;
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1.5px solid #40e0d0;
+}
+.sales-form .sales-section form .form-wrap input[type="text"], .login-form .login-section form .form-wrap input[type="date"]{
+    min-width: 89%;
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1.5px solid #40e0d0;
+}
+.login-form .login-section form .form-wrap input[type="button"], .add-form .add-section form .form-wrap input[type="button"]
+, .modify-form .modify-section form .form-wrap input[type="button"], 
+.add2-form .add2-section form .form-wrap input[type="button"]{
+    border: none;
+    background-color: #262626;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: white;
+    
+}
+.sales-form .sales-section form .form-wrap input[type="button"]{
+    border: none;
+    background-color: #262626;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: white;
+    
+}
+.login-form .login-section form input[type="button"]:hover, .modify-form .modify-section form input[type="button"]:hover{
+    background: #40e0d0;
+}
+.sales-form .sales-section form input[type="button"]:hover, .add-form .add-section form input[type="button"]:hover
+,.add2-form .add2-section form .form-wrap input[type="button"]:hover{
+    background: #40e0d0;
+}
+/**Dashboard css**/
+header.dash{
+    background-color: #2c3e50;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    padding: 3px 0px;
+    overflow: auto;
+    z-index: 99;
+}
+header.dash .logo-section{
+    position: relative;
+    float: left;
+    padding-top: 7px;
+    font-size: 1.6rem;
+}
+header.dash .logo-section a{
+    font-size: 1.6rem;
+    color: #fff;
+}
+header.dash .logo-section a span{
+    font-weight: 300;
+}
+header.dash .search-section{
+    float: right;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 6px;
+    padding-bottom: 5px;
+    overflow: auto;
+    border-radius: 40px;
+    background: #171717;
+    height: 35px; 
+    margin-right: 5px;
+}
+.search-section .search-text{
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    color: white;
+    font-size: 1rem;
+    font-family: Muli;
+    transition: 0.4s;
+    margin-left: 1px;
+}
+.search-section .search-btn{
+    color: #44eeff;
+    float: right;
+    border-radius: 40px;
+    background: #171717;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-section{
+    margin-top: 44px;
+}
+
+.main-section aside{
+    background: #171717;
+    width: 19.49%;
+    min-height: 690px;
+    position: fixed;
+    z-index: 97;
+}
+.main-section .content{
+    margin-left: 19.49%;
+}
+aside ul{
+    list-style: none;
+}
+aside ul.menu{
+    margin: 0px;
+    padding: 0px;
+}
+aside ul.menu li{
+    overflow: auto;
+}
+aside ul.menu li a{
+    color: #ccc;
+    width: 100%;
+    float: left;
+    text-decoration: none;
+    padding: 10px 0px;
+    overflow: auto;
+    font-family: Muli;
+    display: block;
+    font-size: 1rem;
+    border-bottom: 1px solid #0a0a0a;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+}
+
+aside ul.menu li a:hover{
+    background-color: #030303;
+    color: #fff;
+    padding-left: 4px;
+}
+
+aside ul.menu li a.selected{
+    background-color: #030303;
+    color: #fff; 
+}
+/*******  content  ******/
+.content .main-info{
+    padding: 15px;
+}
+.content .main-info .top-section{
+    overflow: auto;
+}
+.top-section h3{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    float: left;
+}
+.tab-section{
+    overflow: auto;
+    margin-top: 60px;
+}
+.content .main-info .down-section .tab-section .tabs{
+    height: 112px;
+    width: 23%;
+    float: left;
+    margin: 25px 1% 25px 1%;
+    color: white;
+}
+
+.tabs h1{
+    margin: 25px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+}
+.tabs p{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    text-size-adjust: 1.5em;
+    color: white;
+}
+.tabs.attendants{
+    background-color: #40e0d0;
+}
+.tabs.employees{
+    background-color: #e05d6f;
+}
+.tabs.sales{
+    background-color: #0b5e80;
+}
+.tabs.products{
+    background-color: #cae761;
+}
+.tabs.returns{
+    background-color: #740816;
+}
+.tabs.productsun{
+    background-color: rgb(187, 69, 22);
+}
+.tabs.all{
+    background-color: #40e0d0;
+}
+.tabs.detergent{
+    background-color: #e05d6f;
+}
+.tabs.wcosmetics{
+    background-color: #0b5e80;
+}
+.tabs.mcosmetics{
+    background-color: #cae761;
+}
+.tabs.schoolm{
+    background-color: #740816;
+}
+.tabs.food{
+    background-color: rgba(9, 156, 58, 0.568);
+}
+.tabs.utilities{
+    background-color: rgb(187, 69, 22);
+}
+.tabs.baked{
+    background-color: rgb(107, 127, 151);
+}
+
+
+.form-radio:checked::before
+{
+     position: absolute;
+     font: 13px/1 'Open Sans', sans-serif;
+     left: 11px;
+     top: 7px;
+     content: '\02143';
+     transform: rotate(40deg);
+}
+.form-radio:hover
+{
+     background-color: #f7f7f7;
+}
+.form-radio:checked
+{
+     background-color: #f1f1f1;
+}
+.sales{
+    margin-top: 30px;
+    padding: 15px;
+}
+.sales table{
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 50%;
+}
+.sales table thead tr{
+    font-family: Muli;
+    padding: 0;
+    margin: 0;
+}
+.sales table tbody tr{
+    font-family: Niramit;
+}
+.sales table tbody tr td{
+    border-bottom: 2px solid turquoise;
+    padding: 0;
+    overflow: auto;
+}
+.employee li{
+    float:left;
+    color: white;
+    background: #2c3e50;
+    width: auto;
+    margin: 0 auto;
+    margin-right: 5px; 
+    height: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.add-form{
+    display: none;
+}
+.view-form{
+    display:none;
+}
+.shopcontent input[type="button"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    background: #262626;
+    cursor: pointer;
+    
+ }
+ .shopcontent input[type="button"]:hover{
+    background: #40e0d0;
+ }
+ .shopcontent{
+    align-content: center;
+   
+ }
+ .shopping-cart {
+    max-width: 50%;
+    min-width: 20%;
+    margin: 80px auto;
+    background: #2c3e50;
+    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+    border-radius: 6px;
+    display: flex;
+    float: left;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  .tittle {
+    height: 60px;
+    border-bottom: 1px solid #E1E8EE;
+    padding: 20px 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .cart{
+      float: right;
+  }
