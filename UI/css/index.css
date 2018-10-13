@@ -530,3 +530,42 @@ aside ul.menu li a.selected{
 .view-form{
     display:none;
 }
+.shopcontent input[type="button"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    background: #262626;
+    cursor: pointer;
+    
+ }
+ .shopcontent input[type="button"]:hover{
+    background: #40e0d0;
+ }
+ .shopcontent{
+    align-content: center;
+   
+ }
+ .shopping-cart {
+    max-width: 50%;
+    min-width: 20%;
+    margin: 80px auto;
+    background: #2c3e50;
+    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+    border-radius: 6px;
+    display: flex;
+    float: left;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  .tittle {
+    height: 60px;
+    border-bottom: 1px solid #E1E8EE;
+    padding: 20px 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .cart{
+      float: right;
+  }

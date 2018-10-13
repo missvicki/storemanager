@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="description" content="Store Manager application, Admin dashboard">
+            <meta name="author" content="Victor Nomwesigwa">
+            <meta name="HandheldFriendly" content="true">
+
+            <title>V & M Shopping</title>
+            <!--Stylesheet-->
+            <link rel="stylesheet" type="text/css" href="./css/index.css" />
+
+            <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+            <script src="./scripts/jquery.min.js"></script> 
+
+    </head>
+    <body>
+            <header class="dash">
+                <div class="logo-section">
+                    <a href="indexAttendants.html"> V&M <span>Shopping</span></a>
+                </div>
+                <div class="search-section">
+                    <input class="search-text" type="text" name="" placeholder="Search">
+                    <a class="search-btn" href="#"><i class ="fas fa-search"></i></a> 
+                </div>
+            </header>
+
+            <div class="main-section">
+                <aside id="side-menu">
+                    <ul class="menu">
+                        
+                            <li><a  class="selected" href="indexAttedants.html">Home</a> </li>
+                            <li><a  href="salesAttendants.html">Sales</a> </li>
+                            <li><a href="addProductsAttendants.html">Add Products</a> </li>
+                            <li><a href="#">Shift / Schedule</a> </li>                                      
+                            <li><a href="index.html">Logout</a> </li>
+                        
+                    </ul>
+                </aside>
+                <div class="content">
+                    <div class="main-info">
+                        <div class="top-section">
+                            <h3>Attendant</h3>
+                        </div>
+                        <div class="down-section">
+                            <div class="shopping-cart">
+                                <!-- Title -->
+                                <div class="tittle">
+                                  Shopping Bag
+                                </div>
+                                <div class="shopcontent">
+                                    Items user is buying will be viewed here to be edited
+                                    <p>Forexample</p>
+            
+                                    <p>Soap       Ush 3600      + 1 -    totalprice delete       edit </p>
+            
+                                    <p>Total Charge: </p>Ugs 3600
+                                    <p>Note +1- indicates where the quantity can be changed accordingly</p>
+                                    <input type="button" value="Make Sale" name="makesale" onclick="location.href = '#';" >
+                                    <input type="button" value="Cancel Transaction" name="cancel" onclick="location.href = 'indexAttendants.html';" >
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
