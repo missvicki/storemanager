@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="description" content="Store Manager application, Admin dashboard">
+            <meta name="author" content="Victor Nomwesigwa">
+            <meta name="HandheldFriendly" content="true">
+
+            <title>V & M Shopping</title>
+            <!--Stylesheet-->
+            <link rel="stylesheet" type="text/css" href="./css/index.css" />
+
+            <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+            <script src="./scripts/jquery.min.js"></script> 
+            <script>
+                 $(document).ready(function(){
+                   
+                    $(".newEmployees").click(function(){
+                        $(".view-form").hide();
+                        $(".modify-form").hide();
+                         $(".add-form").fadeIn("slow");
+                    });
+                    $(".allEmployees").click(function(){
+                        $(".add-form").hide();
+                         $(".view-form").fadeIn("slow");
+                         $(".modify-form").fadeIn("slow");
+
+
+                    });
+                   
+                });
+            </script>
+
+    </head>
+    <body>
+            <header class="dash">
+                <div class="logo-section">
+                    <a href="indexOwner.html"> V&M <span>Shopping</span></a>
+                </div>
+            </header>
+
+            <div class="main-section">
+                <aside id="side-menu">
+                    <ul class="menu">
+                        
+                            <li><a href="indexOwner.html">Dashboard</a> </li>
+                            <li><a href="salesOwner.html">Sales</a> </li>
+                            <li><a class="selected" href="employess.html">Employees</a> </li>
+                            <li><a href="#">Shift / Schedule</a> </li>
+                            <li><a href="manageProducts.html">Manage Products</a> </li>
+                            <li><a href="#">Reports</a> </li>                                      
+                            <li><a href="loginOwner.html">Logout</a> </li>
+                        
+                    </ul>
+                </aside>
+                <div class="content">
+                    <div class="main-info">
+                        <div class="top-section">
+                            <ul class="employee">
+                                <li class="newEmployees">Add New Employees</li>
+                                <li class="allEmployees">View Employees</li>            
+                            </ul>
+                        </div>
+                        <div class="down-section">
+                
+                            <div class="add-form">
+                                <div class="add-section">
+
+                                    <form> 
+                                                                      
+                                        <div class="form-wrap">
+                                            <label>Employee Name</label>
+                                            <input type = "text" name="name_employee" placeholder="Name" required>
+                                        </div>
+                                        <div class="form-wrap">
+                                            <label>Password</label> 
+                                            <input type="password" name="password_employee" placeholder="Password" required>
+                                        </div>
+                                        <div class="form-wrap">
+                                            <label>Verify Password</label> 
+                                            <input type="password" name="psd_verified" placeholder="Password" required>
+                                        </div>
+                                        <div class="form-wrap">
+                                            <label>Employee Email</label>
+                                            <input type = "email" name="email_employee" placeholder="Email" required>
+                                        </div>
+                                        <div class="form-wrap">
+                                            <label>Employee No.</label> 
+                                            <input type="text" name="emp_no" placeholder="Employee No." required>
+                                        </div>
+                                        <div class="form-wrap">
+                                            <label>Contact</label> 
+                                            <input type="text" name="phone" placeholder="Phone Number" required>
+                                        </div>
+                                        <div class="form-wrap">
+                                            <label>Residence</label> 
+                                            <input type="text" name="residence" placeholder="Place of Residence" required>
+                                        </div>
+
+                                        <div class="form-wrap btn">
+                                                <input type="button" onclick="location.href = '#';" name="add1" value="Add">
+                                        </div>       
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="view-form">
+                                <div class="employees">
+                                    <table>
+                                        <thead>
+                                            <tr style="background-color: #090a25; color:#FFF; padding:10px 10px 10px 10px ;">
+                                                <th>Employee No.</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Contact</th>
+                                                <th>Residence</th>                                         
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table_body">
+                                            <tr  style="border-bottom:1px solid #3CC; background-color:#C0C0C0;  color:#000;"></tr>
+                                        </tbody>
+                                    </table>      
+                                </div>
+                                <div class="modify-form">
+                                    <div class="modify-section">
+                                        <form>     
+                                            <h5>Modify Employee Table</h5>     
+                                            <div class="form-wrap">
+                                                <label>Employee No.</label> 
+                                                <input type="text" name="emp_no" placeholder="Employee No." required>
+                                            </div>                               
+                                            <div class="form-wrap">
+                                                <label>Employee Name</label>
+                                                <input type = "text" name="nameemployee" placeholder="Name" required>
+                                            </div>
+                                            <div class="form-wrap">
+                                                <label>Employee Email</label>
+                                                <input type = "email" name="emailemployee" placeholder="Email" required>
+                                            </div>
+                                            
+                                            <div class="form-wrap">
+                                                <label>Contact</label> 
+                                                <input type="text" name="phonen" placeholder="Phone Number" required>
+                                            </div>
+                                            <div class="form-wrap">
+                                                <label>Residence</label> 
+                                                <input type="text" name="reside" placeholder="Place of Residence" required>
+                                            </div>
+
+                                            <div class="form-wrap btn">
+                                                    <input type="button" onclick="location.href = '#';" name="edit" value="Edit">
+                                                    <input type="button" onclick="location.href = '#';" name="delete" value="Delete">
+                                            </div>       
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
