@@ -73,12 +73,12 @@ a{
     }
     .add-form .add-section form .formwrap input[type="email"], .add-form .add-section form .form-wrap input[type="password"], 
     .add-form .add-section form .form-wrap input[type="text"],
-      .add-form .add-section form .form-wrap input[type="number"],  .add-form .add-section form .form-wrap input[type="file"], .add-form select{
+      .add-form .add-section form .form-wrap input[type="number"],   .add-form select{
         width: 94%;
     }
     .add2-form .add2-section form .formwrap input[type="email"], .add2-form .add-section form .form-wrap input[type="password"], 
     .add2-form .add2-section form .form-wrap input[type="text"],
-      .add2-form .add2-section form .form-wrap input[type="number"],  .add2-form .add2-section form .form-wrap input[type="file"], .add2-form select{
+      .add2-form .add2-section form .form-wrap input[type="number"],   .add2-form select{
         width: 94%;
     }
     .modify-form .modify-section form .formwrap input[type="email"], 
@@ -239,14 +239,14 @@ header h1{
 .add-form .add-section form .form-wrap input[type="email"], .add-form .add-section form .form-wrap input[type="password"],
 .add-form .add-section form .form-wrap input[type="text"],
 .add-form .add-section form .form-wrap input[type="number"],
-.add-form .add-section form .form-wrap input[type="file"],.add-form select,
+.add-form select,
 .modify-form .modify-section form .form-wrap input[type="email"],
 .modify-form .modify-section form .form-wrap input[type="text"],
 .modify-form .modify-section form .form-wrap input[type="number"],
 .modify-form select,
 .add2-form .add2-section form .form-wrap input[type="text"],
       .add2-form .add2-section form .form-wrap input[type="number"], 
-       .add2-form .add2-section form .form-wrap input[type="file"], .add2-form select{
+ .add2-form select{
     min-width: 89%;
     padding: 8px 10px;
     border: none;
