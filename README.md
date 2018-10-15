@@ -18,3 +18,6 @@ Store attendants should be able to add products to specific categories.
 This application should help store owners avoid selling products that have run out of stock.
 The store owner can be referred to as the admin of the application.
 
+
+To login: Attendants and owner click the login button,at this time. usernames and passwords haven't been provided yet
+
