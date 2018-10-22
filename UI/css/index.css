@@ -237,6 +237,11 @@ header h1{
 .add-form .add-section form .form-wrap input[type="text"],
 .add-form .add-section form .form-wrap input[type="number"],
 .add-form select,
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 4c527a431fe41483210244811125942f95da74da
 .modify-form .modify-section form .form-wrap input[type="email"],
 .modify-form .modify-section form .form-wrap input[type="text"],
 .modify-form .modify-section form .form-wrap input[type="number"],
