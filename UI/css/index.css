@@ -57,38 +57,34 @@ a{
         margin-top: 60px;
         width: 82%;
     }
-    .sales-form, .add-form, .add2-form,.modify-form{
+    .add-form, .add2-form{
+        margin-left: 64px;
+        margin-top: 60px;
+        width: 100%;
+    }
+    .modify-form, .sales-form{
         margin-left: 64px;
         margin-top: 60px;
         width: 82%;
     }
-    .login-form .login-section{
-        border: 3px solid turquoise;
-    }
-    .sales-form .sales-section{
-        border: 3px solid turquoise;
-    }
-    .login-form .login-section form .formwrap input[type="email"], .login-form .login-section form .form-wrap input[type="password"]{
-        width: 94%;
-    }
-    .add-form .add-section form .formwrap input[type="email"], .add-form .add-section form .form-wrap input[type="password"], 
-    .add-form .add-section form .form-wrap input[type="text"],
-      .add-form .add-section form .form-wrap input[type="number"],   .add-form select{
-        width: 94%;
-    }
-    .add2-form .add2-section form .formwrap input[type="email"], .add2-form .add-section form .form-wrap input[type="password"], 
-    .add2-form .add2-section form .form-wrap input[type="text"],
-      .add2-form .add2-section form .form-wrap input[type="number"],   .add2-form select{
-        width: 94%;
-    }
     .modify-form .modify-section form .formwrap input[type="email"], 
     .modify-form .modify-section form .form-wrap input[type="text"],
     .modify-form .modify-section form .form-wrap input[type="number"],
-     .modify-form select
-    {
+    .modify-form select{
         width: 94%;
     }
- .sales-form .sales-section form .form-wrap input[type="date"], .sales-form .sales-section form .form-wrap input[type="text"]{
+    .sales-form .sales-section form .formwrap input[type="date"], 
+    .sales-form .sales-section form .form-wrap input[type="text"]{
+        width: 94%;
+    }
+    .login-form .login-section{
+        border: 3px solid turquoise;
+    }
+    .add-form .add-section, .add2-form .add-section{
+        border: 3px solid turquoise;
+    }
+    .login-form .login-section form .formwrap input[type="email"], 
+    .login-form .login-section form .form-wrap input[type="password"]{
         width: 94%;
     }
     .main-section .content{
@@ -103,18 +99,28 @@ a{
 }
 @media only screen and (max-width: 768px){
     .login-form{
-        width: 90%;
+        width: 100%;
         margin-left: 3.5%;
     }
-    .sales-form, .add-form, .add2-form, .modify-form{
-        width: 90%;
+    .add-form, .add2-form{
+        width: 100%;
         margin-left: 3.5%;
     }
-
+    .modify-form{
+        width: 100%;
+        margin-left: 3.5%;
+    }
+    .sales-form{
+        width: 100%;
+        margin-left: 3.5%;
+    }
     .login-form .login-section{
         border: 3px solid turquoise;
     }
-    .sales-form .sales-section, .add-form .add-section, .modify-form .modify-section, .add2-form .add2-section{
+    .add-form .add-section, .add2-form .add2-section{
+        border: 3px solid turquoise;
+    }
+    .modify-form .modify-section, .sales-form .sales-section{
         border: 3px solid turquoise;
     }
     header.dashboard .logo-section{
@@ -127,7 +133,6 @@ a{
     .tab-section{
         margin-top: 0px;
     }
-
     .sale table tbody tr{
         font-size: 12px;
     }
@@ -166,28 +171,47 @@ header h1{
     margin-top: 20px;
     min-width: 15%;
 }
-
-.sales-form, .add-form, .add2-form{
-    float: left;
-    min-width: 15%;
-    max-width: 80%;
-}
 .login-form .login-section{
     background: #fff;
     border-left: 3px solid turquoise;
+    border-right: 3px solid turquoise;
     border-top: 3px solid turquoise;
     border-bottom: 3px solid turquoise;
     margin: 15px 0px 0px 15px;
     padding: 15px 15px 15px 15px;
     max-width: 89%;
 }
-.sales-form .sales-section, .add-form .add-section, .modify-form .modify-section, .add2-form .add2-section{
+.modify-form .modify-section{
     border-left: 3px solid turquoise;
     border-top: 3px solid turquoise;
     border-bottom: 3px solid turquoise;
+    border-right: 3px solid turquoise;
     margin: 0;
     padding: 0;
-    max-width: 80%;
+    max-width: 60%; 
+}
+.add-form, .modify-form, .add2-form{
+    min-width: 50%;
+}
+.add-form .add-section, .add2-form .add2-section{
+    background: #fff;
+    border-left: 3px solid turquoise;
+    border-right: 3px solid turquoise;
+    border-top: 3px solid turquoise;
+    border-bottom: 3px solid turquoise;
+    margin: 15px 0px 0px 15px;
+    padding: 15px 15px 15px 15px;
+    width: 70%;
+}
+.sales-form .sales-section{
+    background: #fff;
+    border-left: 3px solid turquoise;
+    border-right: 3px solid turquoise;
+    border-top: 3px solid turquoise;
+    border-bottom: 3px solid turquoise;
+    margin: 15px 0px 0px 15px;
+    padding: 15px 15px 15px 15px;
+    width: 70%;
 }
 .login-form .login-section h1{
     color: #262626;
@@ -202,53 +226,61 @@ header h1{
     display: block;
     
 }
-.sales-form .sales-section form .form-wrap, .sales-form .sales-section form .form-wrap label, 
-.add-form .add-section form .form-wrap, .add-form .add-section form .form-wrap label,
-.add2-form .add2-section form .form-wrap, .add2-form .add2-section form .formwrap label,
 .modify-form .modify-section form .form-wrap, .modify-form .modify-section form .form-wrap label{
     display: block;
     margin-top: 15px;
+    margin-left: 15px;
     
 }
 .login-form .login-section form .form-wrap{
     margin-bottom: 10px;
     margin-left: 10px;
 }
-.sales-form .sales-section form .form-wrap, .add2-form .add2-section form .form-wrap,
-.add-form .add-section form .form-wrap, .modify-form .modify-section form .form-wrap{
-    margin-bottom: 10px;
-    margin-left: 5px;
-}
 .login-form .login-section form .form-wrap label, .login-form .login-section form .form-wrap span{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-bottom: 5px;
     color: #40e0d0; 
 }
-.sales-form .sales-section form .form-wrap label, .sales-form .sales-section form .form-wrap span,
- .add-form .add-section form .form-wrap label, .add-form .add-section form .form-wrap span,
- .add2-form .add2-section form .form-wrap label, .add2-form .add2-section form .form-wrap span,
- .modify-form .modify-section form .form-wrap label, .modify-form .modify-section form .form-wrap span{
+.modify-form .modify-section form .form-wrap{
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-left: 15px;
+}
+.modify-form .modify-section form .form-wrap label, .modify-form .modify-section form .form-wrap span{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-bottom: 5px;
     color: #171717; 
 }
-.login-form .login-section form .form-wrap input[type="email"], .login-form .login-section form .form-wrap input[type="password"],
-.add-form .add-section form .form-wrap input[type="email"], .add-form .add-section form .form-wrap input[type="password"],
-.add-form .add-section form .form-wrap input[type="text"],
-.add-form .add-section form .form-wrap input[type="number"],
-.add-form select,
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 4c527a431fe41483210244811125942f95da74da
 .modify-form .modify-section form .form-wrap input[type="email"],
 .modify-form .modify-section form .form-wrap input[type="text"],
-.modify-form .modify-section form .form-wrap input[type="number"],
-.modify-form select,
-.add2-form .add2-section form .form-wrap input[type="text"],
-      .add2-form .add2-section form .form-wrap input[type="number"], 
- .add2-form select{
+.modify-form .modify-section form .form-wrap input[type="number"],.modify-form select{
+    min-width: 20%;
+    max-width: 70%;
+    padding: 8px 10px;
+    border: none;
+    border: 1.5px solid #40e0d0;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+.modify-form .modify-section form .form-wrap input[type="button"]{
+    border: none;
+    background-color: #262626;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: white;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+.modify-form .modify-section form input[type="button"]:hover{
+    background: #40e0d0;
+}
+.login-form .login-section form .form-wrap input[type="email"], 
+.login-form .login-section form .form-wrap input[type="password"]
+{
     min-width: 20%;
     max-width: 70%;
     padding: 8px 10px;
@@ -256,7 +288,7 @@ header h1{
     border-bottom: 1.5px solid #40e0d0;
     margin-top: 10px;
 }
-.sales-form .sales-section form .form-wrap input[type="text"], .login-form .login-section form .form-wrap input[type="date"]{
+.login-form .login-section form .form-wrap input[type="date"]{
     min-width: 20%;
     max-width: 70%;
     padding: 8px 10px;
@@ -276,9 +308,77 @@ header h1{
     color: white;
     
 }
-.sales-form .sales-section form .form-wrap input[type="button"], .add-form .add-section form .form-wrap input[type="button"]
-, .modify-form .modify-section form .form-wrap input[type="button"], 
-.add2-form .add2-section form .form-wrap input[type="button"]{
+.login-form .login-section form input[type="button"]:hover{
+    background: #40e0d0;
+}
+.add-form .add-section form .form-wrap, .add-form .add-section form .form-wrap label,
+.add2-form .add2-section form .form-wrap, .add2-form .add2-section form .form-wrap label{
+    display: inline-block;
+}
+.sales-form .sales-section form .form-wrap, .sales-form .sales-section form .form-wrap h5, 
+{
+    display: block;
+}
+.add-form .add-section form .form-wrap, .add2-form .add2-section form .form-wrap{
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.sales-form .sales-section form .form-wrap{
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.add-form .add-section form .form-wrap label, .add-form .add-section form .form-wrap span, 
+.add2-form .add2-section form .form-wrap label, .add2-form .add2-section form .form-wrap span,
+.sales-form .sales-section form .form-wrap h5, .sales-form .sales-section form .form-wrap span{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 5px;
+    color: #40e0d0; 
+}
+.sales-form .sales-section form .form-wrap label{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.add-form .add-section form .form-wrap input[type="text"], 
+.add-form .add-section form .form-wrap input[type="number"],
+.add2-form .add2-section form .form-wrap input[type="text"], 
+.add2-form .add2-section form .form-wrap input[type="number"]
+{
+    min-width: 20%;
+    max-width: 70%;
+    padding: 8px 10px;
+    border: none;
+    border: 1.5px solid #40e0d0;
+    margin-top: 10px;
+    align-content: center;
+}
+.sales-form .sales-section form .form-wrap input[type="date"], 
+.sales-form .sales-section form .form-wrap input[type="text"]
+{
+    min-width: 20%;
+    max-width: 70%;
+    padding: 8px 10px;
+    border: none;
+    border: 1.5px solid #40e0d0;
+    margin-top: 10px;
+    align-content: center;
+}
+.sales-form .sales-section form .form-wrap input[type="radio"]
+{
+   margin-top: 10px;
+   margin-left: 20px;
+}
+.add-form .add-section select, 
+.add2-form .add2-section select{
+    min-width: 20%;
+    max-width: 70%;
+    padding: 8px 10px;
+    border: none;
+    border: 1.5px solid #40e0d0;
+    margin-top: 10px;
+    align-content: center;
+}
+.add-form .add-section form .form-wrap input[type="button"], 
+.add2-form .add2-section form .form-wrap input[type="button"],
+.sales-form .sales-section form .form-wrap input[type="button"]{
     border: none;
     background-color: #262626;
     color: white;
@@ -288,14 +388,11 @@ header h1{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
     color: white;
-    margin-top: 10px;
-    
+    align-content: center;
 }
-.login-form .login-section form input[type="button"]:hover, .modify-form .modify-section form input[type="button"]:hover{
-    background: #40e0d0;
-}
-.sales-form .sales-section form input[type="button"]:hover, .add-form .add-section form input[type="button"]:hover
-,.add2-form .add2-section form .form-wrap input[type="button"]:hover{
+.add-form .add-section form input[type="button"]:hover,
+.add2-form .add2-section form input[type="button"]:hover,
+.sales-form .sales-section form input[type="button"]:hover{
     background: #40e0d0;
 }
 /**Dashboard css**/
