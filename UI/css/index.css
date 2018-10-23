@@ -83,7 +83,8 @@ a{
     .add-form .add-section, .add2-form .add-section{
         border: 3px solid turquoise;
     }
-    .login-form .login-section form .formwrap input[type="email"], 
+
+    .login-form .login-section form .formwrap input[type="text"], 
     .login-form .login-section form .form-wrap input[type="password"]{
         width: 94%;
     }
@@ -278,17 +279,10 @@ header h1{
 .modify-form .modify-section form input[type="button"]:hover{
     background: #40e0d0;
 }
-.login-form .login-section form .form-wrap input[type="email"], 
+.login-form .login-section form .form-wrap input[type="text"], 
 .login-form .login-section form .form-wrap input[type="password"]
 {
-    min-width: 20%;
-    max-width: 70%;
-    padding: 8px 10px;
-    border: none;
-    border-bottom: 1.5px solid #40e0d0;
-    margin-top: 10px;
-}
-.login-form .login-section form .form-wrap input[type="date"]{
+
     min-width: 20%;
     max-width: 70%;
     padding: 8px 10px;
