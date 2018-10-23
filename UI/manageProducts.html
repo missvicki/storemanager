@@ -36,7 +36,7 @@
 
     </head>
     <body>
-            <header class="dash">
+            <header class="dashboard">
                 <div class="logo-section">
                     <a href="indexOwner.html"> V&M <span>Shopping</span></a>
                 </div>
@@ -75,25 +75,30 @@
                                             <label>Product Name</label>
                                             <input type = "text" name="np" placeholder="Product Name" required>
                                         </div>
+                                        
                                         <div class="form-wrap">
                                             <label>Product No</label>
                                             <input type = "text" name="numberp" placeholder="Product Number" required>
                                         </div>
-
-                                        <select name="pdt_categories">
-                                            <option value="">Select Category</option>
-                                            <option value="food">Food</option>
-                                            <option value="detergent">Detergent</option>
-                                            <option value="homeu">Home Utilities</option>
-                                            <option value="school">Scholastic Materials</option>
-                                            <option value="baked">Baked Goodies</option>
-                                            <option value="wpdt">Women Products</option>
-                                            <option value="mpdt">Men Products</option>
-                                        </select>
+                                        <br>
+                                        <div class="form-wrap">
+                                            <label>Category</label>
+                                            <select name="pdt_categories">
+                                                    <option value="">Select Category</option>
+                                                    <option value="food">Food</option>
+                                                    <option value="detergent">Detergent</option>
+                                                    <option value="homeu">Home Utilities</option>
+                                                    <option value="school">Scholastic Materials</option>
+                                                    <option value="baked">Baked Goodies</option>
+                                                    <option value="wpdt">Women Products</option>
+                                                    <option value="mpdt">Men Products</option>
+                                                </select>
+                                        </div>
                                         <div class="form-wrap">
                                             <label>Unit Price</label> 
                                             <input type="number" name="up" placeholder="Unit Price" required>
                                         </div>
+                                        <br>
                                         <div class="form-wrap">
                                             <label>Quantity</label> 
                                             <input type="text" name="quantity" placeholder="Quantity" required>
@@ -102,9 +107,9 @@
                                             <label>Measure</label> 
                                             <input type="text" name="measure" placeholder="Measure eg Kg" required>
                                         </div>
-
+                                        <br>
                                         <div class="form-wrap btn">
-                                                <input type="button" onclick="location.href = '#';" name="addbtn2" value="Add">
+                                                <input type="button" onclick="location.href = '#';" name="addbtn2" value="Add Product">
                                         </div>       
                                     </form>
                                 </div>

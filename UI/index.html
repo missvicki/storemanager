@@ -13,6 +13,26 @@
         <!--Material icon link-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+        <script>
+            function login(){
+                var userName = document.getElementById("usernamefield").value;
+                var userPassword = document.getElementById("passwordfield").value;
+
+                if ( userName == "attendant" && userPassword == "attendant"){
+                    alert ("Login successfully");
+                    window.location = "indexAttendants.html"; // Redirecting to other page.
+                    return false;
+                }
+                else if(userName == "" && userPassword == "") {
+                    alert("You have empty fields please fill them")
+                }
+                else{
+                    alert("Check your login details, note use: password and username as attendant")
+                }
+                    
+            }
+        </script>
+    </head>
         <body>
             
             <div class="container" style="background-image: url(./images/shoppingbackground.jpg)">
@@ -26,15 +46,15 @@
                             <form>
                                     <div class="form-wrap">
                                         <label>Username</label>
-                                        <input type = "email" name="username" placeholder="Enter your username" required>
+                                        <input type = "text" name="username" placeholder="Enter your username" id="usernamefield" required>
                                     </div>
 
                                     <div class="form-wrap">
                                         <label>Password</label> 
-                                        <input type="password" name="pswd" placeholder="Enter your Password" required>
+                                        <input type="password" name="pswd" placeholder="Enter your Password" id = "passwordfield" required>
                                     </div>
                                     <div class="form-wrap btn">
-                                            <input type="button" onclick="location.href = 'indexAttendants.html';" name="signin" value="Sign In">
+                                            <input type="button" onclick="login()" name="signin" value="Sign In">
                                     </div>                                    
                             </form>
 
@@ -44,9 +64,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
         </body>
-    </head>
+  
 </html>
