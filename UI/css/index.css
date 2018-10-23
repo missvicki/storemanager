@@ -83,6 +83,7 @@ a{
     .add-form .add-section, .add2-form .add-section{
         border: 3px solid turquoise;
     }
+
     .login-form .login-section form .formwrap input[type="text"], 
     .login-form .login-section form .form-wrap input[type="password"]{
         width: 94%;
@@ -281,6 +282,7 @@ header h1{
 .login-form .login-section form .form-wrap input[type="text"], 
 .login-form .login-section form .form-wrap input[type="password"]
 {
+
     min-width: 20%;
     max-width: 70%;
     padding: 8px 10px;
