@@ -1,0 +1,32 @@
+language: python
+
+python:
+  - "3.6.5"
+
+addons:
+  postgresql: '9.6'
+
+services:
+  - postgresql
+  
+# env:
+#   global:
+#     - ENV = 'tesing'
+#     - CODECOV_TOKEN="3e72ecfa-b3cd-45cd-bc72-1f64b802c7b8"
+#     - JWT_SECRET_KEY = 'secret'
+
+install:
+  - pip install -r requirements.txt
+  - pip install coverage
+  - pip install coveralls
+
+# before_script:
+#   - psql -c "create database storemanager;" -U postgres
+#   - psql -c "create database storemanager_test_db;" -U postgres
+
+script:
+  - nosetests --with-cov --cov  tests/
+  
+after_success:
+  - codecov
+  - coveralls
