@@ -13,7 +13,7 @@ class DatabaseConnection:
     def __init__(self):
 
         try:
-            self.connection = psycopg2.connect(host='localhost', user='postgres', database='storemanager', port='5432')
+            self.connection = psycopg2.connect(host='localhost', user='postgres', password='admin', database='storemanager', port='5432')
             self.connection.autocommit = True
             self.cur = self.connection.cursor(cursor_factory = RealDictCursor)
         except psycopg2.DatabaseError as anything:
