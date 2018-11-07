@@ -9,7 +9,7 @@ from ..models.usersModel import Users, Login
 from ..validations.validations import (validate_product, validate_user_signup, validate_user_login, validate_sales)
 from ..config import env_config
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 
 # Setup the Flask-JWT-Extended extension
 app.config['JWT_SECRET_KEY'] = 'secret'
