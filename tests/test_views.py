@@ -15,7 +15,7 @@ def test_login_(client):
         username = 'vickib'
         user_pass = 'vibel'
         role = 'admin'
-        auth = Auth(username, user_pass, role)
+        auth = Login(username, user_pass, role)
         res = client.post('/api/v1/auth/login', data = json.dumps(dict(
             use_rname = auth.user_name,
             password = auth.password,
