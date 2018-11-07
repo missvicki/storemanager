@@ -6,18 +6,30 @@ import datetime
 from ..models.productsModel import Products
 from ..models.salesModel import Sales, SalesHasProducts
 from ..models.usersModel import Users, Login
-from ..config import env_config
+from ..api.views import app
 
 class DatabaseConnection:
     """Connect to the database"""
     def __init__(self):
-
         try:
-            self.connection = psycopg2.connect(host='localhost', user='postgres', password='admin', database='storemanager', port='5432')
-            self.connection.autocommit = True
-            self.cur = self.connection.cursor(cursor_factory = RealDictCursor)
+            if app.config["TESTING"]:
+                self.conn = psycopg2.connect(host="localhost", 
+                                             database="storemanager_test_db", 
+                                             user="postgres", 
+                                             password="admin",
+                                             port="5432")
+            else:
+                self.conn = psycopg2.connect(host="ec2-54-83-27-162.compute-1.amazonaws.com", 
+                                             database="dcojjie21dvmis", 
+                                             user="sejawvmmzwabhv", 
+                                             port = "5432"
+                                             password="26c76331cf6695b3226de7db2d6405f757329228c9e84b858a29847e030d6044")
+            self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
+            self.conn.autocommit = True
+    
         except psycopg2.DatabaseError as anything:
             print (anything)
+        
 
     def drop_tables(self):
         """drop tables if exist"""
