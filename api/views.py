@@ -2,12 +2,12 @@
 from flask import Flask, jsonify, abort, request
 import datetime
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
-from db.database import DatabaseConnection
-from models.productsModel import Products
-from models.salesModel import Sales, SalesHasProducts
-from models.usersModel import Users, Login
-from validations.validations import (validate_product, validate_user_signup, validate_user_login, validate_sales)
-from config import env_config
+from ..db.database import DatabaseConnection
+from ..models.productsModel import Products
+from ..models.salesModel import Sales, SalesHasProducts
+from ..models.usersModel import Users, Login
+from ..validations.validations import (validate_product, validate_user_signup, validate_user_login, validate_sales)
+from ..config import env_config
 
 app = Flask(__name__)
 

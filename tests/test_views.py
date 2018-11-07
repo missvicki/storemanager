@@ -1,8 +1,8 @@
 from flask import json
 from flask_jwt_extended import create_access_token
 import pytest
-from api.views import app
-from models.usersModel import Login
+from ..api.views import app
+from ..models.usersModel import Login
 
 @pytest.fixture
 def client():

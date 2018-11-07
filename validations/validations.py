@@ -1,6 +1,6 @@
 """validations class"""
 from flask import jsonify
-from db.database import DatabaseConnection
+from ..db.database import DatabaseConnection
 
 db = DatabaseConnection()
 
