@@ -59,7 +59,7 @@ class TestStoreManagerApi(unittest.TestCase):
         headers = {'Authorization': f'Bearer {token}'}
 
         response_products = self.app.get("/api/v1/products")
-        data_products = json.loads(response_products.data())
+        data_products = json.loads(response_products.data.decode('utf8'))
         self.assertEqual(response_products.status_code, 200, msg="Found Products")
 
     def test_get_all_sales(self):
@@ -74,7 +74,7 @@ class TestStoreManagerApi(unittest.TestCase):
         headers = {'Authorization': f'Bearer {token}'}
 
         response_sales = self.app.get("/api/v1/sales")
-        data_sales = json.loads(response_sales.data())
+        data_sales = json.loads(response_sales.data.decode('utf8'))
         self.assertEqual(response_sales.status_code, 200, msg="Found Sales")
 
     def test_get_one_product(self):
