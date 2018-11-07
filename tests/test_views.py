@@ -5,7 +5,7 @@ import psycopg2
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-from ..api.views import app
+from ..api.__init__ import app
 from ..db.database import DatabaseConnection
 
 app.config.from_object('config.TestingConfig')
