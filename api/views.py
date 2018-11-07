@@ -11,9 +11,7 @@ from api.validations.validations import (validate_product, validate_user_signup,
 
 # what happens when you start the app
 database = DatabaseConnection()
-database.drop_tables()
-database.create_tables()
-database.default_admin()
+
 
  #error handlers
 @app.errorhandler(404)

@@ -1,4 +1,69 @@
 """Database models"""
+
+queries = (
+    """
+        CREATE TABLE IF NOT EXISTS products (
+            product_id SERIAL PRIMARY KEY, 
+            product_name VARCHAR(50) UNIQUE NOT NULL, 
+            category VARCHAR(50) NOT NULL, 
+            unit_price integer NOT NULL, 
+            quantity integer NOT NULL, 
+            measure VARCHAR(12) NOT NULL,
+            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            delete_status BOOLEAN DEFAULT FALSE)
+    """,
+    """
+        CREATE TABLE IF NOT EXISTS users (
+            user_id SERIAL PRIMARY KEY, 
+            name VARCHAR(50) NOT NULL,
+            user_name VARCHAR(12) NOT NULL UNIQUE, 
+            password VARCHAR(12) UNIQUE NOT NULL, 
+            role VARCHAR(15) NOT NULL,
+            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            delete_status BOOLEAN DEFAULT FALSE)
+    """,
+    """
+        CREATE TABLE IF NOT EXISTS sales (
+            sale_id SERIAL PRIMARY KEY,  
+            user_id integer NOT NULL,
+            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            delete_status BOOLEAN DEFAULT FALSE,
+            CONSTRAINT userid_foreign FOREIGN KEY (user_id) 
+            REFERENCES users(user_id) 
+             ON UPDATE CASCADE)
+    """,
+    """
+        CREATE TABLE IF NOT EXISTS sales_has_products(
+            sale_id integer NOT NULL,
+            product_id integer NOT NULL,
+            quantity integer NOT NULL,
+            total integer NOT NULL,
+            delete_status BOOLEAN DEFAULT FALSE,
+            CONSTRAINT sale_idforeignkey FOREIGN KEY (sale_id)
+            REFERENCES sales(sale_id)
+                ON UPDATE CASCADE,
+            CONSTRAINT prodidfk FOREIGN KEY (product_id)
+            REFERENCES products(product_id)
+                ON UPDATE CASCADE
+            )
+        """,
+        """
+            CREATE TABLE IF NOT EXISTS login(
+                user_name VARCHAR(12) NOT NULL,
+                password VARCHAR(12) NOT NULL,
+                role VARCHAR(15) NOT NULL,
+                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """,
+        """
+            INSERT INTO users(name, user_name, password, role)\
+            VALUES('Vicki', 'vickib', 'vibel', 'admin')
+        """
+)
 from flask import Flask, jsonify
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -19,95 +84,10 @@ class DatabaseConnection:
                                             password="26c76331cf6695b3226de7db2d6405f757329228c9e84b858a29847e030d6044")
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
             self.conn.autocommit = True
+            for query in queries:
+                self.cur.execute(query)
         except psycopg2.DatabaseError as anything:
             print (anything)
-        
-
-    def drop_tables(self):
-        """drop tables if exist"""
-        self.cur.execute(
-            "DROP TABLE IF EXISTS products, users, sales, sales_has_products, login CASCADE"
-        )
-
-    def create_tables(self):
-        """create product table""" 
-
-        self.cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS products (
-                product_id SERIAL PRIMARY KEY, 
-                product_name VARCHAR(50) UNIQUE NOT NULL, 
-                category VARCHAR(50) NOT NULL, 
-                unit_price integer NOT NULL, 
-                quantity integer NOT NULL, 
-                measure VARCHAR(12) NOT NULL,
-                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                delete_status BOOLEAN DEFAULT FALSE);
-            """
-        )
-
-        """create user table"""  
-        self.cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS users (
-                user_id SERIAL PRIMARY KEY, 
-                name VARCHAR(50) NOT NULL,
-                user_name VARCHAR(12) NOT NULL UNIQUE, 
-                password VARCHAR(12) UNIQUE NOT NULL, 
-                role VARCHAR(15) NOT NULL,
-                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                delete_status BOOLEAN DEFAULT FALSE);
-            """
-        )
-
-        """create sales table"""  
-        self.cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS sales (
-                sale_id SERIAL PRIMARY KEY,  
-                user_id integer NOT NULL,
-                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                delete_status BOOLEAN DEFAULT FALSE,
-                CONSTRAINT userid_foreign FOREIGN KEY (user_id) 
-                    REFERENCES users(user_id) 
-                    ON UPDATE CASCADE);
-            """
-        )
-
-        """create sales has products table"""
-        self.cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS sales_has_products(
-                sale_id integer NOT NULL,
-                product_id integer NOT NULL,
-                quantity integer NOT NULL,
-                total integer NOT NULL,
-                delete_status BOOLEAN DEFAULT FALSE,
-                CONSTRAINT sale_idforeignkey FOREIGN KEY (sale_id)
-                    REFERENCES sales(sale_id)
-                    ON UPDATE CASCADE,
-                CONSTRAINT prodidfk FOREIGN KEY (product_id)
-                    REFERENCES products(product_id)
-                    ON UPDATE CASCADE
-            );
-            """
-        )
-
-        """login table create"""
-        self.cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS login(
-                user_name VARCHAR(12) NOT NULL,
-                password VARCHAR(12) NOT NULL,
-                role VARCHAR(15) NOT NULL,
-                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            );
-            """
-        )
         
     def insert_data_products(self, data):
         """inserts values into table products"""
@@ -205,20 +185,6 @@ class DatabaseConnection:
                 INSERT INTO users(name, user_name, password, role) \
                 VALUES('{}', '{}', '{}', '{}')
                 """.format(record.name, record.user_name, record.password, record.role)
-            )
-        
-        except:
-            return False
-
-    def default_admin(self):
-        """inserts default admin"""
-
-        try:
-            self.cur.execute(
-                """
-                INSERT INTO users(name, user_name, password, role)\
-                VALUES('Vicki', 'vickib', 'vibel', 'admin');
-                """
             )
         
         except:
@@ -374,3 +340,9 @@ class DatabaseConnection:
         
         except:
             return False
+    
+    def drop_tables(self):
+        """drop tables if exist"""
+        self.cur.execute(
+            "DROP TABLE IF EXISTS products, users, sales, sales_has_products, login CASCADE"
+        )
