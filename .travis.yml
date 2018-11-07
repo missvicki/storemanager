@@ -25,7 +25,7 @@ before_script:
 #   - psql -c "create database storemanager_test_db;" -U postgres
 
 script:
-  - nosetests --with-cov --cov  tests/
+  - nosetests --with-cov --cov  ./
   
 after_success:
   - codecov
