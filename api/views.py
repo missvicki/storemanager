@@ -15,7 +15,7 @@ database.drop_tables()
 database.create_tables()
 database.default_admin()
 
- #error handlers
+#error handlers
 @app.errorhandler(404)
 def not_found(self, error):
     """ not_found(error) -returns error not found"""
@@ -85,16 +85,12 @@ def _product_(_id):
     current_user = get_jwt_identity()
     if request.method == 'GET':
         """returns a product via its id"""
-        if current_user == 'admin' or current_user == 'attendant':
-            _product_ = database.getoneProduct(_id)
+        _product_ = database.getoneProduct(_id)
 
-            if _product_:
-                return jsonify({'product': _product_}), 200
-            else:
-                return jsonify({'product': "product has not been found"}), 404
-
+        if _product_:
+            return jsonify({'product': _product_}), 200
         else:
-            return jsonify({'message': "You are not authorized"}), 401
+            return jsonify({'product': "product has not been found"}), 404
 
     elif request.method == 'DELETE':
         """delete_product(_id)--deletes product"""

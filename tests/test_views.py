@@ -8,7 +8,6 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 from ..api.__init__ import app
 from ..db.database import DatabaseConnection
 
-app.config.from_object('config.TestingConfig')
 
 class TestStoreManagerApi(unittest.TestCase):
     """TestStoreManagerApi(unittest.TestCase)--holds all tests we shall perform"""
@@ -98,30 +97,32 @@ class TestStoreManagerApi(unittest.TestCase):
         self.assertEqual(res2.status_code, 404)
         self.assertEqual(res_data, exepected_output)
 
-    # def test_get_all_sales(self):
-    #     """Test getting all sales user"""
-    #     res2 = self.app.get("/api/v1/sales",
-    #                        content_type='application/json',
-    #                        headers=self.headers)
-    #     res_data = json.loads(res2.data)
-    #     exepected_output = {
-    #         "message": "There are no sales"
-    #     }
-    #     self.assertEqual(res2.status_code, 404)
-    #     self.assertEqual(res_data, exepected_output)
+    def test_get_all_sales(self):
+        """Test getting all sales user"""
+        res2 = self.app.get("/api/v1/sales",
+                           content_type='application/json',
+                           headers=self.headers)
+        res_data = json.loads(res2.data)
+        exepected_output = {
+            "message": "There are no sales"
+        }
+        self.assertEqual(res2.status_code, 404)
+        self.assertEqual(res_data, exepected_output)
     
-    # def test_create_sale_with_valid_fields(self):
-    #     """create sale with valid fields"""
-    #     res = self.app.post("/api/v1/sales",
-    #                         data=json.dumps(self.sale),
-    #                         content_type='application/json',
-    #                         headers=self.headers)
-    #     res_data = json.loads(res.data)
-    #     expected_output = {
-    #         "Success": "you have added a sale"
-    #     }
-    #     self.assertEqual(res.status_code, 201)
-    #     self.assertEqual(res_data, expected_output)
+    def test_create_sale_with_valid_fields(self):
+        """create sale with valid fields"""
+        res = self.app.post("/api/v1/sales",
+                            data=json.dumps(self.sale),
+                            content_type='application/json',
+                            headers=self.headers)
+        res_data = json.loads(res.data)
+        expected_output = {
+            "Success": "you have added a sale"
+        }
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(res_data, expected_output)
+
+    
 
 if __name__ == "__main__":
     unittest.main()

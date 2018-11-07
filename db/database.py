@@ -12,12 +12,11 @@ class DatabaseConnection:
     """Connect to the database"""
     def __init__(self):
         try:
-            if app.config["TESTING"]:
-                self.conn = psycopg2.connect(host="localhost", 
-                                             database="storemanager_test_db", 
-                                             user="postgres", 
-                                             password="admin",
-                                             port="5432")
+            self.conn = psycopg2.connect(host="localhost", 
+                                            database="storemanager_test_db", 
+                                            user="postgres", 
+                                            password="admin",
+                                            port="5432")
                                         
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
             self.conn.autocommit = True
