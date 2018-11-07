@@ -2,7 +2,7 @@
 from flask import Flask, jsonify, abort, request
 import datetime
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
-from database import DatabaseConnection
+from db.database import DatabaseConnection
 from models.productsModel import Products
 from models.salesModel import Sales, SalesHasProducts
 from models.usersModel import Users, Login
