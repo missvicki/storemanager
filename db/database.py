@@ -3,10 +3,10 @@ from flask import Flask, jsonify
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import datetime
-from ..models.productsModel import Products
-from ..models.salesModel import Sales, SalesHasProducts
-from ..models.usersModel import Users, Login
-from ..api.views import app
+from models.productsModel import Products
+from models.salesModel import Sales, SalesHasProducts
+from models.usersModel import Users, Login
+from api.__init__ import app
 
 class DatabaseConnection:
     """Connect to the database"""
@@ -22,7 +22,7 @@ class DatabaseConnection:
                 self.conn = psycopg2.connect(host="ec2-54-83-27-162.compute-1.amazonaws.com", 
                                              database="dcojjie21dvmis", 
                                              user="sejawvmmzwabhv", 
-                                             port = "5432"
+                                             port = "5432",
                                              password="26c76331cf6695b3226de7db2d6405f757329228c9e84b858a29847e030d6044")
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
             self.conn.autocommit = True

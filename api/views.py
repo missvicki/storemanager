@@ -2,21 +2,12 @@
 from flask import Flask, jsonify, abort, request
 import datetime
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
-from ..db.database import DatabaseConnection
-from ..models.productsModel import Products
-from ..models.salesModel import Sales, SalesHasProducts
-from ..models.usersModel import Users, Login
-from ..validations.validations import (validate_product, validate_user_signup, validate_user_login, validate_sales)
-
-def create_app(config_name):
-    app = Flask(__name__)
-    # Setup flask-jwt-extended
-    app.config['JWT_SECRET_KEY'] = 'secret'
-    app.config.from_object(config_name)
-    jwt = JWTManager(app)
-    return app
-
-app = create_app('config.TestingConfig')
+from db.database import DatabaseConnection
+from models.productsModel import Products
+from models.salesModel import Sales, SalesHasProducts
+from models.usersModel import Users, Login
+from api.__init__ import app
+from api.validations.validations import (validate_product, validate_user_signup, validate_user_login, validate_sales)
 
 # what happens when you start the app
 database = DatabaseConnection()
@@ -337,5 +328,3 @@ def _sale():
     else:
         abort(405)
 
-if __name__ == '__main__':
-    app.run(debug=True)
