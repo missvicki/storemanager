@@ -7,13 +7,16 @@ from ..models.productsModel import Products
 from ..models.salesModel import Sales, SalesHasProducts
 from ..models.usersModel import Users, Login
 from ..validations.validations import (validate_product, validate_user_signup, validate_user_login, validate_sales)
-from ..config import env_config
 
-app = Flask(__name__, instance_relative_config=True)
+def create_app(config_name):
+    app = Flask(__name__)
+    # Setup flask-jwt-extended
+    app.config['JWT_SECRET_KEY'] = 'secret'
+    app.config.from_object(config_name)
+    jwt = JWTManager(app)
+    return app
 
-# Setup the Flask-JWT-Extended extension
-app.config['JWT_SECRET_KEY'] = 'secret'
-jwt = JWTManager(app)
+app = create_app('config.TestingConfig')
 
 # what happens when you start the app
 database = DatabaseConnection()
