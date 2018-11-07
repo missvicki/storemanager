@@ -1,4 +1,4 @@
-## Store Manager [![Build Status](https://travis-ci.org/missvicki/storemanager.svg?branch=ft-create-users-161584920)](https://travis-ci.org/missvicki/storemanager) [![Coverage Status](https://coveralls.io/repos/github/missvicki/storemanager/badge.svg?branch=ft-create-users-161584920)](https://coveralls.io/github/missvicki/storemanager?branch=ft-create-users-161584920)
+## Store Manager [![Build Status](https://travis-ci.org/missvicki/storemanager.svg?branch=heroku)](https://travis-ci.org/missvicki/storemanager) [![Coverage Status](https://coveralls.io/repos/github/missvicki/storemanager/badge.svg?branch=heroku)](https://coveralls.io/github/missvicki/storemanager?branch=heroku)
 
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.    
 
