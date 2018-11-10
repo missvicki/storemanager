@@ -16,10 +16,9 @@ install:
 
 before_script:
   - psql -c "create database storemanager;" -U postgres
-  - psql -c "create database storemanager_test_db;" -U postgres
 
 script:
-  - nosetests --with-cov --cov  ./
+  - nosetests --with-cov --cov  tests/
   
 after_success:
   - codecov
