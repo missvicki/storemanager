@@ -1,5 +1,6 @@
 """!Flask web api for Store Manager"""
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, request
+from flask.views import MethodView
 import datetime
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
 from db.database import DatabaseConnection
@@ -7,13 +8,12 @@ from models.productsModel import Products
 from models.salesModel import Sales, SalesHasProducts
 from models.usersModel import Users, Login
 from api.__init__ import app
-from api.validations.validations import (validate_product, validate_user_signup, validate_user_login, validate_sales)
+from api.validations.validations import (validate_product, validate_product_modify, validate_user_signup, validate_user_login, validate_sales)
 
 # what happens when you start the app
 database = DatabaseConnection()
 
-
- #error handlers
+#error handlers
 @app.errorhandler(404)
 def not_found(self, error):
     """ not_found(error) -returns error not found"""
@@ -24,43 +24,37 @@ def bad_request(self, error):
     """ bad_request(error) -returns error bad request"""
     return jsonify({'error': 'BAD REQUEST'}), 400
 
-@app.errorhandler(405)
-def mtd_not_allowed(self, error):
-    """ mtd_not_allowed(error) -returns error method not allowed"""
-    return jsonify({'error': "METHOD NOT ALLOWED"}), 405
-
 @app.errorhandler(401)
 def unauthorized(self, error):
     """ unauthorized(error) -returns error unauthorized"""
     return jsonify({'error': "NOT AUTHORIZED"}), 401
 
-# index route
-@app.route('/')
-def hello():
-    """my home"""
-    return "Hello Welcome to Store Manager API"
+class ProductsView(MethodView):
+    """class to do http methods eg get post put on products"""
+    def get(self, product_id=None):
+        """returns products"""
+        if product_id:
+            # get single product
+            _product_ = database.getoneProduct(product_id)
+            if not _product_:
+                return jsonify({'message': "product has not been found"}), 404
+            return jsonify({'product': _product_}), 200
 
-# get products and add products
-@app.route('/api/v1/products', methods=['GET', 'POST'])
-def products():
-    """returns all products"""
-    if request.method == 'GET':
+        # get all products
         productget = database.getProducts()
-        if productget:
-            return jsonify({'products': productget}), 200
-        else:
-            return jsonify({'message': "There are no products"}), 404
-  
-    elif request.method == 'POST':
-        """returns a product that has been added"""
-
+        if not productget:
+             return jsonify({'message': "There are no products"}), 404
+        return jsonify({'products': productget}), 200    
+    
+    def post(self):
+        """admins and attendants add products"""
         data = request.get_json()
         prod_name = data.get('product_name')
         prod_cat = data.get('category')
         prod_price = data.get('unit_price')
         prod_qty = data.get('quantity')
         prod_meas = data.get('measure')
-            
+                
         valprod = validate_product(product_name=prod_name, 
                                    category=prod_cat, 
                                    unit_price=prod_price, 
@@ -68,140 +62,81 @@ def products():
                                    measure=prod_meas)
         if valprod:
             return valprod
-        else:
-            obj_products = Products(prod_name, prod_cat, prod_price, prod_qty, prod_meas)
-            database.insert_data_products(obj_products)
-            return jsonify({"Success": "you have added a product"}), 201
-        
-    else:
-        abort(405)
 
-# get specific product and delete a product and modify product
-@app.route('/api/v1/products/<int:_id>', methods=['GET','DELETE', 'PUT'])
-@jwt_required
-def _product_(_id):
-    current_user = get_jwt_identity()
-    if request.method == 'GET':
-        """returns a product via its id"""
-        if current_user == 'admin' or current_user == 'attendant':
-            _product_ = database.getoneProduct(_id)
-
-            if _product_:
-                return jsonify({'product': _product_}), 200
-            else:
-                return jsonify({'product': "product has not been found"}), 404
-
-        else:
-            return jsonify({'message': "You are not authorized"}), 401
-
-    elif request.method == 'DELETE':
-        """delete_product(_id)--deletes product"""
-        if current_user == 'admin':
-            del_prod = database.check_product_exists_id(_id)
-
-            if not del_prod:
-                return jsonify({"error": "Product your are trying to delete does not exist"}), 404
-            else:
-                database.deloneProduct(_id)
-                return jsonify({"message": "Product has been deleted successfully"}), 200
-
-        else:
-            return jsonify({'message': "You are unauthorized"}), 401
-        
-    elif request.method == 'PUT':
-        """put product"""
-
-        if current_user == 'admin':
-            prod = database.check_product_exists_id(_id)
-
-            if not prod:
-                return jsonify({"error": "product you are trying to modify does not exist"}), 404
-            else:
-                data = data = request.get_json()
-                prod_name = data.get('product_name')
-                prod_cat = data.get('category')
-                prod_price = data.get('unit_price')
-                prod_qty = data.get('quantity')
-                prod_meas = data.get('measure')
-
-                valprod = validate_product(product_name=prod_name, 
-                                           category=prod_cat, 
-                                           unit_price=prod_price, 
-                                           quantity=prod_qty, 
-                                           measure=prod_meas)
-                if valprod:
-                    return valprod
-                else:
-                    database.modify_product(prod_name, prod_cat, prod_price, prod_qty, prod_meas, _id)
-                    return jsonify({"Success": "product has been modified"}), 201
-            
-        else:
+        obj_products = Products(prod_name, prod_cat, prod_price, prod_qty, prod_meas)
+        database.insert_data_products(obj_products)
+        return jsonify({"Success": "you have added a product"}), 201
+    
+    @jwt_required
+    def put(self, product_id):
+        """modifies a product"""
+        #get the user who is currently logged in
+        current_user = get_jwt_identity()
+        if not current_user == 'admin':
             return jsonify({"message": "You are not authorized"}), 401
 
-    else:
-        abort(405)  
+        # check if product exists
+        prod = database.check_product_exists_id(product_id)
+        if not prod:
+            return jsonify({"error": "product you are trying to modify does not exist"}), 404
 
-#get users
-@app.route('/api/v1/users', methods=['GET'])
-@jwt_required
-def _users_():
-    """returns all users"""
-    current_user = get_jwt_identity()
+        data = data = request.get_json()
+        prod_cat = data.get('category')
+        prod_price = data.get('unit_price')
+        prod_qty = data.get('quantity')
+        prod_meas = data.get('measure')
 
-    if current_user == 'admin':
-        if request.method == 'GET':
-            userget = database.getUsers()
-
-            if userget:
-                return jsonify({'users': userget}), 200
-            else:
-                return jsonify({'message': "There are no users"}), 404
+        valprod = validate_product_modify(category=prod_cat, 
+                                          unit_price=prod_price, 
+                                          quantity=prod_qty, 
+                                          measure=prod_meas)
+        if valprod:
+            return valprod
         
-    else:
-        return jsonify({"message": "You are not authorized"}), 401
+        database.modify_product(prod_cat, prod_price, prod_qty, prod_meas, product_id)
+        return jsonify({"Success": "product has been modified"}), 201
+    
+    @jwt_required
+    def delete(self, product_id):
+        # get the user who is currently logged in
+        current_user = get_jwt_identity()
+        if not current_user == 'admin':
+            return jsonify({"message": "You are not authorized"}), 401
 
-# create user auth
-@app.route('/api/v1/auth/signup', methods=['POST'])
-@jwt_required
-def signup():
-    """returns a user that has been added"""
+        # check if product exists
+        prod = database.check_product_exists_id(product_id)
+        if not prod:
+            return jsonify({"error": "product you are trying to modify does not exist"}), 404
+        
+        #deleting product
+        database.deloneProduct(product_id)
+        return jsonify({"message": "Product has been deleted successfully"}), 200
+        
+class UsersView(MethodView):
+    """class to deal with html methods on users"""
+    @jwt_required
+    def get(self, role=None):
+        """returns users"""
+        current_user = get_jwt_identity()
+        if not current_user == 'admin':
+            return jsonify({"message": "You are not authorized"}), 401
+        if role:
+            # get user with role
+            _user_ = database.getuserRole(role)
+            if not _user_:
+                return jsonify({'message': "no users were found with that role"}), 404
+            return jsonify({'users': _user_}), 200
 
-    current_user = get_jwt_identity()
+        # get all users
+        userget = database.getUsers()
+        if not userget:
+             return jsonify({'message': "There are no users"}), 404
+        return jsonify({'users': userget}), 200    
 
-    if current_user == 'admin':
-        if request.method == 'POST':
-            data = request.get_json()
-            name = data.get('name')
-            user_name = data.get('user_name')
-            password = data.get('password')
-            role = data.get('role')
-
-            valuser = validate_user_signup(name=name, user_name = user_name, password=password, role = role)
-
-            if valuser:
-                return valuser
-            else:
-                obj_users = Users(name, user_name, password, role)
-                database.insert_table_users(obj_users)
-                return jsonify({"Success": "user has been added"}), 201
-
-        else:
-            return jsonify({"message": "Method not allowed"}), 405
-
-    else:
-        return jsonify({"message": "You are not authorized"}), 401
-
-
-# user login
-# Provide a method to create access tokens. The create_access_token()
-# function is used to actually generate the token, and you can return
-# it to the caller however you choose
-
-@app.route('/api/v1/auth/login', methods=['POST'])
-def login():
-    if request.method == 'POST':
-        """returns a user login"""
-
+class LoginView(MethodView):
+    """class where user can login"""
+    def post(self):
+        """user can login"""
         data = request.get_json()
         user_name = data.get('user_name')
         password = data.get('password')
@@ -211,118 +146,125 @@ def login():
 
         if loguserval:
             return loguserval
-        else:
-            # Identity can be any data that is json serializable
-            obj_login = Login(user_name, password, role)
-            database.insert_table_login(obj_login)
-            access_token = create_access_token(identity=role)
-            return jsonify(access_token="{}".format(access_token)), 200
 
-    else:
-        abort(405)
+        obj_login = Login(user_name, password, role)
+        database.insert_table_login(obj_login)
+        access_token = create_access_token(identity=role)
+        return jsonify(access_token="{}".format(access_token)), 200
 
-#delete modify users
-# get specific product and delete a product and modify product
-@app.route('/api/v1/users/<int:_id>', methods=['GET','DELETE'])
-@jwt_required
-def _user_(_id):
-    current_user = get_jwt_identity()
-
-    if request.method == 'GET':
-        """returns a user via its id"""
-        if current_user == 'admin':
-            _user_ = database.getoneUser(_id)
-
-            if _user_:
-                return jsonify({'user': _user_}), 200
-            else:
-                return jsonify({'user': "user has not been found"}), 404
-
-        else:
+class SignupView(MethodView):
+    """class where admin can create new users"""
+    @jwt_required
+    def post(self):
+        """create a new user"""
+        current_user = get_jwt_identity()
+        if not current_user == 'admin':
             return jsonify({"message": "You are not authorized"}), 401
+        
+        data = request.get_json()
+        name = data.get('name')
+        user_name = data.get('user_name')
+        password = data.get('password')
+        role = data.get('role')
 
-    elif request.method == 'DELETE':
-        """delete_user(_id)--deletes user"""
+        valuser = validate_user_signup(name=name, user_name = user_name, password=password, role = role)
 
-        if current_user == 'admin':
-            del_user = database.check_user_exists_id(_id)
+        if valuser:
+            return valuser
 
-            if not del_user:
-                return jsonify({"error": "user your are trying to delete does not exist"}), 404
-            else:
-                database.deloneuser(_id)
-                return jsonify({"message": "user has been deleted successfully"}), 200
+        obj_users = Users(name, user_name, password, role)
+        database.insert_table_users(obj_users)
+        return jsonify({"Success": "user has been added"}), 201
 
-        else:
+class SalesView(MethodView):
+    """class to make sale orders"""
+    @jwt_required
+    def post(self):
+        """make a sale order"""
+        current_user = get_jwt_identity()
+        if not current_user == 'attendant':
             return jsonify({"message": "You are not authorized"}), 401
+        
+        data = request.get_json()
+        user_id = int(data.get('user_id'))
+        quantity = int(data.get('quantity'))
+        product_id = int(data.get('product_id'))
 
-    else:
-        abort(405)  
+        # check empty fields
+        valsale=validate_sales(user_id=user_id, product_id=product_id, quantity=quantity)
 
-#add a sale
-@app.route('/api/v1/sales', methods=['GET','POST'])
-@jwt_required
-def _sale():
-    """_sale() """
-    current_user = get_jwt_identity()
-
-    if request.method == 'GET':
-        if current_user == 'admin' or current_user == 'attendant':
-            saleget = database.getsales()
-
-            if saleget:
-                return jsonify({'sales': saleget}), 200
-            else:
-                return jsonify({'message': "There are no sales"}), 404
-
-        else:
-            return jsonify({"message": "You are not authorized"}), 401
-
-    elif request.method == 'POST':
-        """add sales"""
-
-        if current_user == 'attendant':
-            data = request.get_json()
-            user_id = int(data.get('user_id'))
-            quantity = int(data.get('quantity'))
-            product_id = int(data.get('product_id'))
-
-            # check empty fields
-            valsale=validate_sales(user_id=user_id, product_id=product_id, quantity=quantity)
-
-            if valsale:
-                return valsale
-            else:
-                # insert into sales tab;e
-                obj_sales = Sales(user_id)
-                saleid = database.insert_data_sales(obj_sales)
+        if valsale:
+            return valsale
                 
-                # get quantity
-                getQty = int(database.getQuantity(product_id))
+        # get quantity
+        getQty = int(database.getQuantity(product_id))
 
-                # if getQty < quantity :
-                #     return jsonify({"error": "The product's quantity is not enough for you to make sale"}), 400
-                # else:
-                    # get unit price
-                getPrice = int(database.getPrice(product_id))
+        # get price
+        getPrice = int(database.getPrice(product_id))
 
-                    # calculate total
-                total = quantity * getPrice
+        #check if quantity is more than quantity in products table
+        if quantity > database.getoneProduct(product_id)["quantity"]:
+            return jsonify({"message": "this products quantity is less than the quantity you are purchasing"}), 400
+                     
+        # calculate total
+        total = quantity * getPrice
 
-                    # new qty
-                newqty = getQty - quantity
+        # new qty
+        newqty = getQty - quantity
 
-                    #insert into sale has products table
-                obj_salepdt = SalesHasProducts(saleid, product_id, quantity, total)
-                database.insert_data_sales_has_products(obj_salepdt)
+        # insert into sales table
+        obj_sales = Sales(user_id)
+        saleid = database.insert_data_sales(obj_sales)
 
-                    #update products table
-                database.updateProductqty(newqty, product_id)             
-                return jsonify({"Success": "sale has been added"}), 201
+        #insert into sale has products table
+        obj_salepdt = SalesHasProducts(saleid, product_id, quantity, total)
+        database.insert_data_sales_has_products(obj_salepdt)
 
-        else:
-            return jsonify({"message": "You are not authorized"}), 401
-            
-    else:
-        abort(405)
+        #update products table
+        database.updateProductqty(newqty, product_id)             
+        return jsonify({"Success": "sale has been added"}), 201
 
+    @jwt_required
+    def get(self, user_id = None):
+        """get sale orders"""
+        current_user = get_jwt_identity()
+
+        if current_user == 'admin' or current_user == 'attendant':
+            if user_id:
+                saleorder = database.get_one_sale(user_id)
+                if not saleorder:
+                    return jsonify({'message': "sale has not been found"}), 404
+                return jsonify({'sale': saleorder}), 200
+        
+        if current_user == 'admin':
+            if not user_id:
+                saleget = database.getsales()
+                if not saleget:
+                    return jsonify({'message': "There are no sales"}), 404
+                return jsonify({'sales': saleget}), 200
+
+#mapping urls to view classes
+app.add_url_rule('/api/v2/products',
+                 view_func=ProductsView.as_view('products_view'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/api/v2/products/<product_id>',
+                 view_func=ProductsView.as_view('product_view'),
+                 methods=["GET", "PUT", "DELETE"])
+app.add_url_rule('/api/v2/sales',
+                 view_func=SalesView.as_view('sales_view'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/api/v2/sales/<user_id>',
+                 view_func=SalesView.as_view('sale_view'),
+                 methods=["GET"])
+app.add_url_rule('/api/v2/users',
+                 view_func=UsersView.as_view('users_view'),
+                 methods=["GET"])
+app.add_url_rule('/api/v2/users/<role>',
+                 view_func=UsersView.as_view('user_view'),
+                 methods=["GET"])
+app.add_url_rule('/api/v2/auth/login',
+                 view_func=LoginView.as_view('login_view'),
+                 methods=["POST"])
+app.add_url_rule('/api/v2/auth/signup',
+                 view_func=SignupView.as_view('signup_view'),
+                 methods=["POST"])
