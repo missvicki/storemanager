@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 import sys
 sys.path.append('../')
-from api.__init__ import app
+from api import app
 from db.database import DatabaseConnection
 
 
