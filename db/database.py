@@ -68,9 +68,6 @@ from flask import Flask, jsonify
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import datetime
-from models.productsModel import Products
-from models.salesModel import Sales, SalesHasProducts
-from models.usersModel import Users, Login
 from api.__init__ import app
 
 class DatabaseConnection:
