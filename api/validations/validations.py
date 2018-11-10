@@ -24,6 +24,19 @@ def validate_product(**kwargs):
         if data_product_name_exist:
             return jsonify({'message': "Product already exists"}), 400
 
+def validate_product_modify(**kwargs):
+        _category_ = kwargs.get("category")
+        _unitprice_ = kwargs.get("unit_price")
+        _quantity_ = kwargs.get("quantity")
+        _measure_ = kwargs.get("measure")
+    
+        # check empty fields
+        if not _category_ or not _unitprice_ or not _quantity_ or not _measure_:
+            return jsonify({"error": "fields should not be empty"}), 400
+        #check if unitprice and quantity are integers
+        if not isinstance(_unitprice_, int) or not isinstance(_quantity_, int):
+            return jsonify({"error": "unit price and quantity have to be integers"}), 400
+
 def validate_user_signup(**kwargs):
     name = kwargs.get("name")
     user_name = kwargs.get("user_name")
