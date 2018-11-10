@@ -163,14 +163,14 @@ class DatabaseConnection:
         except:
             return False
 
-    def modify_product(self, product_name, category, unit_price, quantity, measure,product_id):
+    def modify_product(self, category, unit_price, quantity, measure,product_id):
         """modify product"""
         try:
             self.cur.execute(
-                "UPDATE products SET product_name='{}', category='{}', \
+                "UPDATE products SET category='{}', \
                 unit_price={}, quantity={}, measure = '{}', date_modified=CURRENT_TIMESTAMP\
                 WHERE product_id = {} AND delete_status = FALSE"
-                .format(product_name, category, unit_price, quantity, measure, product_id)
+                .format(category, unit_price, quantity, measure, product_id)
             )
 
         except:
@@ -190,6 +190,20 @@ class DatabaseConnection:
         except:
             return False
 
+    def default_admin(self):
+        """inserts default admin"""
+
+        try:
+            self.cur.execute(
+                """
+                INSERT INTO users(name, user_name, password, role)\
+                VALUES('Vicki', 'vickib', 'vibel', 'admin');
+                """
+            )
+        
+        except:
+            return False
+
     def insert_table_login(self, record):
         """add data to table login"""
 
@@ -201,6 +215,15 @@ class DatabaseConnection:
                 """.format(record.user_name, record.password, record.role)
             )
         
+        except:
+            return False
+    
+    def getuserRole(self, role):
+        try:
+            self.cur.execute("SELECT * FROM users WHERE role=%s AND delete_status= FALSE", (role,))
+            userrole = self.cur.fetchall()
+            return userrole
+
         except:
             return False
 
@@ -279,12 +302,10 @@ class DatabaseConnection:
 
         try:
             self.cur.execute(
-                """
-                INSERT INTO sales_has_products(sale_id, product_id, quantity, total) \
-                VALUES({}, {}, {}, {})
-                """.format(data.sale_id, data.product_id, data.quantity, data.total)
+                "INSERT INTO sales_has_products(sale_id, product_id, quantity, total) \
+                VALUES({}, {}, {}, {})\
+                ".format(data.sale_id, data.product_id, data.quantity, data.total)
             )
-        
         except:
             return False
         
@@ -293,15 +314,10 @@ class DatabaseConnection:
 
         try:
             self.cur.execute(
-                "SELECT sales.sale_id, sales.user_id, products.product_id, \
-                sales_has_products.total, sales_has_products.quantity, sales.date_created, sales.date_modified \
-                FROM sales_has_products, sales, products WHERE sales.sale_id = sales_has_products.sale_id \
-                AND products.product_id = sales_has_products.product_id" 
+                "SELECT * FROM sales WHERE delete_status = FALSE"
             )
             _sale = self.cur.fetchall()
             return _sale
-
-        
         except:
             return False
 
@@ -338,6 +354,16 @@ class DatabaseConnection:
                 AND delete_status=False".format(qty, pdtid)
             )
         
+        except:
+            return False
+    
+    def get_one_sale(self, user_id):
+        try:
+            self.cur.execute(
+                "SELECT * FROM sales WHERE user_id = %s AND delete_status = FALSE", [user_id] 
+            )
+            _sale = self.cur.fetchall()
+            return _sale
         except:
             return False
     
