@@ -1,10 +1,10 @@
-## Store Manager [![Build Status](https://travis-ci.org/missvicki/storemanager.svg?branch=heroku)](https://travis-ci.org/missvicki/storemanager) [![Coverage Status](https://coveralls.io/repos/github/missvicki/storemanager/badge.svg?branch=heroku)](https://coveralls.io/github/missvicki/storemanager?branch=heroku)
+## Store Manager 
 
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.    
 
 ## Getting Started
 
-For installation of this project:  `$ git clone 'https://github.com/missvicki/store_manager-api.git`
+For installation of this project:  `$ git clone 'https://github.com/missvicki/storemanager.git`
 
 ## Prerequisites
 
@@ -29,13 +29,14 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
     * can create new users
     * can login
     * can view all users
-    * can delete users
+    * can view users under a role
 
 
 * Attendant:
     * can login
 
     * can create a sale order of a product
+    * can get a sales they made
 
     * can get all products 
     * can get a specific product
@@ -45,21 +46,29 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
     
     `$ https://missvicki.github.io/storemanager/UI/templates`
 
+## Login Credentials
+
+| User Role | Username | Password |
+| ----------- | -------- | --------- |
+| Store Owner | admin | admin |
+| Store Attendant | attendant | attendant |
+
 ## Heroku Endpoints
 
 | REQUEST | ROUTE | FUNCTIONALITY |
 | ------- | ----- | ------------- |
-| POST |[/api/v1/auth/signup](https://store-manager-api-.herokuapp.com/api/v1/auth/signup)|Create a New User|
-| POST |[/api/v1/auth/login](https://store-manager-api-.herokuapp.com/api/v1/auth/login)|Login|
-| POST | [/api/v1/products](https://store-manager-api-.herokuapp.com/api/v1/products) | Creates a product |
-| POST | [/api/v1/sales](https://store-manager-api-.herokuapp.com/api/v1/sales) | Creates a sales order |
-| GET | [/api/v1/products](https://store-manager-api-.herokuapp.com/api/v1/products) | Fetches all products|
-| GET | [/api/v1/products/product_id](https://store-manager-api-.herokuapp.com/api/v1/products/1) | Fetches a single product |
-| GET | [/api/v1/sales](https://store-manager-api-.herokuapp.com/api/v1/sales) | Fetches all sales |
-| GET | [/api/v1/users](https://store-manager-api-.herokuapp.com/api/v1/users) | Fetches all users |
-| DELETE | [/api/v1/products/product_id](https://store-manager-api-.herokuapp.com/api/v1/products/1) | Deletes a product |
-| DELETE | [/api/v1/users/user_id](https://store-manager-api-.herokuapp.com/api/v1/users/1) | Deletes a single user |
-| PUT | [/api/v1/products/product_id](https://store-manager-api-.herokuapp.com/api/v1/products/1) | Modifies a single product |
+| POST | /api/v2/auth/signup |Create a New User|
+| POST | /api/v2/auth/login |Login a User|
+| POST | /api/v2/products | Adds a new product |
+| POST | /api/v2/sales | Creates a sales order |
+| GET | /api/v2/products | Returns all products|
+| GET | /api/v2/products/product_id | Fetches a single product |
+| GET | /api/v2/sales | Fetches all sales |
+| GET | /api/v2/users | Fetches all users |
+| GET | /api/v2/sales/user_id | Fetches a single sale made by a user |
+| GET | /api/v2/users/role | Fetches all users belonging to a role |
+| DELETE | /api/v2/products/product_id | Deletes a product |
+| PUT | /api/v2/products/product_id | Modifies a single product |
 
 ## Testing the app
 
@@ -79,5 +88,4 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
 
 ## Acknowledgments
 
-* Thank you to Andela for the opportunity of giving me this challenge
-* My fellow Andela bootcampers, thank you for the help rendered to me when I was stranded
+* Andela
