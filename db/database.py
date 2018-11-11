@@ -25,7 +25,7 @@ class DatabaseConnection:
     def drop_tables(self):
         """drop tables if exist"""
         self.cur.execute(
-            "DROP TABLE IF EXISTS products, users, sales, sales_has_products, login CASCADE"
+            "DROP TABLE IF EXISTS products, users, sales, login CASCADE"
         )
 
     def create_tables(self):
@@ -67,31 +67,18 @@ class DatabaseConnection:
             CREATE TABLE IF NOT EXISTS sales (
                 sale_id SERIAL PRIMARY KEY,  
                 user_id integer NOT NULL,
-                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                delete_status BOOLEAN DEFAULT FALSE,
-                CONSTRAINT userid_foreign FOREIGN KEY (user_id) 
-                    REFERENCES users(user_id) 
-                    ON UPDATE CASCADE);
-            """
-        )
-
-        """create sales has products table"""
-        self.cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS sales_has_products(
-                sale_id integer NOT NULL,
                 product_id integer NOT NULL,
                 quantity integer NOT NULL,
                 total integer NOT NULL,
+                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 delete_status BOOLEAN DEFAULT FALSE,
-                CONSTRAINT sale_idforeignkey FOREIGN KEY (sale_id)
-                    REFERENCES sales(sale_id)
-                    ON UPDATE CASCADE,
                 CONSTRAINT prodidfk FOREIGN KEY (product_id)
                     REFERENCES products(product_id)
-                    ON UPDATE CASCADE
-            );
+                    ON UPDATE CASCADE,
+                CONSTRAINT userid_foreign FOREIGN KEY (user_id) 
+                    REFERENCES users(user_id) 
+                    ON UPDATE CASCADE);
             """
         )
 
@@ -308,22 +295,11 @@ class DatabaseConnection:
         """insert data into sales table"""
 
         try:
-            self.cur.execute("INSERT INTO sales(user_id) VALUES({}) RETURNING sale_id".format(data.user_id)
+            self.cur.execute("INSERT INTO sales(user_id, product_id, quantity, total) VALUES({}, {}, {}, {}) RETURNING sale_id"
+            .format(data.user_id, data.product_id, data.quantity, data.total)
             )
             return self.cur.fetchone()[0]
         
-        except:
-            return False
-
-    def insert_data_sales_has_products(self, data):
-        """insert data into salesproducts table"""
-
-        try:
-            self.cur.execute(
-                "INSERT INTO sales_has_products(sale_id, product_id, quantity, total) \
-                VALUES({}, {}, {}, {})\
-                ".format(data.sale_id, data.product_id, data.quantity, data.total)
-            )
         except:
             return False
         

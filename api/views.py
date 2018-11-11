@@ -215,12 +215,8 @@ class SalesView(MethodView):
         newqty = getQty - quantity
 
         # insert into sales table
-        obj_sales = Sales(user_id)
-        saleid = database.insert_data_sales(obj_sales)
-
-        #insert into sale has products table
-        obj_salepdt = SalesHasProducts(saleid, product_id, quantity, total)
-        database.insert_data_sales_has_products(obj_salepdt)
+        obj_sales = Sales(user_id, product_id, quantity, total)
+        database.insert_data_sales(obj_sales)
 
         #update products table
         database.updateProductqty(newqty, product_id)             
