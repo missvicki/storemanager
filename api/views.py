@@ -48,7 +48,6 @@ class ProductsView(MethodView):
         if not productget:
              return jsonify({'message': "There are no products"}), 404
         return jsonify({'products': productget}), 200    
-    
     def post(self):
         """admins and attendants add products"""
         data = request.get_json()
@@ -97,7 +96,7 @@ class ProductsView(MethodView):
             return valprod
         
         database.modify_product(prod_cat, prod_price, prod_qty, prod_meas, product_id)
-        return jsonify({"Success": "product has been modified"}), 201
+        return jsonify({"Success": "product has been modified"}), 200
     
     @jwt_required
     def delete(self, product_id):

@@ -136,7 +136,6 @@ class DatabaseConnection:
 
     def getProducts(self):
         """get all products"""
-
         try:
             self.cur.execute(
                 "SELECT * FROM products WHERE delete_status = FALSE"

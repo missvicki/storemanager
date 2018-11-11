@@ -16,6 +16,7 @@ class TestStoreManagerApi(unittest.TestCase):
         """setUp(self)---"""
         self.db = DatabaseConnection()
         self.app = app.test_client()
+        self.db.create_tables()
         self.product = {
             "product_name": "Sugar",
             "category":"Food",
@@ -54,25 +55,12 @@ class TestStoreManagerApi(unittest.TestCase):
             "password":'attendant',
             "role" : 'attendant'
         }
-        
-        response = self.app.post("/api/v2/auth/login",
-                                  content_type='application/json',
-                                  data=json.dumps(self.user_admin))
-        self.data = json.loads(response.data.decode())
-        self.token = self.data.get('token')
-        self.headers = {'Authorization': f'Bearer {self.token}'}
-
-    def tearDown(self):
-        """tearDown(self)---"""
-        self.db = DatabaseConnection()
-        self.db.drop_tables()
 
     def test_create_product_with_valid_fields(self):
         """create product with valid fields"""
         res = self.app.post("/api/v2/products",
                             data=json.dumps(self.product),
-                            content_type='application/json',
-                            headers=self.headers)
+                            content_type='application/json')
         res_data = json.loads(res.data)
         expected_output = {
             "Success": "you have added a product"
@@ -85,8 +73,7 @@ class TestStoreManagerApi(unittest.TestCase):
         
         res = self.app.post("/api/v2/products",
                             data=json.dumps(self.invalidproduct),
-                            content_type='application/json',
-                            headers=self.headers)
+                            content_type='application/json')
         res_data = json.loads(res.data)
         expected_output = {
             "error": "fields should not be empty"
@@ -99,8 +86,7 @@ class TestStoreManagerApi(unittest.TestCase):
         
         res = self.app.post("/api/v2/products",
                             data=json.dumps(self.badpriceandquantity),
-                            content_type='application/json',
-                            headers=self.headers)
+                            content_type='application/json')
         res_data = json.loads(res.data)
         expected_output = {
             "error": "unit price and quantity have to be integers"
@@ -110,62 +96,133 @@ class TestStoreManagerApi(unittest.TestCase):
     
     def test_post_products_valid_admin(self):
         """test_post_products(self)"""
-        res = self.app.post(
-                '/api/v2/auth/login',
-                data=json.dumps(self.user_admin),
-                content_type='application/json'
-            )
-        data = json.loads(res.data)
-        token=data.get('message')
+        response= self.app.post('/api/v2/auth/login',
+                                data=json.dumps(self.user_admin),
+                                content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('token')
         headers = {'Authorization': f'Bearer {token}'}
         response_product = self.app.post("/api/v2/products",
-                                      data=json.dumps(self.product),
-                                      content_type='application/json',
-                                      headers=headers)
+                                         data=json.dumps(self.product),
+                                         content_type='application/json',
+                                         headers=headers)
         self.assertEqual(response_product.status_code, 201) 
 
     def test_post_products_valid_attendant(self):
         """test_post_products(self)"""
-        res = self.app.post(
-                '/api/v2/auth/login',
-                data=json.dumps(self.user_attendant),
-                content_type='application/json'
-            )
-        data = json.loads(res.data)
-        token=data.get('message')
+        response = self.app.post('/api/v2/auth/login',
+                                 data=json.dumps(self.user_attendant),
+                                 content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('token')
         headers = {'Authorization': f'Bearer {token}'}
         response_product = self.app.post("/api/v2/products",
-                                      data=json.dumps(self.product),
-                                      content_type='application/json',
-                                      headers=headers)
+                                         data=json.dumps(self.product),
+                                         content_type='application/json',
+                                         headers=headers)
         self.assertEqual(response_product.status_code, 201)
 
     def test_get_all_products(self):
         """Test getting all products user"""
+        self.app.post("/api/v2/products",
+                            data=json.dumps(self.product),
+                            content_type='application/json')
 
         res = self.app.get("/api/v2/products",
-                           content_type='application/json',
-                           headers=self.headers)
-        res_data_ = json.loads(res.data)
-        exepected_output = {
-            "message": "There are no products"
-        }
-        self.assertEqual(res.status_code, 404)
-        self.assertEqual(res_data_, exepected_output)
+                           content_type='application/json')
+        self.assertEqual(res.status_code, 200)
     
     def test_get_one_product(self):
         """test__get_one_product(self)---"""
-        product_id=1
-        res = self.app.get("/api/v2/products/{}".format(product_id),
-                           content_type='application/json',
-                           headers=self.headers)
-        res_data_ = json.loads(res.data)
-        exepected_output = {
-            'message': "product has not been found"
-        }
-        self.assertEqual(res.status_code, 404)
-        self.assertEqual(res_data_, exepected_output)
+        self.app.post("/api/v2/products",
+                            data=json.dumps(self.product),
+                            content_type='application/json')
 
+        res = self.app.get("/api/v2/products/1",
+                           content_type='application/json')
+        self.assertEqual(res.status_code, 200)
+    
+    def test_get_all_products_admin(self):
+        """Test getting all products user"""
+        response= self.app.post('/api/v2/auth/login',
+                                data=json.dumps(self.user_admin),
+                                content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('token')
+        headers = {'Authorization': f'Bearer {token}'}
+        self.app.post("/api/v2/products",
+                            data=json.dumps(self.product),
+                            content_type='application/json',
+                            headers=headers)
+
+        res = self.app.get("/api/v2/products",
+                           content_type='application/json',
+                           headers=headers)
+        self.assertEqual(res.status_code, 200)
+    
+    def test_get_one_product_attendant(self):
+        """test__get_one_product(self)_attendant---"""
+        response = self.app.post('/api/v2/auth/login',
+                                 data=json.dumps(self.user_attendant),
+                                 content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('token')
+        headers = {'Authorization': f'Bearer {token}'}
+        self.app.post("/api/v2/products",
+                            data=json.dumps(self.product),
+                            content_type='application/json',
+                            headers=headers)
+
+        res = self.app.get("/api/v2/products/1",
+                           content_type='application/json',
+                           headers = headers)
+        self.assertEqual(res.status_code, 200)
+    
+    def test_modifyproduct_admin(self):
+        """test_modifyproduct_admin"""
+        # updateProduct = {
+        #         'category':"Food",
+        #         'unit_price':4200,
+        #         'quantity':10,
+        #         'measure':"Kgs"
+        #         }
+        # response= self.app.post('/api/v2/auth/login',
+        #                         data=json.dumps(self.user_admin),
+        #                         content_type='application/json')
+        # data = json.loads(response.data.decode())
+        # token = data.get('token')
+        # headers = {'Authorization': f'Bearer {token}'}
+        # self.app.post("/api/v2/products",
+        #                     data=json.dumps(self.product),
+        #                     content_type='application/json',
+        #                     headers=headers)
+        # res = self.app.put("/api/v2/products/1",
+        #                     data=json.dumps(updateProduct),
+        #                     content_type='application/json',
+        #                     headers=headers)
+        # self.assertEqual(res.status_code, 200)
+
+    def test_delete_product_admin(self):
+        """test delete a product"""
+        # response= self.app.post('/api/v2/auth/login',
+        #                         data=json.dumps(self.user_admin),
+        #                         content_type='application/json')
+        # data = json.loads(response.data.decode())
+        # token = data.get('token')
+        # headers = {'Authorization': f'Bearer {token}'}
+        # self.app.post("/api/v2/products",
+        #                     data=json.dumps(self.product),
+        #                     content_type='application/json',
+        #                     headers=headers)
+        # res = self.app.delete("/api/v2/products/1",
+        #                     content_type='application/json',
+        #                     headers=headers)
+        # self.assertEqual(res.status_code, 200)
+
+    def tearDown(self):
+        """tearDown(self)---"""
+        self.db = DatabaseConnection()
+        self.db.drop_tables()
 
 if __name__ == "__main__":
     unittest.main()
