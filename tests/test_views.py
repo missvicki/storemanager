@@ -46,12 +46,18 @@ class TestStoreManagerApi(unittest.TestCase):
             "quantity":6
         }
         self.user_admin = {
-            "username":'vickib',
+            "user_name":'vickib',
             "password":'vibel',
             "role":'admin'
         }
         self.user_attendant = {
-            "username":'attendant',
+            "user_name":'attendant',
+            "password":'attendant',
+            "role" : 'attendant'
+        }
+        self.user = {
+            "name":"attendant",
+            "user_name":'attendant',
             "password":'attendant',
             "role" : 'attendant'
         }
@@ -218,6 +224,24 @@ class TestStoreManagerApi(unittest.TestCase):
         #                     content_type='application/json',
         #                     headers=headers)
         # self.assertEqual(res.status_code, 200)
+    
+    def test_signup(self):
+        """
+        Test registration with unathenticated user
+        """
+        # response= self.app.post('/api/v2/auth/login',
+        #                         data=json.dumps(self.user_admin),
+        #                         content_type='application/json')
+        # data = json.loads(response.data.decode())
+        # token = data.get('token')
+        # headers = {'Authorization': f'Bearer {token}'}
+        # res = self.app.post("/api/v2/auth/signup",
+        #                     content_type='application/json',
+        #                     headers=headers,
+        #                     data=json.dumps(self.user))
+        # res_data = json.loads(res.data)
+        # self.assertEqual(res.status_code, 201)
+        # self.assertIsNone(res_data.get("token"))
 
     def tearDown(self):
         """tearDown(self)---"""

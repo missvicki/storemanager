@@ -150,9 +150,9 @@ class DatabaseConnection:
         """delete one product"""
         try:
             self.cur.execute(
-                # "DELETE FROM products WHERE product_id = %s", [_pid]
-                "UPDATE products SET delete_status=TRUE , date_modified =CURRENT_TIMESTAMP WHERE product_id = {}".format(_pid
-                )
+                "DELETE FROM products WHERE product_id = %s", [_pid]
+                # "UPDATE products SET delete_status=TRUE , date_modified =CURRENT_TIMESTAMP WHERE product_id = {}".format(_pid
+                # )
             )
         except:
             return False
@@ -266,17 +266,6 @@ class DatabaseConnection:
             _users = self.cur.fetchone()
             return _users
 
-        except:
-            return False
-
-    def deloneuser(self, _uid):
-        """delete one user"""
-
-        try:
-            self.cur.execute(
-                # "DELETE FROM users WHERE user_id = %s", [_uid]
-                "UPDATE users SET delete_status=TRUE, date_modified= CURRENT_TIMESTAMP WHERE user_id = {}".format(_uid)
-            )
         except:
             return False
 
