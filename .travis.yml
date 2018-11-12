@@ -1,0 +1,24 @@
+language: python
+
+python:
+  - "3.6.5"
+
+addons:
+  postgresql: '9.6'
+
+services:
+  - postgresql
+  
+install:
+  - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
+  - pip install -r requirements.txt
+
+before_script:
+  - psql -c "create database storemanager_test_db;" -U postgres
+
+script:
+  - nosetests --with-cov --cov  tests/
+  
+after_success:
+  - codecov
+  - coveralls

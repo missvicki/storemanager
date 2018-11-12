@@ -1,0 +1,515 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "V&M Store Manager",
+    "description": "Store manager is a web application that allows store owners and attendants, to perform daily tasks such as adding products, modifying products, making sale records and registering users.",
+    "version": "v2"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000/api/v2",
+      "description": "Development API server"
+    },
+    {
+      "url": "https://store-manager-ap1.herokuapp.com/",
+      "description": "Production API server"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User can login.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Admin can create new users",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully registered"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized - Functionality only for admins"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Returns products available",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "There are no Products"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Add a new product to the store",
+        "description": "Allows the admin and store attendants to add new products to the store",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product successfully added"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/products/{product_id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Returns a single product available in store.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "description": "Get a single product",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product has been found"
+          },
+          "404": {
+            "description": "Product with requested id has not been found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Modify a product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Modified_Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product has been modified"
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Product with requested id has not been found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Deletes a product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted product"
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Product with that id has not been found"
+          }
+        }
+      }
+    },
+    "/sales": {
+      "post": {
+        "summary": "Store attendant can make a sale order for product(s)",
+        "description": "Given attendant user id, product id and quantity. the sale can be made and quantity of product is reduced in product list. the total of the sale is also calculated",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Sale"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Sales"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized to make a sale"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Returns all sale orders made by store attendants",
+        "description": "Admin can view all sale orders made by store attendants",
+        "operationId": "getSales",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "No sale orders have been made"
+          }
+        }
+      }
+    },
+    "/sales/{user_id}": {
+      "get": {
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Returns a sales specific to an attendant",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "description": "Get sales specific to an attendant",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "sales found"
+          },
+          "404": {
+            "description": "Sales with related to id not been found"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns all users of the store manager application",
+        "description": "Admin can view all users",
+        "operationId": "getUsers",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "No users"
+          }
+        }
+      }
+    },
+    "/users/{role}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns a users of a specific role",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "description": "Get users of a specific role",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "users found with that role"
+          },
+          "404": {
+            "description": "No users found with that role"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "example" : "Sugar"
+          },
+          "category": {
+            "type": "string",
+            "example" : "Food"
+          },
+          "unit_price": {
+            "type": "integer",
+            "example" : 4100
+          },
+          "quantity": {
+            "type": "integer",
+            "example" : 10
+          },
+          "measure": {
+            "type": "string",
+            "example" : "Kgs"
+          }
+        },
+        "required": [
+          "product_name",
+          "category",
+          "unit_price",
+          "quantity",
+          "measure"
+        ]
+      },
+      "Modified_Product": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "example" : "Food"
+          },
+          "unit_price": {
+            "type": "integer",
+            "example" : 4100
+          },
+          "quantity": {
+            "type": "integer",
+            "example" : 10
+          },
+          "measure": {
+            "type": "string",
+            "example" : "Kgs"
+          }
+        },
+        "required": [
+          "product_name",
+          "category",
+          "unit_price",
+          "quantity",
+          "measure"
+        ]
+      },
+      "User": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example" : "victoria bethany"
+          },
+          "user_name": {
+            "type": "string",
+            "example" : "victoria"
+          },
+          "password": {
+            "type": "string",
+            "example" : "victoria"
+          },
+          "role": {
+            "type": "string",
+            "example" : "attendant"
+          }
+        },
+        "required": [
+          "username",
+          "password",
+          "role",
+          "name"
+        ]
+      },
+      "Login": {
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "example" : "vickib"
+          },
+          "password": {
+            "type": "string",
+            "example" : "vibel"
+          },
+          "role": {
+            "type": "string",
+            "example" : "admin"
+          }
+        },
+        "required": [
+          "username",
+          "password",
+          "role"
+        ]
+      },
+      "Sale": {
+        "properties": {
+          "product_id": {
+            "type": "integer",
+            "example" : 1
+          },
+          "quantity": {
+            "type": "integer",
+            "example" : 6
+          },
+          "user_id": {
+            "type": "integer",
+            "example" : 2
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
