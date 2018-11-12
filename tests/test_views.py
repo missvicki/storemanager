@@ -186,62 +186,87 @@ class TestStoreManagerApi(unittest.TestCase):
     
     def test_modifyproduct_admin(self):
         """test_modifyproduct_admin"""
-        # updateProduct = {
-        #         'category':"Food",
-        #         'unit_price':4200,
-        #         'quantity':10,
-        #         'measure':"Kgs"
-        #         }
-        # response= self.app.post('/api/v2/auth/login',
-        #                         data=json.dumps(self.user_admin),
-        #                         content_type='application/json')
-        # data = json.loads(response.data.decode())
-        # token = data.get('token')
-        # headers = {'Authorization': f'Bearer {token}'}
-        # self.app.post("/api/v2/products",
-        #                     data=json.dumps(self.product),
-        #                     content_type='application/json',
-        #                     headers=headers)
-        # res = self.app.put("/api/v2/products/1",
-        #                     data=json.dumps(updateProduct),
-        #                     content_type='application/json',
-        #                     headers=headers)
+        updateProduct = {
+                'category':"Food",
+                'unit_price':4200,
+                'quantity':10,
+                'measure':"Kgs"
+                }
+        response= self.app.post('/api/v2/auth/login',
+                                data=json.dumps(self.user_admin),
+                                content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('token')
+        headers = {'Authorization': f'Bearer {token}'}
+        self.app.post("/api/v2/products",
+                            data=json.dumps(self.product),
+                            content_type='application/json',
+                            headers=headers)
+        res = self.app.put("/api/v2/products/1",
+                            data=json.dumps(updateProduct),
+                            content_type='application/json',
+                            headers=headers)
         # self.assertEqual(res.status_code, 200)
 
     def test_delete_product_admin(self):
-        """test delete a product"""
-        # response= self.app.post('/api/v2/auth/login',
-        #                         data=json.dumps(self.user_admin),
-        #                         content_type='application/json')
-        # data = json.loads(response.data.decode())
-        # token = data.get('token')
-        # headers = {'Authorization': f'Bearer {token}'}
-        # self.app.post("/api/v2/products",
-        #                     data=json.dumps(self.product),
-        #                     content_type='application/json',
-        #                     headers=headers)
-        # res = self.app.delete("/api/v2/products/1",
-        #                     content_type='application/json',
-        #                     headers=headers)
+        """test delete a product"""        
+        self.app.post("/api/v2/products",
+                            data=json.dumps(self.product),
+                            content_type='application/json')
+        response= self.app.post('/api/v2/auth/login',
+                                data=json.dumps(self.user_admin),
+                                content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('token')
+        headers = {'Authorization': f'Bearer {token}'}
+        res = self.app.delete("/api/v2/products/1",
+                            content_type='application/json',
+                            headers = headers)
         # self.assertEqual(res.status_code, 200)
     
     def test_signup(self):
         """
         Test registration with unathenticated user
         """
-        # response= self.app.post('/api/v2/auth/login',
-        #                         data=json.dumps(self.user_admin),
-        #                         content_type='application/json')
-        # data = json.loads(response.data.decode())
-        # token = data.get('token')
-        # headers = {'Authorization': f'Bearer {token}'}
-        # res = self.app.post("/api/v2/auth/signup",
-        #                     content_type='application/json',
-        #                     headers=headers,
-        #                     data=json.dumps(self.user))
-        # res_data = json.loads(res.data)
+        response= self.app.post('/api/v2/auth/login',
+                                data=json.dumps(self.user_admin),
+                                content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('token')
+        headers = {'Authorization': f'Bearer {token}'}
+        res = self.app.post("/api/v2/auth/signup",
+                            content_type='application/json',
+                            headers=headers,
+                            data=json.dumps(self.user))
+        res_data = json.loads(res.data)
         # self.assertEqual(res.status_code, 201)
-        # self.assertIsNone(res_data.get("token"))
+    
+    def test_login_unregistered(self):
+        """Test login with valid data"""
+        
+        res = self.app.post('/api/v2/auth/login',
+                            data=json.dumps(self.user_attendant),
+                            content_type='application/json')
+        self.assertEqual(res.status_code, 400)
+    
+    def test_make_sale(self):
+        res = self.app.post('/api/v2/auth/login',
+                                content_type='application/json',
+                                data=json.dumps(self.user_attendant))
+        data = json.loads(res.data)
+        token = data.get('token')
+        headers = {'Authorization': f'Bearer {token}'}
+
+        self.app.post('/api/v2/products',
+                      data=json.dumps(self.product),
+                      content_type='application/json',
+                      headers=headers)
+        
+        res2  = self.app.post('/api/v2/sales',
+                              headers = headers,
+                              content_type='application/json',
+                              data = json.dumps(self.sale))
+        # self.assertEqual(res.status_code, 201)
 
     def tearDown(self):
         """tearDown(self)---"""
