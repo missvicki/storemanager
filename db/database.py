@@ -28,41 +28,33 @@ queries = (
         CREATE TABLE IF NOT EXISTS sales (
             sale_id SERIAL PRIMARY KEY,  
             user_id integer NOT NULL,
+            product_id integer NOT NULL,
+            quantity integer NOT NULL,
+            total integer NOT NULL,
             date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             delete_status BOOLEAN DEFAULT FALSE,
+            CONSTRAINT prodidfk FOREIGN KEY (product_id)
+            REFERENCES products(product_id)
+                ON UPDATE CASCADE
+            ),
             CONSTRAINT userid_foreign FOREIGN KEY (user_id) 
             REFERENCES users(user_id) 
              ON UPDATE CASCADE)
     """,
     """
-        CREATE TABLE IF NOT EXISTS sales_has_products(
-            sale_id integer NOT NULL,
-            product_id integer NOT NULL,
-            quantity integer NOT NULL,
-            total integer NOT NULL,
-            delete_status BOOLEAN DEFAULT FALSE,
-            CONSTRAINT sale_idforeignkey FOREIGN KEY (sale_id)
-            REFERENCES sales(sale_id)
-                ON UPDATE CASCADE,
-            CONSTRAINT prodidfk FOREIGN KEY (product_id)
-            REFERENCES products(product_id)
-                ON UPDATE CASCADE
-            )
-        """,
-        """
-            CREATE TABLE IF NOT EXISTS login(
-                user_name VARCHAR(12) NOT NULL,
-                password VARCHAR(12) NOT NULL,
-                role VARCHAR(15) NOT NULL,
-                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """,
-        """
-            INSERT INTO users(name, user_name, password, role)\
+        CREATE TABLE IF NOT EXISTS login(
+            user_name VARCHAR(12) NOT NULL,
+            password VARCHAR(12) NOT NULL,
+            role VARCHAR(15) NOT NULL,
+            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """,
+    """
+        INSERT INTO users(name, user_name, password, role)\
             VALUES('Vicki', 'vickib', 'vibel', 'admin')
-        """
+    """
 )
 from flask import Flask, jsonify
 import psycopg2
@@ -114,7 +106,6 @@ class DatabaseConnection:
 
     def getProducts(self):
         """get all products"""
-
         try:
             self.cur.execute(
                 "SELECT * FROM products WHERE delete_status = FALSE"
@@ -142,9 +133,9 @@ class DatabaseConnection:
         """delete one product"""
         try:
             self.cur.execute(
-                # "DELETE FROM products WHERE product_id = %s", [_pid]
-                "UPDATE products SET delete_status=TRUE , date_modified =CURRENT_TIMESTAMP WHERE product_id = {}".format(_pid
-                )
+                "DELETE FROM products WHERE product_id = %s", [_pid]
+                # "UPDATE products SET delete_status=TRUE , date_modified =CURRENT_TIMESTAMP WHERE product_id = {}".format(_pid
+                # )
             )
         except:
             return False
@@ -261,17 +252,6 @@ class DatabaseConnection:
         except:
             return False
 
-    def deloneuser(self, _uid):
-        """delete one user"""
-
-        try:
-            self.cur.execute(
-                # "DELETE FROM users WHERE user_id = %s", [_uid]
-                "UPDATE users SET delete_status=TRUE, date_modified= CURRENT_TIMESTAMP WHERE user_id = {}".format(_uid)
-            )
-        except:
-            return False
-
     def check_user_exists_id(self, user_id):
         """check if user exists"""
 
@@ -287,22 +267,11 @@ class DatabaseConnection:
         """insert data into sales table"""
 
         try:
-            self.cur.execute("INSERT INTO sales(user_id) VALUES({}) RETURNING sale_id".format(data.user_id)
+            self.cur.execute("INSERT INTO sales(user_id, product_id, quantity, total) VALUES({}, {}, {}, {}) RETURNING sale_id"
+            .format(data.user_id, data.product_id, data.quantity, data.total)
             )
             return self.cur.fetchone()[0]
         
-        except:
-            return False
-
-    def insert_data_sales_has_products(self, data):
-        """insert data into salesproducts table"""
-
-        try:
-            self.cur.execute(
-                "INSERT INTO sales_has_products(sale_id, product_id, quantity, total) \
-                VALUES({}, {}, {}, {})\
-                ".format(data.sale_id, data.product_id, data.quantity, data.total)
-            )
         except:
             return False
         
@@ -363,7 +332,7 @@ class DatabaseConnection:
             return _sale
         except:
             return False
-    
+            
     def drop_tables(self):
         """drop tables if exist"""
         self.cur.execute(

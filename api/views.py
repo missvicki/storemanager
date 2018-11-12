@@ -5,7 +5,7 @@ import datetime
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
 from db.database import DatabaseConnection
 from models.productsModel import Products
-from models.salesModel import Sales, SalesHasProducts
+from models.salesModel import Sales
 from models.usersModel import Users, Login
 from api.__init__ import app
 from api.validations.validations import (validate_product, validate_product_modify, validate_user_signup, validate_user_login, validate_sales)
@@ -213,12 +213,8 @@ class SalesView(MethodView):
         newqty = getQty - quantity
 
         # insert into sales table
-        obj_sales = Sales(user_id)
-        saleid = database.insert_data_sales(obj_sales)
-
-        #insert into sale has products table
-        obj_salepdt = SalesHasProducts(saleid, product_id, quantity, total)
-        database.insert_data_sales_has_products(obj_salepdt)
+        obj_sales = Sales(user_id, product_id, quantity, total)
+        database.insert_data_sales(obj_sales)
 
         #update products table
         database.updateProductqty(newqty, product_id)             
