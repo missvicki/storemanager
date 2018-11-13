@@ -1,79 +1,65 @@
 <!DOCTYPE html>
 <html>
     <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta name="description" content="Store Manager application, Admin dashboard">
-            <meta name="author" content="Victor Nomwesigwa">
-            <meta name="HandheldFriendly" content="true">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Store Manager application, Admin dashboard">
+        <meta name="author" content="Victor Nomwesigwa">
+        <meta name="HandheldFriendly" content="true">
 
-            <title>V & M Shopping</title>
-            <!--Stylesheet-->
-            <link rel="stylesheet" type="text/css" href="../css/index.css" />
+        <title>V & M Shopping</title>
+        <!--Stylesheet-->
+        <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
-            <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-
-            
-
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     </head>
     <body>
-            <header class="dashboard">
-                <div class="logo-section">
-                    <a href="indexOwner.html"> V&M <span>Shopping</span></a>
-                </div>
-            </header>
-
-            <div class="main-section">
-                <aside id="side-menu">
-                    <ul class="menu">
-                        
-                            <li><a href="indexOwner.html">Dashboard</a> </li>
-                            <li><a class="selected" href="salesOwner.html">Sales</a> </li>
-                            <li><a href="employess.html">Employees</a> </li>
-                            <li><a href="#">Shift / Schedule</a> </li>
-                            <li><a href="manageProducts.html">Manage Products</a> </li>
-                            <li><a href="#">Reports</a> </li>                                      
-                            <li><a href="loginOwner.html">Logout</a> </li>                       
-                    </ul>
-                </aside>
-                <div class="content">
-                    <div class="main-info">
-                        <div class="sales-form">
-                            <div class="sales-section">
-                                <form>
-                                    <div class="form-wrap">
-                                        <h5>Select which Sales Category you would like to View</h5>
-                                        <input type="radio" name="daily" value="one" id="radio-one" class="form-radio" ><label for="radio-one">Daily Sales</label>
-                                        <input type="radio" name="weekly" value="two" id="radio-two" class="form-radio"><label for="radio-two">Weekly Sales</label>
-                                        <input type="radio" name="monthly" value="two" id="radio-three" class="form-radio"><label for="radio-three">Monthly Sales</label>
-                                        <input type="radio" name="annual" value="two" id="radio-four" class="form-radio"><label for="radio-four">Annual Sales</label>                                  
-                                    </div>
-                                    <div class="form-wrap">
-                                        <h5>Sales Attendant</h5>
-                                        <input type="radio" name="allAttendants" value="one" id="radio-one" class="form-radio" ><label for="radio-one">All Store Attendants</label>
-                                        <input type="radio" name="specificAttendant" value="two" id="radio-two" class="form-radio"><label for="radio-two">Specific Attendants</label>
-                                    </div>
-                                    <div class="form-wrap">
-                                        <h5>Select Date Period</h5>
-                                        <label>From</label>
-                                        <input type="date" name="from">
-                                        <label>To</label>
-                                        <input type="date" name="to">
-                                    </div>
-                                    <div class="form-wrap">
-                                            <h5>If Specific Attendant, enter name of attendant below</h5>
-                                            <input type="text" name="" placeholder="Enter Store Attendants Name">                  
-                                    </div>
-                                    <div class="form-wrap btn">
-                                        <input type="button" name="btnsearchdatabase" onclick="location.href = 'DailySalesTableOwner.html';" value="Search Database"/>
-                                    </div>
-                                     
-                                </form>                               
-                            </div-class>
-                        </div>
+        <header class="dashboard">
+            <div class="logo-section">
+                <a href="indexOwner.html"> V&M <span>Shopping</span></a>
+            </div>
+        </header>
+        <div class="main-section">
+            <aside id="side-menu">
+                <ul class="menu">
+                    <li><a href="indexOwner.html">Dashboard</a> </li>
+                    <li><a class="selected" href="salesOwner.html">Sales</a> </li>
+                    <li><a href="employess.html">Employees</a> </li>
+                    <li><a href="manageProducts.html">Products</a> </li>                                   
+                    <li><a href="index.html">Logout</a> </li>                       
+                </ul>
+            </aside>
+            <div class="content">
+                <div class="main-info">
+                    <div class="sales-form">
+                        <div class="sales-section">
+                            <form>
+                                <div class="form-wrap">
+                                    <h5>View Sales for:</h5>
+                                    <input type="radio" name="allSales" value="one" id="radio-one" class="form-radio" ><label for="radio-one">All Sales</label>
+                                    <input type="radio" name="specificAttendant" value="two" id="radio-two" class="form-radio"><label for="radio-two">Sale for a specific attendant</label>
+                                </div>
+                                <div class="form-wrap">
+                                    <h5>Select Date Period</h5>
+                                    <label>From</label>
+                                    <input type="date" name="from">
+                                    <label>To</label>
+                                    <input type="date" name="to">
+                                </div>
+                                <div class="form-wrap">
+                                    <h5>If Sale for specific Attendant, enter name of attendant ID</h5>
+                                    <input type="text" name="" placeholder="Enter Store Attendants ID">                  
+                                </div>
+                                <br>
+                                <div class="form-wrap btn">
+                                    <input type="button" name="btnsearchdatabase" onclick="location.href = 'sales.html';" value="Search Sale"/>
+                                </div>   
+                            </form>                               
+                        </div-class>
                     </div>
                 </div>
             </div>
+        </div>
     </body>
 </html>
