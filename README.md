@@ -78,6 +78,7 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
 
 **Python**: 3.6.5
 **HTML5 & CSS3**
+**Vanilla JS**
 
 ## Run the app
 
