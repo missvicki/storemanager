@@ -15,12 +15,7 @@
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
         <script>
-            function newempl(){
-                window.location = "addEmployee.html"; // Redirecting to other page.
-            }
-            function viewemp(){
-                window.location = "viewEmployees.html"; // Redirecting to other page.
-            }
+            
         </script>
 
     </head>
@@ -43,11 +38,25 @@
             </aside>
             <div class="content">
                 <div class="main-info">
-                    <div class="top-section">
-                        <ul class="employee">
-                            <li class="newEmployees" onclick="newempl()">Add Employees</li>
-                            <li class="allEmployees" onclick="viewemp()">View Employees</li>            
-                        </ul>
+                    <div class="down-section">             
+                        <div class="view-form">
+                            <div class="employees">
+                                <h5>View Employees</h5>
+                                <table>
+                                    <thead>
+                                        <tr style="background-color: #090a25; color:#FFF; padding:10px 10px 10px 10px ;">
+                                            <th>Employee ID</th>
+                                            <th>Employee Name</th>
+                                            <th>Password</th>
+                                            <th>Role</th>                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table_body">
+                                        <tr  style="border-bottom:1px solid #3CC; background-color:#C0C0C0;  color:#000;"></tr>
+                                    </tbody>
+                                </table>      
+                            </div>
+                        </div>   
                     </div>
                 </div>
             </div>
