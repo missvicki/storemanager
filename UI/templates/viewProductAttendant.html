@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Store Manager application, Attendant dashboard">
+        <meta name="author" content="Victor Nomwesigwa">
+        <meta name="HandheldFriendly" content="true">
+
+        <title>V & M Shopping</title>
+        <!--Stylesheet-->
+        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+         
+        <script>
+          
+        </script>
+
+    </head>
+    <body>
+        <header class="dashboard">
+            <div class="logo-section">
+                <a href="indexOwner.html"> V&M <span>Shopping</span></a>
+            </div>
+        </header>
+
+        <div class="main-section">
+            <aside id="side-menu">
+                <ul class="menu">
+                    <li><a href="indexAttendants.html">Dashboard</a> </li>
+                    <li><a href="salesAttendants.html">Sales</a> </li>
+                    <li><a class="selected" href="manageProductA.html">Products</a> </li>                                    
+                    <li><a href="index.html">Logout</a> </li>    
+                </ul>
+            </aside>
+            <div class="content">
+                <div class="main-info">
+                    <div class="down-section">
+                        <div class="view-form">
+                            <div class="products">
+                                <h5>View Products</h5> 
+                                <table>
+                                    <thead>
+                                        <tr style="background-color: #090a25; color:#FFF; padding:10px 10px 10px 10px ;">
+                                            <th>Product ID</th>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Unit Price</th>
+                                            <th>Quantity</th>
+                                            <th>Measure</th>                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table_body">
+                                        <tr  style="border-bottom:1px solid #3CC; background-color:#C0C0C0;  color:#000;"></tr>
+                                    </tbody>
+                                </table>      
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

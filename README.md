@@ -1,4 +1,4 @@
-## Store Manager [![Build Status](https://travis-ci.org/missvicki/storemanager.svg?branch=feature)](https://travis-ci.org/missvicki/storemanager) [![Coverage Status](https://coveralls.io/repos/github/missvicki/storemanager/badge.svg?branch=feature)](https://coveralls.io/github/missvicki/storemanager?branch=feature) [![Maintainability](https://api.codeclimate.com/v1/badges/5ede6e059132e2e43860/maintainability)](https://codeclimate.com/github/missvicki/storemanager/maintainability)
+## Store Manager [![Build Status](https://travis-ci.org/missvicki/storemanager.svg?branch=ch-edit-UI-161913543)](https://travis-ci.org/missvicki/storemanager) [![Coverage Status](https://coveralls.io/repos/github/missvicki/storemanager/badge.svg?branch=ch-edit-UI-161913543)](https://coveralls.io/github/missvicki/storemanager?branch=ch-edit-UI-161913543) [![Maintainability](https://api.codeclimate.com/v1/badges/5ede6e059132e2e43860/maintainability)](https://codeclimate.com/github/missvicki/storemanager/maintainability)
 
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.    
 
@@ -77,6 +77,8 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
 ## Language
 
 **Python**: 3.6.5
+**HTML5 & CSS3**
+**Vanilla JS**
 
 ## Run the app
 

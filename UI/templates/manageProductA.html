@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Store Manager application, Admin dashboard">
+        <meta name="description" content="Store Manager application, Attendant dashboard">
         <meta name="author" content="Victor Nomwesigwa">
         <meta name="HandheldFriendly" content="true">
 
@@ -17,10 +17,10 @@
          
         <script>
             function addProducts(){
-                window.location = "addProducts.html"; // Redirecting to other page.
+                window.location = "addProductsAttendant.html"; // Redirecting to other page.
             }
-            function viewandmodifyProducts(){
-                window.location = "viewandModifyProducts.html"; // Redirecting to other page.
+            function viewProducts(){
+                window.location = "viewProductAttendant.html"; // Redirecting to other page.
             }
         </script>
 
@@ -28,17 +28,16 @@
     <body>
         <header class="dashboard">
             <div class="logo-section">
-                <a href="indexOwner.html"> V&M <span>Shopping</span></a>
+                <a href="indexAttendants.html"> V&M <span>Shopping</span></a>
             </div>
         </header>
 
         <div class="main-section">
             <aside id="side-menu">
                 <ul class="menu">
-                    <li><a href="indexOwner.html">Dashboard</a> </li>
-                    <li><a href="salesOwner.html">Sales</a> </li>
-                    <li><a  href="employess.html">Employees</a> </li>
-                    <li><a class="selected" href="manageProducts.html">Products</a> </li>                                    
+                    <li><a href="indexAttendants.html">Dashboard</a> </li>
+                    <li><a href="salesAttendants.html">Sales</a> </li>
+                    <li><a class="selected" href="manageProductsA.html">Products</a> </li>                                    
                     <li><a href="index.html">Logout</a> </li>    
                 </ul>
             </aside>
@@ -47,7 +46,7 @@
                     <div class="top-section">
                         <ul class="employee">
                             <li class="newProducts" onclick="addProducts()">Add New Product</li>
-                            <li class="allProducts" onclick="viewandmodifyProducts()">View Products</li>      
+                            <li class="allProducts" onclick="viewProducts()">View Products</li>      
                         </ul>
                     </div>
                 </div>
