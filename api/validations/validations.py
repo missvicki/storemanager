@@ -69,7 +69,7 @@ def validate_user_login(**kwargs):
 
     data_user_exist = db.check_user_exists(user_name, password, role)
     if not data_user_exist:
-        return jsonify({'error': "user with that username, password, role doesn't exist"}), 400
+        return jsonify({'error': "user with that username, password, role doesn't exist"}), 404
     
 def validate_sales(**kwargs):
     """validate sales"""
@@ -81,7 +81,7 @@ def validate_sales(**kwargs):
         return jsonify({'message': "Field can't be empty"}), 400
 
     if type(user_id) is not int:
-        return jsonify({'message': "field have to be integers"}), 400
+        return jsonify({'message': "field has to be an integer"}), 400
     
     if not quantity or not product_id:
         return jsonify({'message': "Fields can't be empty"}), 400
@@ -96,4 +96,4 @@ def validate_sales(**kwargs):
 
     data_user_exist = db.check_user_exists_id(user_id)
     if not data_user_exist:
-        return jsonify({'error': "user does not exist"}), 400
+        return jsonify({'error': "user does not exist"}), 404
