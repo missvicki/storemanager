@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Store Manager application, Attendant dashboard">
+        <meta name="author" content="Victor Nomwesigwa">
+        <meta name="HandheldFriendly" content="true">
+
+        <title>V & M Shopping</title>
+        <!--Stylesheet-->
+        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+         
+        <script>
+            function addProducts(){
+                window.location = "addProductsAttendant.html"; // Redirecting to other page.
+            }
+            function viewProducts(){
+                window.location = "viewProductAttendant.html"; // Redirecting to other page.
+            }
+        </script>
+
+    </head>
+    <body>
+        <header class="dashboard">
+            <div class="logo-section">
+                <a href="indexAttendants.html"> V&M <span>Shopping</span></a>
+            </div>
+        </header>
+
+        <div class="main-section">
+            <aside id="side-menu">
+                <ul class="menu">
+                    <li><a href="indexAttendants.html">Dashboard</a> </li>
+                    <li><a href="salesAttendants.html">Sales</a> </li>
+                    <li><a class="selected" href="manageProductsA.html">Products</a> </li>                                    
+                    <li><a href="index.html">Logout</a> </li>    
+                </ul>
+            </aside>
+            <div class="content">
+                <div class="main-info">
+                    <div class="top-section">
+                        <ul class="employee">
+                            <li class="newProducts" onclick="addProducts()">Add New Product</li>
+                            <li class="allProducts" onclick="viewProducts()">View Products</li>      
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
