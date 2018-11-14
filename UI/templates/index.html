@@ -18,7 +18,6 @@
                 var userName = document.getElementById("usernamefield").value;
                 var userPassword = document.getElementById("passwordfield").value;
                 var userRole = document.getElementById("role").value;
-
                 if ( userName == "attendant" && userPassword == "attendant" && userRole == "attendant"){
                     alert ("Login successful");
                     window.location = "indexAttendants.html"; // Redirecting to other page.
@@ -35,7 +34,7 @@
                 else{
                     alert("Check your login details")
                 }
-            }
+            } 
         </script>
     </head>
         <body>
@@ -49,25 +48,25 @@
                         <div class="login-section">
                             <h1>Sign In</h1>
                             <form>
-                                    <div class="form-wrap">
-                                        <label>Username</label>
-                                        <input type = "text" name="username" placeholder="Enter your username" id="usernamefield" required>
-                                    </div>
+                                <div class="form-wrap">
+                                    <label>Username</label>
+                                    <input type = "text" name="username" placeholder="Enter your username" id="usernamefield" required>
+                                </div>
 
-                                    <div class="form-wrap">
-                                        <label>Password</label> 
-                                        <input type="password" name="pswd" placeholder="Enter your Password" id = "passwordfield" required>
-                                    </div>
-                                    <div class="form-wrap">
-                                        <select name="role" id="role">
-                                            <option value="">Select Role</option>
-                                            <option value="admin">Store Owner</option>
-                                            <option value="attendant">Store Attendant</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-wrap btn">
-                                            <input type="button" onclick="login()" name="signin" value="Sign In">
-                                    </div>                                    
+                                <div class="form-wrap">
+                                    <label>Password</label> 
+                                    <input type="password" name="pswd" placeholder="Enter your Password" id = "passwordfield" required>
+                                </div>
+                                <div class="form-wrap">
+                                    <select name="role" id="role">
+                                        <option value="">Select Role</option>
+                                        <option value="admin">Store Owner</option>
+                                        <option value="attendant">Store Attendant</option>
+                                    </select>
+                                </div>
+                                <div class="form-wrap btn">
+                                    <input type="button" onclick="login()" name="signin" value="Sign In">
+                                </div>                                    
                             </form>
                             
                         </div-class>
