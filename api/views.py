@@ -150,7 +150,7 @@ class LoginView(MethodView):
         obj_login = Login(user_name, password, role)
         database.insert_table_login(obj_login)
         access_token = create_access_token(identity=role)
-        return jsonify(access_token="{}".format(access_token)), 200
+        return jsonify(access_token), 200
 
 class SignupView(MethodView):
     """class where admin can create new users"""
