@@ -1,19 +1,10 @@
-## Store Manager [![Build Status](https://travis-ci.org/missvicki/storemanager.svg?branch=ft-create-users-161584920)](https://travis-ci.org/missvicki/storemanager)
-[![Coverage Status](https://coveralls.io/repos/github/missvicki/storemanager/badge.svg?branch=ft-create-users-161584920)](https://coveralls.io/github/missvicki/storemanager?branch=ft-create-users-161584920)
+## Store Manager [
 
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.    
 
 ## Getting Started
 
-For installation of this project:  `$ git clone 'https://github.com/missvicki/store_manager-api.git`
-
-## Prerequisites
-
-* Create a Virtual Environment e.g.: `$ virtualenv storemanager`
-* Activate the environment: 
-    * For Windows: `$c:/ .\storemanager\Scripts\activate`
-    * For Linux and Mac: `$ source storemanager/bin/activate`
-* Install project dependencies e.g. flask: `$ pip install -r requirements.txt`
+For installation of this project:  `$ git clone 'https://github.com/missvicki/storemanager.git`
 
 ## Features
 
@@ -46,39 +37,22 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
     
     `$ https://missvicki.github.io/storemanager/UI/templates`
 
-## Heroku Endpoints
 
-| REQUEST | ROUTE | FUNCTIONALITY |
-| ------- | ----- | ------------- |
-| POST |[/api/v1/auth/signup](https://store-manager-api-.herokuapp.com/api/v1/auth/signup)|Create a New User|
-| POST |[/api/v1/auth/login](https://store-manager-api-.herokuapp.com/api/v1/auth/login)|Login|
-| POST | [/api/v1/products](https://store-manager-api-.herokuapp.com/api/v1/products) | Creates a product |
-| POST | [/api/v1/sales](https://store-manager-api-.herokuapp.com/api/v1/sales) | Creates a sales order |
-| GET | [/api/v1/products](https://store-manager-api-.herokuapp.com/api/v1/products) | Fetches all products|
-| GET | [/api/v1/products/product_id](https://store-manager-api-.herokuapp.com/api/v1/products/1) | Fetches a single product |
-| GET | [/api/v1/sales](https://store-manager-api-.herokuapp.com/api/v1/sales) | Fetches all sales |
-| GET | [/api/v1/users](https://store-manager-api-.herokuapp.com/api/v1/users) | Fetches all users |
-| DELETE | [/api/v1/products/product_id](https://store-manager-api-.herokuapp.com/api/v1/products/1) | Deletes a product |
-| DELETE | [/api/v1/users/user_id](https://store-manager-api-.herokuapp.com/api/v1/users/1) | Deletes a single user |
-| PUT | [/api/v1/products/product_id](https://store-manager-api-.herokuapp.com/api/v1/products/1) | Modifies a single product |
+## Login Credentials
 
-## Testing the app
-
-`$nosetests --with-cov --cov  tests/`
+| User Role | Username | Password |
+| ----------- | -------- | --------- |
+| Store Owner | admin | admin |
+| Store Attendant | attendant | attendant |
   
 ## Language
 
-**Python**: 3.6.5
-
-## Run the app
-
-`$ python run.py`
+* CSS3 & HTML5
+* Vanilla JS
 
 ## Authors
 
 * **Victor Nomwesigwa**
 
 ## Acknowledgments
-
-* Thank you to Andela for the opportunity of giving me this challenge
-* My fellow Andela bootcampers, thank you for the help rendered to me when I was stranded
+* Andela
