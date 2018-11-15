@@ -21,13 +21,14 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
     * can create new users
     * can login
     * can view all users
-    * can delete users
+    * can view users under a role
 
 
 * Attendant:
     * can login
 
     * can create a sale order of a product
+    * can get a sales they made
 
     * can get all products 
     * can get a specific product
