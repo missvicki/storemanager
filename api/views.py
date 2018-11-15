@@ -12,6 +12,7 @@ from api.validations.validations import (validate_product, validate_product_modi
 
 # what happens when you start the app
 database = DatabaseConnection()
+database.default_admin()
 
 #error handlers
 @app.errorhandler(404)
