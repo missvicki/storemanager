@@ -14,27 +14,6 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <script>
-            function login(){
-                var userName = document.getElementById("usernamefield").value;
-                var userPassword = document.getElementById("passwordfield").value;
-                var userRole = document.getElementById("role").value;
-                if ( userName == "attendant" && userPassword == "attendant" && userRole == "attendant"){
-                    alert ("Login successful");
-                    window.location = "indexAttendants.html"; // Redirecting to other page.
-                    return false;
-                }
-                else if (userName == "admin" && userPassword == "admin" && userRole == "admin"){
-                    alert ("Login successful");
-                    window.location = "indexOwner.html"; // Redirecting to other page.
-                    return false;
-                }
-                else if(userName == "" && userPassword == "" && userRole == "") {
-                    alert("You have empty fields please fill them")
-                }
-                else{
-                    alert("Check your login details")
-                }
-            } 
         </script>
     </head>
         <body>
@@ -74,6 +53,5 @@
                 </div>
             </div>
         </div>
-        </body>
-  
+    </body>
 </html>

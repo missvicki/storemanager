@@ -15,7 +15,6 @@
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
         <script>
-            
         </script>
 
     </head>
@@ -45,15 +44,19 @@
                                     <h5>Create a new User</h5>                            
                                     <div class="form-wrap">
                                         <label>Employee Name</label>
-                                        <input type = "text" name="name_employee" placeholder="Name" required>
+                                        <input type = "text" id = "name_employee" name="name_employee" placeholder="Name" required>
+                                    </div>
+                                    <div class="form-wrap">
+                                        <label>Username</label>
+                                        <input type = "text" id = "name_user" name="name_user" placeholder="Username" required>
                                     </div>
                                     <div class="form-wrap">
                                         <label>Password</label> 
-                                        <input type="password" name="password_employee" placeholder="Password" required>
+                                        <input type="password" id="password_employee" name="password_employee" placeholder="Password" required>
                                     </div>
                                     <div class="form-wrap">
                                         <label>Verify Password</label> 
-                                        <input type="password" name="psd_verified" placeholder="Password" required>
+                                        <input type="password" id="psd_verified" name="psd_verified" placeholder="Verify Password" required>
                                     </div>
                                     <br>
                                     <select name="role" id="role">
@@ -64,7 +67,7 @@
                                     <br>
                                     <br>
                                     <div class="form-wrap btn">
-                                        <input type="button" onclick="location.href = '#';" name="add1" value="Add New User">
+                                        <input type="button" onclick="signup()" name="add1" value="Add New User">
                                     </div>       
                                 </form>
                             </div>
