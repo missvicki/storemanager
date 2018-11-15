@@ -1,18 +1,9 @@
-## Store Manager [![Build Status](https://travis-ci.org/missvicki/storemanager.svg?branch=ft-login-user-fetch-161947593)](https://travis-ci.org/missvicki/storemanager) [![Coverage Status](https://coveralls.io/repos/github/missvicki/storemanager/badge.svg?branch=ft-login-user-fetch-161947593)](https://coveralls.io/github/missvicki/storemanager?branch=ft-login-user-fetch-161947593) [![Maintainability](https://api.codeclimate.com/v1/badges/5ede6e059132e2e43860/maintainability)](https://codeclimate.com/github/missvicki/storemanager/maintainability)
-
+## Store Manager 
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.    
 
 ## Getting Started
 
 For installation of this project:  `$ git clone 'https://github.com/missvicki/storemanager.git`
-
-## Prerequisites
-
-* Create a Virtual Environment e.g.: `$ virtualenv storemanager`
-* Activate the environment: 
-    * For Windows: `$c:/ .\storemanager\Scripts\activate`
-    * For Linux and Mac: `$ source storemanager/bin/activate`
-* Install project dependencies e.g. flask: `$ pip install -r requirements.txt`
 
 ## Features
 
@@ -52,37 +43,11 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
 | ----------- | -------- | --------- |
 | Store Owner | admin | admin |
 | Store Attendant | attendant | attendant |
-
-## Heroku Endpoints
-
-| REQUEST | ROUTE | FUNCTIONALITY |
-| ------- | ----- | ------------- |
-| POST | /api/v2/auth/signup |Create a New User|
-| POST | /api/v2/auth/login |Login a User|
-| POST | /api/v2/products | Adds a new product |
-| POST | /api/v2/sales | Creates a sales order |
-| GET | /api/v2/products | Returns all products|
-| GET | /api/v2/products/product_id | Fetches a single product |
-| GET | /api/v2/sales | Fetches all sales |
-| GET | /api/v2/users | Fetches all users |
-| GET | /api/v2/sales/user_id | Fetches a single sale made by a user |
-| GET | /api/v2/users/role | Fetches all users belonging to a role |
-| DELETE | /api/v2/products/product_id | Deletes a product |
-| PUT | /api/v2/products/product_id | Modifies a single product |
-
-## Testing the app
-
-`$nosetests --with-cov --cov  tests/`
   
 ## Language
 
-**Python**: 3.6.5
 **HTML5 & CSS3**
 **Vanilla JS**
-
-## Run the app
-
-`$ python run.py`
 
 ## Authors
 
