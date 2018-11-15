@@ -178,6 +178,20 @@ class DatabaseConnection:
         except:
             return False
 
+    def default_admin(self):
+        """inserts default admin"""
+
+        try:
+            self.cur.execute(
+                """
+                INSERT INTO users(name, user_name, password, role)\
+                VALUES('Vicki', 'vickib', 'vibel', 'admin');
+                """
+            )
+        
+        except:
+            return False
+
     def insert_table_login(self, record):
         """add data to table login"""
 
