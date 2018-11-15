@@ -288,6 +288,14 @@ header h1{
     border-bottom: 1.5px solid #40e0d0;
     margin-top: 10px;
 }
+.login-form .login-section form .form-wrap select{
+    min-width: 20%;
+    max-width: 70%;
+    padding: 8px 10px;
+    border: 1.5px solid #40e0d0;
+    margin-top: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .login-form .login-section form .form-wrap input[type="button"]{
     border: none;
     background-color: #262626;
@@ -330,9 +338,9 @@ header h1{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .add-form .add-section form .form-wrap input[type="text"], 
-.add-form .add-section form .form-wrap input[type="number"],
+.add-form .add-section form .form-wrap input[type="password"],
 .add2-form .add2-section form .form-wrap input[type="text"], 
-.add2-form .add2-section form .form-wrap input[type="number"]
+.add2-form .add2-section form .form-wrap input[type="password"]
 {
     min-width: 20%;
     max-width: 70%;
@@ -591,12 +599,6 @@ aside ul.menu li a.selected{
     padding: 10px;
     margin-bottom: 10px;
     text-align: center;
-}
-.add-form{
-    display: none;
-}
-.view-form{
-    display:none;
 }
 .shopcontent input[type="button"]{
     border: none;
