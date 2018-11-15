@@ -50,10 +50,6 @@ queries = (
             date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
-    """,
-    """
-        INSERT INTO users(name, user_name, password, role)\
-            VALUES('Vicki', 'vickib', 'vibel', 'admin')
     """
 )
 from flask import Flask, jsonify
