@@ -8,13 +8,28 @@ from api.__init__ import app
 class DatabaseConnection:
     """Connect to the database"""
     def __init__(self):
+        self.credentials = dict(database="",
+                                user="postgres",
+                                password="admin",
+                                host="127.0.0.1",
+                                port="5432"
+                                )
+
+        if app.config.get('ENV') == "testing":
+            self.credentials['database'] = "storemanager_test_db"
+
+        if app.config.get('ENV') == "production":
+            self.credentials = dict(database="de9iiq47q0aub0",
+                                    user="qibiumajgxukme",
+                                    password="8cc471c6ed5a6586e9750db34d6d7cbc2fdf06c07d4028c8c62710030cb470a4",
+                                    host="ec2-75-101-153-56.compute-1.amazonaws.com",
+                                    port="5432"
+                                    )
+
+        if app.config.get('ENV') == "development":
+            self.credentials['database'] = "storemanager"
         try:
-            self.conn = psycopg2.connect(host="localhost", 
-                                            database="storemanager_test_db", 
-                                            user="postgres", 
-                                            password="admin",
-                                            port="5432")
-                                        
+            self.conn = psycopg2.connect(**self.credentials)
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
             self.conn.autocommit = True
     
