@@ -247,7 +247,7 @@ class TestStoreManagerApi(unittest.TestCase):
         res = self.app.post('/api/v2/auth/login',
                             data=json.dumps(self.user_attendant),
                             content_type='application/json')
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 404)
     
     def test_make_sale(self):
         res = self.app.post('/api/v2/auth/login',
