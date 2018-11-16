@@ -237,7 +237,7 @@ class DatabaseConnection:
         
         except:
             return False
-    
+
     def getuserRole(self, role):
         try:
             self.cur.execute("SELECT * FROM users WHERE role=%s AND delete_status= FALSE", (role,))

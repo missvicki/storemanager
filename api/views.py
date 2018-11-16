@@ -2,12 +2,12 @@
 from flask import Flask, jsonify, request
 from flask.views import MethodView
 import datetime
-from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
+from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity, get_raw_jwt)
 from db.database import DatabaseConnection
 from models.productsModel import Products
 from models.salesModel import Sales
 from models.usersModel import Users, Login
-from api.__init__ import app
+from api.__init__ import app, blacklist
 from api.validations.validations import (validate_product, validate_product_modify, validate_user_signup, validate_user_login, validate_sales)
 
 # what happens when you start the app
@@ -154,6 +154,14 @@ class LoginView(MethodView):
         access_token = create_access_token(identity=role)
         return jsonify(access_token="{}".format(access_token)), 200
 
+class LogoutView(MethodView):
+    @jwt_required
+    def delete(self):
+        """logout a user"""
+        jti = get_raw_jwt()['jti']
+        blacklist.add(jti)
+        return jsonify({"msg": "Successfully logged out"}), 200
+
 class SignupView(MethodView):
     """class where admin can create new users"""
     @jwt_required
@@ -263,6 +271,9 @@ app.add_url_rule('/api/v2/users/<role>',
 app.add_url_rule('/api/v2/auth/login',
                  view_func=LoginView.as_view('login_view'),
                  methods=["POST"])
+app.add_url_rule('/api/v2/auth/logout',
+                 view_func=LogoutView.as_view('logout_view'),
+                 methods=["DELETE"])
 app.add_url_rule('/api/v2/auth/signup',
                  view_func=SignupView.as_view('signup_view'),
                  methods=["POST"])

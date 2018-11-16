@@ -42,6 +42,31 @@
         }
       }
     },
+    "/auth/logout": {
+      "delete": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User can logout.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged out"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/auth/signup": {
       "post": {
         "tags": [

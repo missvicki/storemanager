@@ -733,6 +733,44 @@ class TestStoreManagerApi(unittest.TestCase):
                       headers=headers)
         self.assertEqual(res.status_code, 200)
 
+    def test_logout_admin(self):
+        response= self.app.post('/api/v2/auth/login',
+                                data=json.dumps(self.user_admin),
+                                content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('access_token')
+        headers = {'Authorization': f'Bearer {token}'}
+
+        res = self.app.delete('/api/v2/auth/logout',
+                              content_type='application/json',
+                              headers=headers)
+        self.assertEquals(res.status_code, 200)
+    
+    def test_logout_attendant(self):
+        response= self.app.post('/api/v2/auth/login',
+                                data=json.dumps(self.user_admin),
+                                content_type='application/json')
+        data = json.loads(response.data.decode())
+        token = data.get('access_token')
+        headers = {'Authorization': f'Bearer {token}'}
+        #create attendant
+        self.app.post("/api/v2/auth/signup",
+                            content_type='application/json',
+                            headers=headers,
+                            data=json.dumps(self.user))
+        #login attendant
+        res = self.app.post('/api/v2/auth/login',
+                                content_type='application/json',
+                                data=json.dumps(self.user_attendant))
+        datat = json.loads(res.data)
+        tokent = datat.get('access_token')
+        headerst = {'Authorization': f'Bearer {tokent}'}
+
+        res2 = self.app.delete('/api/v2/auth/logout',
+                              content_type='application/json',
+                              headers=headers)
+        self.assertEquals(res2.status_code, 200)
+
     def tearDown(self):
         """tearDown(self)---"""
         self.db = DatabaseConnection()
