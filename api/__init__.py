@@ -19,16 +19,8 @@ app.config.from_object(app_config["development"])
 
 jwt = JWTManager(app)
 
-#storage engine to save revoked tokens
-blacklist = set()
-
 #cross origin
 CORS(app)
-
-@jwt.token_in_blacklist_loader
-def check_if_token_in_blacklist(decrypted_token):
-    jti = decrypted_token['jti']
-    return jti in blacklist
     
 # index route
 @app.route('/')
