@@ -54,6 +54,8 @@
                             alert(response.statusText + "-" + "either wrong username, password, role")
                         }else if(response.status == 404){
                             alert(response.statusText + "-" + "user does not exist, please signup")
+                        }else{
+                            alert(response.status + "-" + response.statusText)
                         }                      
                     })
                     .catch (console.error)
