@@ -11,7 +11,7 @@
       "description": "Development API server"
     },
     {
-      "url": "https://store-manager-ap1.herokuapp.com/api/v2",
+      "url": "https://store-manager-ap1.herokuapp.com/",
       "description": "Production API server"
     }
   ],
@@ -40,6 +40,34 @@
             "description": "Bad request"
           }
         }
+      }
+    },
+    "/auth/logout": {
+      "delete": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User can logout.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged out"
+          },
+          "401": {
+            "description": "Token was revoked"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/auth/signup": {

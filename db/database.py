@@ -188,20 +188,6 @@ class DatabaseConnection:
         except:
             return False
 
-    def insert_table_login(self, record):
-        """add data to table login"""
-
-        try:
-            self.cur.execute(
-                """
-                INSERT INTO login(user_name, password, role) \
-                VALUES('{}', '{}', '{}')
-                """.format(record.user_name, record.password, record.role)
-            )
-        
-        except:
-            return False
-    
     def getuserRole(self, role):
         try:
             self.cur.execute("SELECT * FROM users WHERE role=%s AND delete_status= FALSE", (role,))
@@ -324,8 +310,41 @@ class DatabaseConnection:
             self.cur.execute(
                 "SELECT * FROM sales WHERE user_id = %s AND delete_status = FALSE", [user_id] 
             )
-            _sale = self.cur.fetchall()
+            _sale = self.cur.fetchone()
             return _sale
+        except:
+            return False
+    
+    def insert_blacklist(self, data):
+        """insert data into blacklist table"""
+
+        try:
+            self.cur.execute("INSERT INTO blacklist(jti) VALUES('{}')"
+            .format(data.jti)
+            )
+        
+        except:
+            return False
+    
+    def fetch_blacklist(self, jti):
+        try:
+            self.cur.execute(
+                "SELECT * FROM blacklist WHERE jti = %s", [jti]
+            )
+            _jti_token = self.cur.fetchone()
+            return _jti_token
+        
+        except:
+            return False
+
+    def fetch_blacklist_all(self):
+        try:
+            self.cur.execute(
+                "SELECT jti FROM blacklist"
+            )
+            _jti_token = self.cur.fetchall()
+            return _jti_token
+        
         except:
             return False
             

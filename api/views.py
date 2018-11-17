@@ -6,13 +6,22 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, g
 from db.database import DatabaseConnection
 from models.productsModel import Products
 from models.salesModel import Sales
-from models.usersModel import Users, Login
-from api.__init__ import app
+from models.usersModel import Users, Blacklist
+from api.__init__ import app, jwt
 from api.validations.validations import (validate_product, validate_product_modify, validate_user_signup, validate_user_login, validate_sales)
 
 # what happens when you start the app
 database = DatabaseConnection()
 database.default_admin()
+
+#storage engine to save revoked tokens
+_db_ = DatabaseConnection()
+blacklisted = _db_.fetch_blacklist_all()
+
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    jti = decrypted_token['jti']
+    return jti in blacklisted
 
 #error handlers
 @app.errorhandler(404)
@@ -45,9 +54,10 @@ class ProductsView(MethodView):
         productget = database.getProducts()
         if not productget:
              return jsonify({'message': "There are no products"}), 404
-        return jsonify({'products': productget}), 200    
+        return jsonify({'products': productget}), 200  
+
     def post(self):
-        """admins and attendants add products"""
+        """admins and attendants add products"""        
         data = request.get_json()
         prod_name = data.get('product_name')
         prod_cat = data.get('category')
@@ -72,6 +82,12 @@ class ProductsView(MethodView):
         """modifies a product"""
         #get the user who is currently logged in
         current_user = get_jwt_identity()
+        jti = get_raw_jwt()['jti']
+        revoked = database.fetch_blacklist(jti)
+
+        if revoked:
+            return jsonify({'msg': 'token already revoked'}), 401
+
         if not current_user == 'admin':
             return jsonify({"message": "You are not authorized"}), 401
 
@@ -100,6 +116,12 @@ class ProductsView(MethodView):
     def delete(self, product_id):
         # get the user who is currently logged in
         current_user = get_jwt_identity()
+        jti = get_raw_jwt()['jti']
+        revoked = database.fetch_blacklist(jti)
+
+        if revoked:
+            return jsonify({'msg': 'token already revoked'}), 401
+
         if not current_user == 'admin':
             return jsonify({"message": "You are not authorized"}), 401
 
@@ -118,6 +140,12 @@ class UsersView(MethodView):
     def get(self, role=None):
         """returns users"""
         current_user = get_jwt_identity()
+        jti = get_raw_jwt()['jti']
+        revoked = database.fetch_blacklist(jti)
+
+        if revoked:
+            return jsonify({'msg': 'token already revoked'}), 401
+
         if not current_user == 'admin':
             return jsonify({"message": "You are not authorized"}), 401
         if role:
@@ -147,10 +175,23 @@ class LoginView(MethodView):
         if loguserval:
             return loguserval
 
-        obj_login = Login(user_name, password, role)
-        database.insert_table_login(obj_login)
         access_token = create_access_token(identity=role)
         return jsonify(access_token="{}".format(access_token)), 200
+
+class LogoutView(MethodView):
+    @jwt_required
+    def delete(self):
+        """logout a user"""
+        jti = get_raw_jwt()['jti']
+        revoked = database.fetch_blacklist(jti)
+
+        if revoked:
+            return jsonify({'msg': 'token already revoked'}), 401
+        
+        jti = get_raw_jwt()['jti']
+        obj_blacklist = Blacklist(jti)
+        database.insert_blacklist(obj_blacklist)
+        return jsonify({"msg": "Successfully logged out"}), 200
 
 class SignupView(MethodView):
     """class where admin can create new users"""
@@ -158,6 +199,12 @@ class SignupView(MethodView):
     def post(self):
         """create a new user"""
         current_user = get_jwt_identity()
+        jti = get_raw_jwt()['jti']
+        revoked = database.fetch_blacklist(jti)
+
+        if revoked:
+            return jsonify({'msg': 'token already revoked'}), 401
+
         if not current_user == 'admin':
             return jsonify({"message": "You are not authorized"}), 401
         
@@ -182,6 +229,12 @@ class SalesView(MethodView):
     def post(self):
         """make a sale order"""
         current_user = get_jwt_identity()
+        jti = get_raw_jwt()['jti']
+        revoked = database.fetch_blacklist(jti)
+
+        if revoked:
+            return jsonify({'msg': 'token already revoked'}), 401
+
         if not current_user == 'attendant':
             return jsonify({"message": "You are not authorized"}), 401
         
@@ -224,6 +277,11 @@ class SalesView(MethodView):
     def get(self, user_id = None):
         """get sale orders"""
         current_user = get_jwt_identity()
+        jti = get_raw_jwt()['jti']
+        revoked = database.fetch_blacklist(jti)
+
+        if revoked:
+            return jsonify({'msg': 'token already revoked'}), 401
 
         if current_user == 'admin' or current_user == 'attendant':
             if user_id:
@@ -261,6 +319,9 @@ app.add_url_rule('/api/v2/users/<role>',
 app.add_url_rule('/api/v2/auth/login',
                  view_func=LoginView.as_view('login_view'),
                  methods=["POST"])
+app.add_url_rule('/api/v2/auth/logout',
+                 view_func=LogoutView.as_view('logout_view'),
+                 methods=["DELETE"])
 app.add_url_rule('/api/v2/auth/signup',
                  view_func=SignupView.as_view('signup_view'),
                  methods=["POST"])
