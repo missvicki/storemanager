@@ -14,39 +14,41 @@
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
         <script>
-            function logout(){
-                const agree = confirm("Are you sure you wish to logout?");
-                const newtoken = localStorage.getItem('token');
+            // function logout(){
+            //     const agree = confirm("Are you sure you wish to logout?");
+            //     const newtoken = localStorage.getItem('token');
 
-                console.log(newtoken)
-                if(agree){
-                    fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/logout',{
-                        method:'DELETE',
-                        headers: {
-                            'Content-type': 'application/json',
-                            'Authorization': `Bearer ${newtoken}`
-                        }
-                    }).then((response) => {
-                        if (response.ok){
-                            return response.text()
-                            .then((data) => {
-                                console.log(data)
-                                alert(data)
-                                window.location = "index.html"
-                            })
-                        }else if(response.status == 401){
-                            alert(response.statusText + "-" + "token was revoked")
-                        }else{
-                            alert(response.status + "-" + response.statusText)
-                        }                       
-                    })
-                    .catch (console.error)
+            //     console.log(newtoken)
+            //     if(agree){
+            //         fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/logout',{
+            //             method:'DELETE',
+            //             headers: {
+            //                 'Content-type': 'application/json',
+            //                 'Authorization': `Bearer ${newtoken}`
+            //             }
+            //         }).then((response) => 
+            //         {
+            //             if (response.ok){
+            //                 return response.text()
+            //                 alert(response.text())
+            //                 // .then((data) => {
+            //                 //     console.log(data)
+            //                 //     window.location = "index.html"
+            //                 //     localStorage.clear()
+            //                 // })
+            //             }else if(response.status == 401){
+            //                 alert(response.statusText + "-" + "token was revoked")
+            //             }else{
+            //                 alert(response.status + "-" + response.statusText)
+            //             }                       
+            //         })
+            //         .catch (console.error)
                     
-                }else{
-                    return false;
-                }
+            //     }else{
+            //         return false;
+            //     }
                 
-            }
+            // }
         </script>
     </head>
     <body>
