@@ -241,7 +241,17 @@ header h1{
     margin-bottom: 5px;
     color: #40e0d0; 
 }
+#formwrapped span{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 5px;
+    color: #40e0d0; 
+}
 .modify-form .modify-section form .form-wrap{
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-left: 15px;
+}
+#formwrapped{
     margin-bottom: 10px;
     margin-left: 5px;
     margin-left: 15px;
@@ -287,6 +297,25 @@ header h1{
     border: none;
     border-bottom: 1.5px solid #40e0d0;
     margin-top: 10px;
+}
+#formwrapped input[type="text"]{
+    min-width: 20%;
+    max-width: 70%;
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1.5px solid #40e0d0;
+    margin-top: 10px;
+}
+#formwrapped input[type="button"]{
+    border: none;
+    background-color: #262626;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: white;
 }
 .login-form .login-section form .form-wrap select{
     min-width: 20%;
@@ -634,3 +663,4 @@ aside ul.menu li a.selected{
     flex-direction: row;
     cursor: pointer;
   }
+
