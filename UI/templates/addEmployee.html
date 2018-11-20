@@ -13,47 +13,8 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-
-        <script>
-            function signup(){
-                var empname = document.getElementById("name_employee").value;
-                var empuserName = document.getElementById("name_user").value;
-                var empPassword = document.getElementById("password_employee").value;
-                var verPassword = document.getElementById("psd_verified").value;
-                var empRole = document.getElementById("role").value;
-
-                var newtoken = localStorage.getItem('token');
-                console.log(newtoken)
-
-                if(empname == "" || empuserName == "" || empPassword == "" || verPassword == "" || empRole == ""){
-                    alert("Fields should not be empty")
-                }else{
-                    //fetch url, define method of request and its parameters
-                    fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/signup',{
-                        method:'POST',
-                        headers: {
-                            'Content-type': 'application/json',
-                            'Authorization': `Bearer ${newtoken}`
-                        },
-                        body: JSON.stringify({name: empname, user_name: empuserName, password:empPassword, role: empRole})
-                    }).then((response) => {
-                        if (response.ok){
-                            return response.text()
-                            .then((data) => {
-                                alert(data)
-                            })
-                        }else if(response.status == 400){
-                            alert(response.statusText + "-" + "user already exists or bad input data")
-                        }else if(response.status == 401){
-                            alert(response.statusText + "-" + "You are unauthorized to perform this action")
-                        }else{
-                            alert(response.status + "-" + response.statusText)
-                        }                 
-                    })
-                    .catch (console.error)
-                }
-            }
-        </script>
+        <script src="../scripts/signup.js"></script>
+        <script src="../scripts/logout.js"></script>
 
     </head>
     <body>
@@ -70,7 +31,7 @@
                     <li><a href="salesOwner.html">Sales</a> </li>
                     <li><a class="selected" href="employess.html">Employees</a> </li>
                     <li><a href="manageProducts.html">Products</a> </li>                                    
-                    <li><a href="index.html">Logout</a> </li>   
+                    <li><a onclick="logout()">Logout</a> </li> 
                 </ul>
             </aside>
             <div class="content">
