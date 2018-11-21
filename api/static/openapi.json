@@ -11,7 +11,7 @@
       "description": "Development API server"
     },
     {
-      "url": "https://store-manager-ap1.herokuapp.com/",
+      "url": "https://store-manager-ap1.herokuapp.com/api/v2",
       "description": "Production API server"
     }
   ],
