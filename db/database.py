@@ -1,5 +1,4 @@
 """Database models"""
-
 queries = (
     """
         CREATE TABLE IF NOT EXISTS products (
@@ -36,20 +35,15 @@ queries = (
             delete_status BOOLEAN DEFAULT FALSE,
             CONSTRAINT prodidfk FOREIGN KEY (product_id)
             REFERENCES products(product_id)
-                ON UPDATE CASCADE
-            ),
+                ON UPDATE CASCADE,
             CONSTRAINT userid_foreign FOREIGN KEY (user_id) 
-            REFERENCES users(user_id) 
-             ON UPDATE CASCADE)
+                REFERENCES users(user_id) 
+                ON UPDATE CASCADE);
     """,
     """
-        CREATE TABLE IF NOT EXISTS login(
-            user_name VARCHAR(12) NOT NULL,
-            password VARCHAR(12) NOT NULL,
-            role VARCHAR(15) NOT NULL,
-            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
+        CREATE TABLE IF NOT EXISTS blacklist(
+            token_id SERIAL PRIMARY KEY,
+            jti VARCHAR(90) UNIQUE);
     """
 )
 from flask import Flask, jsonify
@@ -351,5 +345,5 @@ class DatabaseConnection:
     def drop_tables(self):
         """drop tables if exist"""
         self.cur.execute(
-            "DROP TABLE IF EXISTS products, users, sales, sales_has_products, login CASCADE"
+            "DROP TABLE IF EXISTS products, users, sales, sales_has_products, blacklist CASCADE"
         )

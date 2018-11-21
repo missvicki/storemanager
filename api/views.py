@@ -2,7 +2,7 @@
 from flask import Flask, jsonify, request
 from flask.views import MethodView
 import datetime
-from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
+from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity, get_raw_jwt)
 from db.database import DatabaseConnection
 from models.productsModel import Products
 from models.salesModel import Sales

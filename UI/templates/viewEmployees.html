@@ -12,12 +12,10 @@
         <!--Stylesheet-->
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
-        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-
-        <script>
-            
-        </script>
-
+        <script defer src="http://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="../scripts/jquery-3.3.1.js"></script>
+        <script src="../scripts/viewUsers.js"></script>
+        <script src="../scripts/logout.js"></script>   
     </head>
     <body>
         <header class="dashboard">
@@ -33,7 +31,7 @@
                     <li><a href="salesOwner.html">Sales</a> </li>
                     <li><a class="selected" href="employess.html">Employees</a> </li>
                     <li><a href="manageProducts.html">Products</a> </li>                                    
-                    <li><a href="index.html">Logout</a> </li>   
+                    <li><a onclick="logout()">Logout</a> </li>    
                 </ul>
             </aside>
             <div class="content">
@@ -42,11 +40,25 @@
                         <div class="view-form">
                             <div class="employees">
                                 <h5>View Employees</h5>
-                                <table>
+                                <br>
+                                <form>
+                                    <div class="form-wrap">
+                                        <h5>Users</h5>
+                                        <input type="radio" name="users" id="radio-one" class="form-radio" onclick="allUsers()"><label for="radio-one">All Users</label>
+                                        <input type="radio" name="users" id="radio-two" class="form-radio" onclick="displayroleUsers()"><label for="radio-two">Users under a Role</label>
+                                    </div>
+                                    <div id="formwrapped" style="display: none">
+                                        <input type="text" id="roleUser" placeholder="Enter User Role">
+                                        <input type="button" id="roleBtn" value="Search Users" onclick="usersroles()">  
+                                    </div>
+                                </form>
+                                <br>
+                                <table id="userTable">
                                     <thead>
                                         <tr style="background-color: #090a25; color:#FFF; padding:10px 10px 10px 10px ;">
                                             <th>Employee ID</th>
                                             <th>Employee Name</th>
+                                            <th>Employee Username</th>
                                             <th>Password</th>
                                             <th>Role</th>                                        
                                         </tr>

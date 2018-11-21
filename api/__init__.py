@@ -23,4 +23,3 @@ CORS(app)
 def hello():
     """my home"""
     return render_template("index.html")
-    

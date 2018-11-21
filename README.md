@@ -1,5 +1,4 @@
 ## Store Manager 
-
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.    
 
 ## Getting Started
@@ -77,6 +76,8 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
 ## Language
 
 **Python**: 3.6.5
+**HTML5 & CSS3**
+**Vanilla JS**
 
 ## Run the app
 
