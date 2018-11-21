@@ -61,7 +61,7 @@ function modProduct(){
         document.getElementById("q").focus()
         document.getElementById("q").value=""
     }else{
-        fetch('http://127.0.0.1:5000/api/v2/products/'+pdtid,{
+        fetch('https://store-manager-ap1.herokuapp.com/api/v2/products/'+pdtid,{
             method:'PUT',
             headers: {
                 'Content-type': 'application/json',

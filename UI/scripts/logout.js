@@ -3,7 +3,7 @@ function logout(){
     const newtoken = localStorage.getItem('token');
     // console.log(newtoken)
     if(agree){
-        fetch('http://127.0.0.1:5000/api/v2/auth/logout',{
+        fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/logout',{
             method:'DELETE',
             headers: {
                 'Content-type': 'application/json',
