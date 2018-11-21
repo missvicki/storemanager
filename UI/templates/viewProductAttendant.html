@@ -13,7 +13,9 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="../scripts/jquery-3.3.1.js"></script>
         <script src = "../scripts/logout.js"></script>
+        <script src = "../scripts/getProductsAttendant.js"></script>
 
     </head>
     <body>
@@ -38,7 +40,20 @@
                         <div class="view-form">
                             <div class="products">
                                 <h5>View Products</h5> 
-                                <table>
+                                <br>
+                                <form>
+                                    <div class="form-wrap">
+                                        <h5>Products</h5>
+                                        <input type="radio" name="products" id="radio-one" class="form-radio" onclick="allProducts()"><label for="radio-one">All Products</label>
+                                        <input type="radio" name="products" id="radio-two" class="form-radio" onclick="displaySingleProduct()"><label for="radio-two">Single Product</label>
+                                    </div>
+                                    <div id="formwrapped" style="display: none">
+                                        <input type="text" id="singleProduct" placeholder="Enter Product ID">
+                                        <input type="button" id="pdtBtn" value="Search Product" onclick="singleproduct()">  
+                                    </div>
+                                </form>
+                                <br>
+                                <table id="productTable">
                                     <thead>
                                         <tr style="background-color: #090a25; color:#FFF; padding:10px 10px 10px 10px ;">
                                             <th>Product ID</th>
@@ -46,14 +61,39 @@
                                             <th>Category</th>
                                             <th>Unit Price</th>
                                             <th>Quantity</th>
-                                            <th>Measure</th>                                         
+                                            <th>Measure</th>  
+                                            <th>Select</th>                                         
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
-                                        <tr  style="border-bottom:1px solid #3CC; background-color:#C0C0C0;  color:#000;"></tr>
+                                        <tr  style="border-bottom:1px solid #3CC; background-color:#C0C0C0; color:#000;"></tr>
                                     </tbody>
-                                </table>      
+                                </table>           
                             </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modify-form">
+                        <div class="modify-section">
+                            <form>
+                                <center><h5>SHOPPING CART</h5></center>
+                                <br>
+                                <div class="form-wrap">
+                                    <label>User ID</label> 
+                                    <input type="text" name="userid" placeholder="User ID" id="usid" readonly>
+                                </div>
+                                <div class="form-wrap">
+                                    <label>Product ID</label> 
+                                    <input type="text" name="pdtid" placeholder="Product ID" id="pdtid" readonly>
+                                </div>
+                                <div class="form-wrap">
+                                    <label>Quantity</label> 
+                                    <input type="text" name="pdtqty" placeholder="Product Quantity" id="pdtqty" required>
+                                </div>
+                                <div class="form-wrap btn">
+                                    <input type="button" onclick="saleProduct();" name="salebtn1" value="Make Sale">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

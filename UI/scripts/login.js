@@ -1,7 +1,7 @@
 function login(){
-    var userName = document.getElementById("usernamefield").value;
-    var userPassword = document.getElementById("passwordfield").value;
-    var userRole = document.getElementById("role").value;
+    const userName = document.getElementById("usernamefield").value;
+    const userPassword = document.getElementById("passwordfield").value;
+    const userRole = document.getElementById("role").value;
 
     if(userName == ""){
         alert("Username is required")
@@ -23,7 +23,8 @@ function login(){
         document.getElementById("role").value=""
     }else{
         //fetch url, define method of request and its parameters
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/login',{
+        try{
+            fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/login',{
             method:'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -33,9 +34,9 @@ function login(){
             if (response.ok){
                 return response.text()
                 .then((data) => {
-                    console.log(data)
-                    var accesstoken = JSON.parse(data)
-                    var token = accesstoken["access_token"]
+                    // console.log(data)
+                    const accesstoken = JSON.parse(data)
+                    const token = accesstoken["access_token"]
 
                     localStorage.setItem('token', token)
                     if (userRole == 'admin'){
@@ -58,6 +59,8 @@ function login(){
                 alert(response.status + "-" + response.statusText)
             }                      
         })
-        .catch (console.error)
+        }catch (error){
+            console.log(error)
+        }
     }
 }

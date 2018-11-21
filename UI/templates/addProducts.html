@@ -14,6 +14,7 @@
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
         <script src = "../scripts/logout.js"></script>
+        <script src="../scripts/postProducts.js"></script>
 
     </head>
     <body>
@@ -42,40 +43,50 @@
                                         <h5>Create a New Product</h5>                           
                                         <div class="form-wrap">
                                             <label>Product Name</label>
-                                            <input type = "text" name="np" placeholder="Product Name" required>
+                                            <input type = "text" id="pdtname" name="np" placeholder="Product Name" required>
                                         </div>                                            
                                         <br>
                                         <div class="form-wrap">
                                             <label>Category</label>                                        
-                                            <select name="pdt_categories">
-                                                    <option value="">Select Category</option>
-                                                    <option value="food">Food</option>
-                                                    <option value="detergent">Detergent</option>
-                                                    <option value="homeu">Home Utilities</option>
-                                                    <option value="school">Scholastic Materials</option>
-                                                    <option value="baked">Baked Goodies</option>
-                                                    <option value="wpdt">Women Products</option>
-                                                    <option value="mpdt">Men Products</option>
+                                            <select name="pdt_categories" id="pdtcategory">
+                                                <option value="">Select Category</option>
+                                                <option value="Food">Food</option>
+                                                <option value="Detergent">Detergent</option>
+                                                <option value="Home Utilities">Home Utilities</option>
+                                                <option value="Scholastic Materials">Scholastic Materials</option>
+                                                <option value="Baked Goodies">Baked Goodies</option>
+                                                <option value="Women Poducts">Women Products</option>
+                                                <option value="Men Products">Men Products</option>
                                             </select>
                                         </div>
                                         
                                         <div class="form-wrap">
                                             <label>Unit Price</label> 
-                                            <input type="text" name="up" placeholder="Unit Price" required>
+                                            <input type="text" name="up" id="unitprice" placeholder="Unit Price" required>
                                         </div>
                                         
                                         <div class="form-wrap">
                                             <label>Quantity</label> 
-                                            <input type="text" name="quantity" placeholder="Quantity" required>
+                                            <input type="text" name="quantity" id="pdtqty" placeholder="Quantity" required>
                                         </div>
                                         
                                         <div class="form-wrap">
-                                            <label>Measure</label> 
-                                            <input type="text" name="measure" placeholder="Measure eg Kg" required>
+                                            <label>Measure</label>                                        
+                                            <select name="pdt_measure" id="pdtmeasure">
+                                                <option value="">Select Measure</option>
+                                                <option value="Kgs">Kilograms</option>
+                                                <option value="Boxes">Boxes</option>
+                                                <option value="Cartons">Cartons</option>
+                                                <option value="Dz">Dozen</option>
+                                                <option value="Oz">Ounces</option>
+                                                <option value="Pkts">Packets</option>
+                                                <option value="Pcs">Pieces</option>
+                                                <option value="Ltrs">Litres</option>
+                                            </select>
                                         </div>
                                         <br>
                                         <div class="form-wrap btn">
-                                            <input type="button" onclick="location.href = '#';" name="addbtn2" value="Add Product">
+                                            <input type="button" onclick="addProducts();" name="addbtn2" value="Add Product">
                                         </div>       
                                     </form>
                                 </div>

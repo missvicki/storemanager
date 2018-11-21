@@ -1,13 +1,13 @@
 function signup(){
-    var empname = document.getElementById("name_employee").value;
-    var empuserName = document.getElementById("name_user").value;
-    var empPassword = document.getElementById("password_employee").value;
-    var verPassword = document.getElementById("psd_verified").value;
-    var empRole = document.getElementById("role").value;
+    const empname = document.getElementById("name_employee").value;
+    const empuserName = document.getElementById("name_user").value;
+    const empPassword = document.getElementById("password_employee").value;
+    const verPassword = document.getElementById("psd_verified").value;
+    const empRole = document.getElementById("role").value;
 
-    var newtoken = localStorage.getItem('token');
+    const newtoken = localStorage.getItem('token');
 
-    var passw=  /^[A-Za-z]\w{6,12}$/;
+    const passw=  /^[A-Za-z]\w{6,12}$/;
         
     if(empname == ""){
         alert("Employee name required")
@@ -61,7 +61,8 @@ function signup(){
         document.getElementById("psd_verified").value=""
     }else{
         //fetch url, define method of request and its parameters
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/signup',{
+        try{
+            fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/signup',{
             method:'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -87,6 +88,8 @@ function signup(){
                 alert(response.status + "-" + response.statusText)
             }                 
         })
-        .catch (console.error)                                       
+        }catch (error){
+            console.log(error)
+        }                                    
     }
 }

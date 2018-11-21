@@ -1,12 +1,10 @@
-function allUsers(){
-
-    var userChecked = document.getElementById("radio-one")
+function allUsers(){    
     formwrapped.style.display = "none"
 
     const newtoken = localStorage.getItem('token');
     // console.log(newtoken)
 
-    fetch('https://store-manager-ap1.herokuapp.com/api/v2/users',{
+    fetch('http://127.0.0.1:5000/api/v2/users',{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -79,7 +77,7 @@ function usersroles(){
         const newtoken = localStorage.getItem('token');
         // console.log(newtoken)
         
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/users/'+roleforuser,{
+        fetch('http://127.0.0.1:5000/api/v2/users/'+roleforuser,{
                 method:'GET',
                 headers: {
                     'Content-type': 'application/json',

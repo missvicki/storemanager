@@ -663,4 +663,6 @@ aside ul.menu li a.selected{
     flex-direction: row;
     cursor: pointer;
   }
-
+tbody tr:hover{
+    background-color: #40e0d0;
+}
