@@ -8,7 +8,7 @@ queries = (
             unit_price integer NOT NULL, 
             quantity integer NOT NULL, 
             measure VARCHAR(12) NOT NULL,
-            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             delete_status BOOLEAN DEFAULT FALSE)
     """,
     """
