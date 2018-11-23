@@ -8,13 +8,18 @@ addons:
 
 services:
   - postgresql
-  
+
+env:
+  global:
+    - APP_SETTINGS = "testing"
+
 install:
   - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
   - pip install -r requirements.txt
-  
+
 before_script:
-  - psql -c "create database storemanager;" -U postgres
+  - psql -c "create database storemanager" -U postgres
+  - psql -c "create database storemanager_test_db;" -U postgres
 
 script:
   - nosetests --with-cov --cov  tests/

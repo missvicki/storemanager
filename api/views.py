@@ -12,7 +12,10 @@ from api.validations.validations import (validate_product, validate_product_modi
 
 # what happens when you start the app
 database = DatabaseConnection()
+database.drop_tables()
+database.create_tables()
 database.default_admin()
+
 
 #storage engine to save revoked tokens
 _db_ = DatabaseConnection()

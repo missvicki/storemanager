@@ -24,7 +24,7 @@ function login(){
     }else{
         //fetch url, define method of request and its parameters
         try{
-            fetch('http://127.0.0.1:5000/api/v2/auth/login',{
+            fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/login',{
             method:'POST',
             headers: {
                 'Content-type': 'application/json'

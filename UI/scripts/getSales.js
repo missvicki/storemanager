@@ -2,7 +2,7 @@ function getSales(){
     const name = localStorage.getItem('username')
     const newtoken = localStorage.getItem('token');
     try{
-        fetch('http://127.0.0.1:5000/api/v2/sales/' + name,{
+        fetch('https://store-manager-ap1.herokuapp.com/api/v2/sales/' + name,{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -71,7 +71,7 @@ function getSale(){
             document.getElementById("saleAtt").focus()
             document.getElementById("saleAtt").value = "";
         }else{
-            fetch('http://127.0.0.1:5000/api/v2/sales/' + attname,{
+            fetch('https://store-manager-ap1.herokuapp.com/api/v2/sales/' + attname,{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -147,7 +147,7 @@ function allSales(){
     // console.log(newtoken)
 
     try{
-        fetch('http://127.0.0.1:5000/api/v2/sales',{
+        fetch('https://store-manager-ap1.herokuapp.com/api/v2/sales',{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',

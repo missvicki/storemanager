@@ -1,48 +1,4 @@
 """Database models"""
-queries = (
-    """
-        CREATE TABLE IF NOT EXISTS products (
-            product_id SERIAL PRIMARY KEY, 
-            product_name VARCHAR(50) UNIQUE NOT NULL, 
-            category VARCHAR(50) NOT NULL, 
-            unit_price integer NOT NULL, 
-            quantity integer NOT NULL, 
-            measure VARCHAR(12) NOT NULL,
-            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            delete_status BOOLEAN DEFAULT FALSE)
-    """,
-    """
-        CREATE TABLE IF NOT EXISTS users (
-            user_id SERIAL PRIMARY KEY, 
-            name VARCHAR(50) NOT NULL,
-            user_name VARCHAR(20) NOT NULL UNIQUE, 
-            password VARCHAR(12) UNIQUE NOT NULL, 
-            role VARCHAR(15) NOT NULL,
-            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            delete_status BOOLEAN DEFAULT FALSE);
-    """,
-    """
-        CREATE TABLE IF NOT EXISTS sales (
-            sale_id SERIAL PRIMARY KEY,  
-            user_name VARCHAR(20) NOT NULL,
-            product_id integer NOT NULL,
-            quantity integer NOT NULL,
-            total integer NOT NULL,
-            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            delete_status BOOLEAN DEFAULT FALSE,
-            CONSTRAINT prodidfk FOREIGN KEY (product_id)
-                REFERENCES products(product_id)
-                ON UPDATE CASCADE,
-            CONSTRAINT username_foreign FOREIGN KEY (user_name) 
-                REFERENCES users(user_name) 
-                ON UPDATE CASCADE);
-    """,
-    """
-        CREATE TABLE IF NOT EXISTS blacklist(
-            token_id SERIAL PRIMARY KEY,
-            jti VARCHAR(90) UNIQUE);
-    """
-)
 from flask import Flask, jsonify
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -52,18 +8,101 @@ from api.__init__ import app
 class DatabaseConnection:
     """Connect to the database"""
     def __init__(self):
+        self.credentials = dict(database="",
+                                user="postgres",
+                                password="admin",
+                                host="127.0.0.1",
+                                port="5432"
+                                )
+
+        if app.config.get('ENV') == "testing":
+            self.credentials['database'] = "storemanager_test_db"
+
+        if app.config.get('ENV') == "production":
+            self.credentials = dict(database="de9iiq47q0aub0",
+                                    user="qibiumajgxukme",
+                                    password="8cc471c6ed5a6586e9750db34d6d7cbc2fdf06c07d4028c8c62710030cb470a4",
+                                    host="ec2-75-101-153-56.compute-1.amazonaws.com",
+                                    port="5432"
+                                    )
+
+        if app.config.get('ENV') == "development":
+            self.credentials['database'] = "storemanager"
         try:
-            self.conn = psycopg2.connect(host="ec2-54-83-27-162.compute-1.amazonaws.com", 
-                                            database="dcojjie21dvmis", 
-                                            user="sejawvmmzwabhv", 
-                                            port = "5432",
-                                            password="26c76331cf6695b3226de7db2d6405f757329228c9e84b858a29847e030d6044")
+            self.conn = psycopg2.connect(**self.credentials)
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
             self.conn.autocommit = True
-            for query in queries:
-                self.cur.execute(query)
+    
         except psycopg2.DatabaseError as anything:
             print (anything)
+        
+
+    def drop_tables(self):
+        """drop tables if exist"""
+        self.cur.execute(
+            "DROP TABLE IF EXISTS products, users, sales, blacklist CASCADE"
+        )
+
+    def create_tables(self):
+        """create product table""" 
+
+        self.cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS products (
+                product_id SERIAL PRIMARY KEY, 
+                product_name VARCHAR(50) UNIQUE NOT NULL, 
+                category VARCHAR(50) NOT NULL, 
+                unit_price integer NOT NULL, 
+                quantity integer NOT NULL, 
+                measure VARCHAR(12) NOT NULL,
+                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                delete_status BOOLEAN DEFAULT FALSE);
+            """
+        )
+
+        """create user table"""  
+        self.cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS users (
+                user_id SERIAL PRIMARY KEY, 
+                name VARCHAR(50) NOT NULL,
+                user_name VARCHAR(20) NOT NULL UNIQUE, 
+                password VARCHAR(12) UNIQUE NOT NULL, 
+                role VARCHAR(15) NOT NULL,
+                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                delete_status BOOLEAN DEFAULT FALSE);
+            """
+        )
+
+        """create sales table"""  
+        self.cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS sales (
+                sale_id SERIAL PRIMARY KEY,  
+                user_name VARCHAR(20) NOT NULL,
+                product_id integer NOT NULL,
+                quantity integer NOT NULL,
+                total integer NOT NULL,
+                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                delete_status BOOLEAN DEFAULT FALSE,
+                CONSTRAINT prodidfk FOREIGN KEY (product_id)
+                    REFERENCES products(product_id)
+                    ON UPDATE CASCADE,
+                CONSTRAINT username_foreign FOREIGN KEY (user_name) 
+                    REFERENCES users(user_name) 
+                    ON UPDATE CASCADE);
+            """
+        )
+
+        """blacklist table create"""
+        self.cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS blacklist(
+                token_id SERIAL PRIMARY KEY,
+                jti VARCHAR(90) UNIQUE);
+            """
+        )
         
     def insert_data_products(self, data):
         """inserts values into table products"""
@@ -338,10 +377,3 @@ class DatabaseConnection:
         
         except:
             return False
-
-            
-    def drop_tables(self):
-        """drop tables if exist"""
-        self.cur.execute(
-            "DROP TABLE IF EXISTS products, users, sales, blacklist CASCADE"
-        )

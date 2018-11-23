@@ -44,7 +44,7 @@ function saleProduct(){
     }
     else{
         try{
-            fetch('http://127.0.0.1:5000/api/v2/sales',{
+            fetch('https://store-manager-ap1.herokuapp.com/api/v2/sales',{
             method:'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -56,8 +56,13 @@ function saleProduct(){
                 if (response.ok){
                     return response.text()
                     .then((data) => {
+                        alert(data)
+                        document.getElementById("usname").value=""
+                        document.getElementById("pdtid").value=""
+                        document.getElementById("pdtqty").value=""
+
                         try{
-                            fetch('http://127.0.0.1:5000/api/v2/products',{
+                            fetch('https://store-manager-ap1.herokuapp.com/api/v2/products',{
                         method:'GET',
                         headers: {
                             'Content-type': 'application/json',
@@ -119,10 +124,6 @@ function saleProduct(){
                         }catch(error){
                             console.log(error)
                         }
-                        alert(data)
-                        document.getElementById("usname").value=""
-                        document.getElementById("pdtid").value=""
-                        document.getElementById("pdtqty").value=""
                     })
                 }else if(response.status == 404){
                     alert(response.statusText + "-" + "product does not exist")
