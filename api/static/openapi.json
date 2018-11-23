@@ -12,7 +12,6 @@
     },
     {
       "url": "https://store-manager-ap1.herokuapp.com/api/v2",
-
       "description": "Production API server"
     }
   ],
@@ -316,7 +315,7 @@
         }
       }
     },
-    "/sales/{user_id}": {
+    "/sales/{user_name}": {
       "get": {
         "tags": [
           "Sales"
@@ -324,14 +323,12 @@
         "summary": "Returns a sales specific to an attendant",
         "parameters": [
           {
-            "name": "user_id",
+            "name": "user_name",
             "in": "path",
             "required": true,
             "description": "Get sales specific to an attendant",
             "schema": {
-              "type": "integer",
-              "format": "int64",
-              "minimum": 1
+              "type": "string"
             }
           }
         ],
@@ -345,7 +342,7 @@
             "description": "sales found"
           },
           "404": {
-            "description": "Sales with related to id not been found"
+            "description": "Sales with related to user not been found"
           }
         }
       }
@@ -526,9 +523,9 @@
             "type": "integer",
             "example" : 6
           },
-          "user_id": {
-            "type": "integer",
-            "example" : 2
+          "user_name": {
+            "type": "string",
+            "example" : "victoria"
           }
         }
       }

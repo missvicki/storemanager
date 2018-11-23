@@ -239,21 +239,21 @@ class SalesView(MethodView):
             return jsonify({"message": "You are not authorized"}), 401
         
         data = request.get_json()
-        user_id = int(data.get('user_id'))
+        user_name = data.get('user_name')
         quantity = int(data.get('quantity'))
         product_id = int(data.get('product_id'))
 
         # check empty fields
-        valsale=validate_sales(user_id=user_id, product_id=product_id, quantity=quantity)
+        valsale=validate_sales(user_name=user_name, product_id=product_id, quantity=quantity)
 
         if valsale:
             return valsale
                 
         # get quantity
-        getQty = int(database.getQuantity(product_id))
+        getQty = int(database.getoneProduct(product_id)["quantity"])
 
         # get price
-        getPrice = int(database.getPrice(product_id))
+        getPrice = int(database.getoneProduct(product_id)["unit_price"])
 
         #check if quantity is more than quantity in products table
         if quantity > database.getoneProduct(product_id)["quantity"]:
@@ -266,7 +266,7 @@ class SalesView(MethodView):
         newqty = getQty - quantity
 
         # insert into sales table
-        obj_sales = Sales(user_id, product_id, quantity, total)
+        obj_sales = Sales(user_name, product_id, quantity, total)
         database.insert_data_sales(obj_sales)
 
         #update products table
@@ -274,7 +274,7 @@ class SalesView(MethodView):
         return jsonify({"Success": "sale has been added"}), 201
 
     @jwt_required
-    def get(self, user_id = None):
+    def get(self, user_name = None):
         """get sale orders"""
         current_user = get_jwt_identity()
         jti = get_raw_jwt()['jti']
@@ -283,15 +283,15 @@ class SalesView(MethodView):
         if revoked:
             return jsonify({'msg': 'token already revoked'}), 401
 
-        if current_user == 'admin' or current_user == 'attendant':
-            if user_id:
-                saleorder = database.get_one_sale(user_id)
-                if not saleorder:
-                    return jsonify({'message': "sale has not been found"}), 404
-                return jsonify({'sale': saleorder}), 200
+        # if current_user == 'admin' or current_user == 'attendant':
+        if user_name:
+            saleorder = database.get_one_sale(user_name)
+            if not saleorder:
+                return jsonify({'message': "sale has not been found"}), 404
+            return jsonify({'sale': saleorder}), 200
         
         if current_user == 'admin':
-            if not user_id:
+            if not user_name:
                 saleget = database.getsales()
                 if not saleget:
                     return jsonify({'message': "There are no sales"}), 404
@@ -307,7 +307,7 @@ app.add_url_rule('/api/v2/products/<product_id>',
 app.add_url_rule('/api/v2/sales',
                  view_func=SalesView.as_view('sales_view'),
                  methods=["GET", "POST"])
-app.add_url_rule('/api/v2/sales/<user_id>',
+app.add_url_rule('/api/v2/sales/<user_name>',
                  view_func=SalesView.as_view('sale_view'),
                  methods=["GET"])
 app.add_url_rule('/api/v2/users',

@@ -8,8 +8,7 @@ queries = (
             unit_price integer NOT NULL, 
             quantity integer NOT NULL, 
             measure VARCHAR(12) NOT NULL,
-            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             delete_status BOOLEAN DEFAULT FALSE)
     """,
     """
@@ -26,18 +25,17 @@ queries = (
     """
         CREATE TABLE IF NOT EXISTS sales (
             sale_id SERIAL PRIMARY KEY,  
-            user_id integer NOT NULL,
+            user_name VARCHAR(20) NOT NULL,
             product_id integer NOT NULL,
             quantity integer NOT NULL,
             total integer NOT NULL,
             date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             delete_status BOOLEAN DEFAULT FALSE,
             CONSTRAINT prodidfk FOREIGN KEY (product_id)
-            REFERENCES products(product_id)
+                REFERENCES products(product_id)
                 ON UPDATE CASCADE,
-            CONSTRAINT userid_foreign FOREIGN KEY (user_id) 
-                REFERENCES users(user_id) 
+            CONSTRAINT username_foreign FOREIGN KEY (user_name) 
+                REFERENCES users(user_name) 
                 ON UPDATE CASCADE);
     """,
     """
@@ -227,13 +225,13 @@ class DatabaseConnection:
 
         except:
             return False
-
-    def check_user_exists_id(self, user_id):
+    
+    def check_user_exists_name(self, user_name):
         """check if user exists"""
 
         try:
             self.cur.execute(
-                "SELECT * FROM users WHERE user_id = %s AND delete_status= FALSE", [user_id]) 
+                "SELECT * FROM users WHERE user_name = %s AND delete_status= FALSE", [user_name]) 
             return self.cur.fetchone()
 
         except:
@@ -243,8 +241,8 @@ class DatabaseConnection:
         """insert data into sales table"""
 
         try:
-            self.cur.execute("INSERT INTO sales(user_id, product_id, quantity, total) VALUES({}, {}, {}, {}) RETURNING sale_id"
-            .format(data.user_id, data.product_id, data.quantity, data.total)
+            self.cur.execute("INSERT INTO sales(user_name, product_id, quantity, total) VALUES('{}', {}, {}, {}) RETURNING sale_id"
+            .format(data.user_name, data.product_id, data.quantity, data.total)
             )
             return self.cur.fetchone()[0]
         
@@ -299,12 +297,12 @@ class DatabaseConnection:
         except:
             return False
     
-    def get_one_sale(self, user_id):
+    def get_one_sale(self, user_name):
         try:
             self.cur.execute(
-                "SELECT * FROM sales WHERE user_id = %s AND delete_status = FALSE", [user_id] 
+                "SELECT * FROM sales WHERE user_name = %s AND delete_status = FALSE", [user_name] 
             )
-            _sale = self.cur.fetchone()
+            _sale = self.cur.fetchall()
             return _sale
         except:
             return False
@@ -341,6 +339,7 @@ class DatabaseConnection:
         
         except:
             return False
+
             
     def drop_tables(self):
         """drop tables if exist"""
