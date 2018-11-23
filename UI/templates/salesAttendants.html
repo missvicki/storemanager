@@ -13,7 +13,9 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="../scripts/jquery-3.3.1.js"></script>
         <script src="../scripts/logout.js"></script>
+        <script src="../scripts/getSales.js"></script>
 
     </head>
     <body>
@@ -40,17 +42,22 @@
                 <div class="main-info">
                     <div class="down-section">
                         <div class="sale">
-                            <table>
+                                <form>
+                                    <div class="form-wrap">
+                                        <h5>Sales</h5>
+                                        <input type="radio" name="sales" id="radio-one" class="form-radio" onclick="getSales()"><label for="radio-one">My Sales</label>
+                                    </div>
+                                </form>
+                                <br>
+                            <table id=saleTable>
                                 <thead>
                                     <tr style="background-color:#2c3e50; color:#FFF; padding:10px 10px 10px 10px ;">
                                         <th>Sale ID</th>
-                                        <th>User ID</th>
+                                        <th>Username</th>
                                         <th>Product ID</th>
-                                        <th>Product Name</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
-                                        <th>Date Created</th>
-                                        <th>Date Modified</th>                                       
+                                        <th>Date Created</th>                                     
                                     </tr>
                                 </thead>
                                 <tbody id="table_body">

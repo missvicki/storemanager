@@ -1,6 +1,7 @@
 function deleteProduct(){
         // get field values
         const pdtid = document.getElementById("pdtid").value;
+        const pdtnam = document.getElementById("pname").value;
         const pdtcat = document.getElementById("pdtcategory2").value;
         const pdtp = document.getElementById("unitp").value;
         const pdtqt = document.getElementById("q").value;
@@ -9,10 +10,30 @@ function deleteProduct(){
         const newtoken = localStorage.getItem('token');
     
         //validate
-        if(pdtcat == ""){
+        if(pdtid == ""){
+            alert("Product id required")
+            document.getElementById("pdtid").focus()
+            document.getElementById("pdtid").value = ""
+            document.getElementById("pname").value =""
+            document.getElementById("pdtcategory2").value = ""
+            document.getElementById("unitp").value = ""
+            document.getElementById("q").value = ""
+            document.getElementById("pdtmeasure2").value = ""
+        }else if(pdtnam == ""){
+            alert("Product name required")
+            document.getElementById("pname").focus()
+            document.getElementById("pdtid").value = ""
+            document.getElementById("pname").value =""
+            document.getElementById("pdtcategory2").value = ""
+            document.getElementById("unitp").value = ""
+            document.getElementById("q").value = ""
+            document.getElementById("pdtmeasure2").value = ""
+        }else if(pdtcat == ""){
             alert("Product category required")
             document.getElementById("pdtcategory2").focus()
             document.getElementById("pdtcategory2").value = ""
+            document.getElementById("pname").value =""
+            document.getElementById("pdtid").value = ""
             document.getElementById("unitp").value = ""
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""
@@ -20,6 +41,8 @@ function deleteProduct(){
             alert("Product Unit Price required")
             document.getElementById("unitp").focus()
             document.getElementById("pdtcategory2").value = ""
+            document.getElementById("pname").value =""
+            document.getElementById("pdtid").value = ""
             document.getElementById("unitp").value = ""
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""      
@@ -27,6 +50,8 @@ function deleteProduct(){
             alert("Product Quantity required")
             document.getElementById("q").focus()
             document.getElementById("pdtcategory2").value = ""
+            document.getElementById("pname").value =""
+            document.getElementById("pdtid").value = ""
             document.getElementById("unitp").value = ""
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""       
@@ -34,6 +59,8 @@ function deleteProduct(){
             alert("Product Measure required")
             document.getElementById("pdtmeasure2").focus()
             document.getElementById("pdtcategory2").value = ""
+            document.getElementById("pname").value =""
+            document.getElementById("pdtid").value = ""
             document.getElementById("unitp").value = ""
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""     
@@ -61,7 +88,8 @@ function deleteProduct(){
             document.getElementById("q").focus()
             document.getElementById("q").value=""
         }else{
-            fetch('https://store-manager-ap1.herokuapp.com/api/v2/products/'+pdtid,{
+            try{
+                fetch('http://127.0.0.1:5000/api/v2/products/'+pdtid,{
                 method:'DELETE',
                 headers: {
                     'Content-type': 'application/json',
@@ -79,16 +107,87 @@ function deleteProduct(){
                         document.getElementById("unitp").value = ""
                         document.getElementById("q").value = ""
                         document.getElementById("pdtmeasure2").value = ""
+                        try{
+                            fetch('http://127.0.0.1:5000/api/v2/products',{
+                            method:'GET',
+                            headers: {
+                                'Content-type': 'application/json',
+                                'Authorization': `Bearer ${newtoken}`
+                            },
+                            }).then((response) => {
+                                if (response.ok){
+                                    return response.text()
+                                    .then((data) => {
+                                        const productsData = JSON.parse(data)
+                                        const products = productsData["products"]
+                                        // console.log(products)
+                                            
+                                        var content = '';
+
+                                        //clear table body data
+                                        const productTableBody = document.querySelector("#productTable > tbody")
+                                        while (productTableBody.firstChild){
+                                            productTableBody.removeChild(productTableBody.firstChild)
+                                        }
+
+                                        //get each row in json
+                                        products.forEach((row) => {
+                                            // console.log(row)
+                                            const pname = row["product_name"]
+                                            const pcategory = row["category"]
+                                            const pprice = row["unit_price"]
+                                            const pqty = row["quantity"]
+                                            const pmeasure = row["measure"]
+                                            const pid = row["product_id"]
+                                            
+                                            content +='<tr>';
+                                            content += '<td>' + pid + '</td>';
+                                            content += '<td>' + pname + '</td>';
+                                            content += '<td>' + pcategory + '</td>';
+                                            content += '<td>' + pprice + '</td>';
+                                            content += '<td>' + pqty + '</td>';
+                                            content += '<td>' + pmeasure + '</td>';
+                                            content += '<td><input type="radio" name="radio" onclick="return modifyProduct('+pid+', \'' + pname + '\', \'' + pcategory + '\', '+pprice+', '+pqty+', \'' + pmeasure + '\');"/></td>';
+                                            content += '</tr>';
+                                            })      
+                                            //populate table                 
+                                            $('#productTable').append(content)
+                                    })
+                                }else if(response.status == 404){
+                                    alert(response.statusText + "-" + "no products found")
+                                    //clear table body data
+                                    const productTableBody = document.querySelector("#productTable > tbody")
+                                    while (productTableBody.firstChild){
+                                        productTableBody.removeChild(productTableBody.firstChild)
+                                    }
+
+                                }else if(response.status == 401){
+                                    alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                                }else{
+                                    alert(response.status + "-" + response.statusText)
+                                }                 
+                            })
+                        }catch(error){
+                            console.log(error)
+                        }
                     })
-                }else if(response.status == 400){
-                    alert(response.statusText + "-" + "product already exists")
+                }else if(response.status == 404){
+                    alert(response.statusText + "-" + "product does not exists")
+                    //clear table body data
+                    const productTableBody = document.querySelector("#productTable > tbody")
+                    while (productTableBody.firstChild){
+                        productTableBody.removeChild(productTableBody.firstChild)
+                    }
+
                 }else if(response.status == 401){
                     alert(response.statusText + "-" + "You are unauthorized to perform this action")
                 }else{
                     alert(response.status + "-" + response.statusText)
                 }                 
-            })
-            .catch (console.error) 
+            }).catch(console.error)
+            }catch (error) {
+                console.log(error)
+            }
         }
     }
     

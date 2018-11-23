@@ -3,8 +3,8 @@ function allUsers(){
 
     const newtoken = localStorage.getItem('token');
     // console.log(newtoken)
-
-    fetch('https://store-manager-ap1.herokuapp.com/api/v2/users',{
+    try{
+        fetch('http://127.0.0.1:5000/api/v2/users',{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -54,7 +54,9 @@ function allUsers(){
                 alert(response.status + "-" + response.statusText)
             }                 
         })
-        .catch (console.error)
+    }catch (error){
+        console.log(error)
+    }
     
 }
 function displayroleUsers(){
@@ -76,8 +78,8 @@ function usersroles(){
     }else if(roleforuser == 'admin' || roleforuser == 'attendant'){
         const newtoken = localStorage.getItem('token');
         // console.log(newtoken)
-        
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/users/'+roleforuser,{
+        try{
+            fetch('http://127.0.0.1:5000/api/v2/users/'+roleforuser,{
                 method:'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -121,13 +123,30 @@ function usersroles(){
                     })
                 }else if(response.status == 404){
                     alert(response.statusText + "-" + "no users found")
+                    //clear table body data
+                    const userTableBody = document.querySelector("#userTable > tbody")
+                    while (userTableBody.firstChild){
+                        userTableBody.removeChild(userTableBody.firstChild)
+                    }
                 }else if(response.status == 401){
                     alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                    //clear table body data
+                    const userTableBody = document.querySelector("#userTable > tbody")
+                    while (userTableBody.firstChild){
+                        userTableBody.removeChild(userTableBody.firstChild)
+                    }
                 }else{
                     alert(response.status + "-" + response.statusText)
+                    //clear table body data
+                    const userTableBody = document.querySelector("#userTable > tbody")
+                    while (userTableBody.firstChild){
+                        userTableBody.removeChild(userTableBody.firstChild)
+                    }
                 }                 
             })
-            .catch (console.error)
+        }catch (error){
+            console.log(error)
+        }
         }else{
         alert("No such user role records")
         document.getElementById("roleUser").focus()

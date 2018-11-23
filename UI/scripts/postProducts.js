@@ -74,7 +74,8 @@ function addProducts(){
         document.getElementById("pdtqty").focus()
         document.getElementById("pdtqty").value=""
     }else{
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/products',{
+        try{
+            fetch('http://127.0.0.1:5000/api/v2/products',{
             method:'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -101,6 +102,8 @@ function addProducts(){
                 alert(response.status + "-" + response.statusText)
             }                 
         })
-        .catch (console.error) 
+        }catch (error){
+            console.log(error)
+        }
     }
 }

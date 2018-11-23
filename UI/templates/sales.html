@@ -13,6 +13,8 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="../scripts/jquery-3.3.1.js"></script>
+        <script src="../scripts/getSales.js"></script>
         <script src="../scripts/logout.js"></script>
 
     </head>
@@ -26,7 +28,7 @@
             <aside id="side-menu">
                 <ul class="menu">
                     <li><a href="indexOwner.html">Dashboard</a> </li>
-                    <li><a class="selected" href="salesOwner.html">Sales</a> </li>
+                    <li><a class="selected" href="sales.html">Sales</a> </li>
                     <li><a href="employess.html">Employees</a> </li>
                     <li><a href="manageProducts.html">Products</a> </li>                                   
                     <li><a onclick="logout()">Logout</a> </li>                        
@@ -39,17 +41,29 @@
                     </div>
                     <div class="down-section">
                         <div class="sale">
-                            <table>
+                            <h5>View Sales</h5>
+                            <br>
+                            <form>
+                                <div class="form-wrap">
+                                    <h5>Sales</h5>
+                                    <input type="radio" name="sales" id="radio-one" class="form-radio" onclick="allSales()"><label for="radio-one">All Sales</label>
+                                    <input type="radio" name="sales" id="radio-two" class="form-radio" onclick="displaySalesAtt()"><label for="radio-two">Sales for specific Attendant</label>
+                                </div>
+                                <div id="formwrapped" style="display: none">
+                                    <input type="text" id="saleAtt" placeholder="Enter Sale Attendant Name">
+                                    <input type="button" id="saleBtn" value="Search Sales" onclick="getSale()">  
+                                </div>
+                            </form>
+                            <br>
+                            <table id=saleTable>
                                 <thead>
                                     <tr style="background-color:#2c3e50; color:#FFF; padding:10px 10px 10px 10px ;">
                                         <th>Sale ID</th>
-                                        <th>User ID</th>
+                                        <th>Username</th>
                                         <th>Product ID</th>
-                                        <th>Product Name</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
-                                        <th>Date Created</th>
-                                        <th>Date Modified</th>                                       
+                                        <th>Date Created</th>                                       
                                     </tr>
                                 </thead>
                                 <tbody id="table_body">

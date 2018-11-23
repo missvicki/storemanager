@@ -3,8 +3,8 @@ function allProducts(){
 
     const newtoken = localStorage.getItem('token');
     // console.log(newtoken)
-
-    fetch('https://store-manager-ap1.herokuapp.com/api/v2/products',{
+    try{
+        fetch('http://127.0.0.1:5000/api/v2/products',{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -35,6 +35,8 @@ function allProducts(){
                         const pqty = row["quantity"]
                         const pmeasure = row["measure"]
                         const pid = row["product_id"]
+
+                        localStorage.setItem('prodname', pname)
                         
                         content +='<tr>';
                         content += '<td>' + pid + '</td>';
@@ -43,7 +45,7 @@ function allProducts(){
                         content += '<td>' + pprice + '</td>';
                         content += '<td>' + pqty + '</td>';
                         content += '<td>' + pmeasure + '</td>';
-                        content += '<td><input type="radio" name="radio" onclick="return makeSale('+pid+', '+pprice+', '+pqty+');"/></td>';
+                        content += '<td><input type="radio" name="radio" onclick="return makeSale('+pid+');"/></td>';
                         content += '</tr>';
                         })      
                         //populate table                 
@@ -57,7 +59,9 @@ function allProducts(){
                 alert(response.status + "-" + response.statusText)
             }                 
         })
-        .catch (console.error)
+    }catch (error){
+        console.log(error)
+    }
 
 }
 function displaySingleProduct(){
@@ -85,8 +89,8 @@ function singleproduct(){
     }else{
         const newtoken = localStorage.getItem('token');
         // console.log(newtoken)
-        
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/products/'+pdtid,{
+        try{
+            fetch('http://127.0.0.1:5000/api/v2/products/'+pdtid,{
                 method:'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -116,6 +120,8 @@ function singleproduct(){
                         const pqty = products.quantity
                         const pmeasure = products.measure
                         const pid = products.product_id
+
+                        localStorage.setItem('prodname', pname)
                             
                         content +='<tr>';
                         content += '<td>' + pid + '</td>';
@@ -124,7 +130,7 @@ function singleproduct(){
                         content += '<td>' + pprice + '</td>';
                         content += '<td>' + pqty + '</td>';
                         content += '<td>' + pmeasure + '</td>';
-                        content += '<td><input type="radio" name="radio" onclick="return modifyProduct('+pid+', \'' + pname + '\', \'' + pcategory + '\', '+pprice+', '+pqty+', \'' + pmeasure + '\');"/></td>';
+                        content += '<td><input type="radio" name="radio" onclick="return makeSale('+pid+');"/></td>';
                         content += '</tr>';
                               
                         //populate table                 
@@ -153,11 +159,15 @@ function singleproduct(){
                      }
                 }                 
             })
-            .catch (console.error)
+        }catch (error){
+            console.log(error)
+        }
         }
 }
 // display selected row data into input text
-function makeSale(pdid, price, qty){
+function makeSale(pdid){
+    const name = localStorage.getItem('username')
     document.getElementById("pdtid").value = pdid
+    document.getElementById("usname").value = name
 }
 

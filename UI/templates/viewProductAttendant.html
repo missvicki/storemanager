@@ -16,6 +16,7 @@
         <script src="../scripts/jquery-3.3.1.js"></script>
         <script src = "../scripts/logout.js"></script>
         <script src = "../scripts/getProductsAttendant.js"></script>
+        <script src="../scripts/makeSale.js"></script>
 
     </head>
     <body>
@@ -79,8 +80,8 @@
                                 <center><h5>SHOPPING CART</h5></center>
                                 <br>
                                 <div class="form-wrap">
-                                    <label>User ID</label> 
-                                    <input type="text" name="userid" placeholder="User ID" id="usid" readonly>
+                                    <label>Store Attendant Username</label> 
+                                    <input type="text" name="userid" placeholder="User Name" id="usname" readonly>
                                 </div>
                                 <div class="form-wrap">
                                     <label>Product ID</label> 
@@ -92,6 +93,7 @@
                                 </div>
                                 <div class="form-wrap btn">
                                     <input type="button" onclick="saleProduct();" name="salebtn1" value="Make Sale">
+                                    <input type="button" onclick="cancelSale();" name="salecancelbtn1" value="Cancel Sale">
                                 </div>
                             </form>
                         </div>
