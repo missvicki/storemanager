@@ -325,3 +325,4 @@ app.add_url_rule('/api/v2/auth/logout',
 app.add_url_rule('/api/v2/auth/signup',
                  view_func=SignupView.as_view('signup_view'),
                  methods=["POST"])
+
