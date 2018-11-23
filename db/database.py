@@ -15,7 +15,7 @@ queries = (
         CREATE TABLE IF NOT EXISTS users (
             user_id SERIAL PRIMARY KEY, 
             name VARCHAR(50) NOT NULL,
-            user_name VARCHAR(12) NOT NULL UNIQUE, 
+            user_name VARCHAR(20) NOT NULL UNIQUE, 
             password VARCHAR(12) UNIQUE NOT NULL, 
             role VARCHAR(15) NOT NULL,
             date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
