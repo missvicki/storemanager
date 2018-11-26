@@ -26,22 +26,25 @@ function getSales(){
                     }
 
                     //get each row in json
-                    const saleid = sale.sale_id
-                    const usname = sale.user_name
-                    const pid = sale.product_id
-                    const total = sale.total
-                    const qtyy = sale.quantity
-                    const dcre = sale.date_created         
-                        
-                    content +='<tr>';
-                    content += '<td>' + saleid + '</td>';
-                    content += '<td>' + usname + '</td>';
-                    content += '<td>' + pid + '</td>';
-                    content += '<td>' + qtyy + '</td>';
-                    content += '<td>' + total + '</td>';
-                    content += '<td>' + dcre + '</td>';
-                    content += '</tr>';
-                    //populate table                 
+                    sale.forEach((row) => {
+                        // console.log(row)
+                        const saleid = row["sale_id"]
+                        const usname = row["user_name"]
+                        const pid = row["product_id"]
+                        const total = row["total"]
+                        const qtyy = row["quantity"]
+                        const dcre = row["date_created"]        
+                            
+                        content +='<tr>';
+                        content += '<td>' + saleid + '</td>';
+                        content += '<td>' + usname + '</td>';
+                        content += '<td>' + pid + '</td>';
+                        content += '<td>' + qtyy + '</td>';
+                        content += '<td>' + total + '</td>';
+                        content += '<td>' + dcre + '</td>';
+                        content += '</tr>';
+                    })      
+                        //populate table                 
                     $('#saleTable').append(content)
                 })      
               
@@ -95,21 +98,24 @@ function getSale(){
                         }
 
                         //get each row in json
-                        const saleid = sale.sale_id
-                        const usname = sale.user_name
-                        const pid = sale.product_id
-                        const total = sale.total
-                        const qtyy = sale.quantity
-                        const dcre = sale.date_created         
-                            
-                        content +='<tr>';
-                        content += '<td>' + saleid + '</td>';
-                        content += '<td>' + usname + '</td>';
-                        content += '<td>' + pid + '</td>';
-                        content += '<td>' + qtyy + '</td>';
-                        content += '<td>' + total + '</td>';
-                        content += '<td>' + dcre + '</td>';
-                        content += '</tr>';
+                        sale.forEach((row) => {
+                            // console.log(row)
+                            const saleid = row["sale_id"]
+                            const usname = row["user_name"]
+                            const pid = row["product_id"]
+                            const total = row["total"]
+                            const qtyy = row["quantity"]
+                            const dcre = row["date_created"]        
+                                
+                            content +='<tr>';
+                            content += '<td>' + saleid + '</td>';
+                            content += '<td>' + usname + '</td>';
+                            content += '<td>' + pid + '</td>';
+                            content += '<td>' + qtyy + '</td>';
+                            content += '<td>' + total + '</td>';
+                            content += '<td>' + dcre + '</td>';
+                            content += '</tr>';
+                        })     
                         //populate table                 
                         $('#saleTable').append(content)
                     })      
