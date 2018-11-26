@@ -139,15 +139,17 @@ class DatabaseConnection:
         except:
             return False
 
-    def modify_product(self, category, unit_price, quantity, measure,product_id):
+    def modify_product(self, **kwargs):
         """modify product"""
+        category = kwargs.get("category")
+        unit_price = kwargs.get("unit_price")
+        quantity = kwargs.get("quantity")
+        measure = kwargs.get("measure")
+        product_id = kwargs.get("product_id")
         try:
-            self.cur.execute(
-                "UPDATE products SET category='{}', \
-                unit_price={}, quantity={}, measure = '{}', date_modified=CURRENT_TIMESTAMP\
-                WHERE product_id = {} AND delete_status = FALSE"
-                .format(category, unit_price, quantity, measure, product_id)
-            )
+            self.cur.execute("UPDATE products SET category=%s, unit_price=%s, quantity=%s, measure=%s, \
+                date_modified=CURRENT_TIMESTAMP WHERE product_id=%s", 
+                             (category, unit_price, quantity, measure, product_id))
 
         except:
             return False
