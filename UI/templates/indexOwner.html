@@ -13,43 +13,7 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-        <script>
-            // function logout(){
-            //     const agree = confirm("Are you sure you wish to logout?");
-            //     const newtoken = localStorage.getItem('token');
-
-            //     console.log(newtoken)
-            //     if(agree){
-            //         fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/logout',{
-            //             method:'DELETE',
-            //             headers: {
-            //                 'Content-type': 'application/json',
-            //                 'Authorization': `Bearer ${newtoken}`
-            //             }
-            //         }).then((response) => 
-            //         {
-            //             if (response.ok){
-            //                 return response.text()
-            //                 alert(response.text())
-            //                 // .then((data) => {
-            //                 //     console.log(data)
-            //                 //     window.location = "index.html"
-            //                 //     localStorage.clear()
-            //                 // })
-            //             }else if(response.status == 401){
-            //                 alert(response.statusText + "-" + "token was revoked")
-            //             }else{
-            //                 alert(response.status + "-" + response.statusText)
-            //             }                       
-            //         })
-            //         .catch (console.error)
-                    
-            //     }else{
-            //         return false;
-            //     }
-                
-            // }
-        </script>
+        <script src="../scripts/logout.js"></script>
     </head>
     <body>
         <header class="dashboard">
@@ -66,7 +30,7 @@
             <aside id="side-menu">
                 <ul class="menu">
                     <li><a class="selected" href="indexOwner.html">Dashboard</a> </li>
-                    <li><a href="salesOwner.html">Sales</a> </li>
+                    <li><a href="sales.html">Sales</a> </li>
                     <li><a href="employess.html">Employees</a> </li>
                     <li><a href="manageProducts.html">Products</a> </li>                                     
                     <li><a onclick="logout()">Logout</a> </li>                        
@@ -87,10 +51,6 @@
                                 <h1>000</h1>
                                 <p>Total Sales</p>
                                 </div>
-                            <div class="tabs returns">
-                                <h1>000</h1>
-                                <p>Total Returns</p>
-                            </div>
                             <div class="tabs products">
                                 <h1>000</h1>
                                 <p>Products Available</p>
