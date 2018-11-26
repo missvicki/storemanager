@@ -42,7 +42,7 @@ class TestStoreManagerApi(unittest.TestCase):
             "measure":"Kgs"
         }
         self.sale = {
-            "user_id":2,
+            "user_name":"attendant",
             "product_id": 1,
             "quantity":6
         }
@@ -534,7 +534,7 @@ class TestStoreManagerApi(unittest.TestCase):
         headers2 = {'Authorization': f'Bearer {token2}'}
 
         #get sale
-        res3= self.app.get('/api/v2/sales/2',
+        res3= self.app.get('/api/v2/sales/attendant',
                       content_type='application/json',
                       headers=headers2)
         self.assertEqual(res3.status_code, 200)
@@ -579,7 +579,7 @@ class TestStoreManagerApi(unittest.TestCase):
         headers2 = {'Authorization': f'Bearer {token2}'}
 
         #get sale
-        res3= self.app.get('/api/v2/sales/1',
+        res3= self.app.get('/api/v2/sales/page',
                       content_type='application/json',
                       headers=headers2)
         self.assertEqual(res3.status_code, 404)
@@ -616,7 +616,7 @@ class TestStoreManagerApi(unittest.TestCase):
                               data = json.dumps(self.sale))
 
         #get sale
-        res3= self.app.get('/api/v2/sales/2',
+        res3= self.app.get('/api/v2/sales/attendant',
                       content_type='application/json',
                       headers=headerst)
         self.assertEqual(res3.status_code, 200)
@@ -653,7 +653,7 @@ class TestStoreManagerApi(unittest.TestCase):
                               data = json.dumps(self.sale))
 
         #get sale
-        res3= self.app.get('/api/v2/sales/1',
+        res3= self.app.get('/api/v2/sales/page',
                       content_type='application/json',
                       headers=headerst)
         self.assertEqual(res3.status_code, 404)
@@ -778,3 +778,4 @@ class TestStoreManagerApi(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    

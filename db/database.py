@@ -35,13 +35,6 @@ class DatabaseConnection:
     
         except psycopg2.DatabaseError as anything:
             print (anything)
-        
-
-    def drop_tables(self):
-        """drop tables if exist"""
-        self.cur.execute(
-            "DROP TABLE IF EXISTS products, users, sales, blacklist CASCADE"
-        )
 
     def create_tables(self):
         """create product table""" 
@@ -67,11 +60,10 @@ class DatabaseConnection:
             CREATE TABLE IF NOT EXISTS users (
                 user_id SERIAL PRIMARY KEY, 
                 name VARCHAR(50) NOT NULL,
-                user_name VARCHAR(12) NOT NULL UNIQUE, 
+                user_name VARCHAR(20) NOT NULL UNIQUE, 
                 password VARCHAR(12) UNIQUE NOT NULL, 
                 role VARCHAR(15) NOT NULL,
                 date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 delete_status BOOLEAN DEFAULT FALSE);
             """
         )
@@ -81,18 +73,17 @@ class DatabaseConnection:
             """
             CREATE TABLE IF NOT EXISTS sales (
                 sale_id SERIAL PRIMARY KEY,  
-                user_id integer NOT NULL,
+                user_name VARCHAR(20) NOT NULL,
                 product_id integer NOT NULL,
                 quantity integer NOT NULL,
                 total integer NOT NULL,
                 date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 delete_status BOOLEAN DEFAULT FALSE,
                 CONSTRAINT prodidfk FOREIGN KEY (product_id)
                     REFERENCES products(product_id)
                     ON UPDATE CASCADE,
-                CONSTRAINT userid_foreign FOREIGN KEY (user_id) 
-                    REFERENCES users(user_id) 
+                CONSTRAINT username_foreign FOREIGN KEY (user_name) 
+                    REFERENCES users(user_name) 
                     ON UPDATE CASCADE);
             """
         )
@@ -179,15 +170,17 @@ class DatabaseConnection:
         except:
             return False
 
-    def modify_product(self, category, unit_price, quantity, measure,product_id):
+    def modify_product(self, **kwargs):
         """modify product"""
+        category = kwargs.get("category")
+        unit_price = kwargs.get("unit_price")
+        quantity = kwargs.get("quantity")
+        measure = kwargs.get("measure")
+        product_id = kwargs.get("product_id")
         try:
-            self.cur.execute(
-                "UPDATE products SET category='{}', \
-                unit_price={}, quantity={}, measure = '{}', date_modified=CURRENT_TIMESTAMP\
-                WHERE product_id = {} AND delete_status = FALSE"
-                .format(category, unit_price, quantity, measure, product_id)
-            )
+            self.cur.execute("UPDATE products SET category=%s, unit_price=%s, quantity=%s, measure=%s, \
+                date_modified=CURRENT_TIMESTAMP WHERE product_id=%s", 
+                             (category, unit_price, quantity, measure, product_id))
 
         except:
             return False
@@ -265,13 +258,13 @@ class DatabaseConnection:
 
         except:
             return False
-
-    def check_user_exists_id(self, user_id):
+    
+    def check_user_exists_name(self, user_name):
         """check if user exists"""
 
         try:
             self.cur.execute(
-                "SELECT * FROM users WHERE user_id = %s AND delete_status= FALSE", [user_id]) 
+                "SELECT * FROM users WHERE user_name = %s AND delete_status= FALSE", [user_name]) 
             return self.cur.fetchone()
 
         except:
@@ -281,8 +274,8 @@ class DatabaseConnection:
         """insert data into sales table"""
 
         try:
-            self.cur.execute("INSERT INTO sales(user_id, product_id, quantity, total) VALUES({}, {}, {}, {}) RETURNING sale_id"
-            .format(data.user_id, data.product_id, data.quantity, data.total)
+            self.cur.execute("INSERT INTO sales(user_name, product_id, quantity, total) VALUES('{}', {}, {}, {}) RETURNING sale_id"
+            .format(data.user_name, data.product_id, data.quantity, data.total)
             )
             return self.cur.fetchone()[0]
         
@@ -337,12 +330,12 @@ class DatabaseConnection:
         except:
             return False
     
-    def get_one_sale(self, user_id):
+    def get_one_sale(self, user_name):
         try:
             self.cur.execute(
-                "SELECT * FROM sales WHERE user_id = %s AND delete_status = FALSE", [user_id] 
+                "SELECT * FROM sales WHERE user_name = %s AND delete_status = FALSE", [user_name] 
             )
-            _sale = self.cur.fetchone()
+            _sale = self.cur.fetchall()
             return _sale
         except:
             return False
@@ -379,3 +372,10 @@ class DatabaseConnection:
         
         except:
             return False
+  
+    def drop_tables(self):
+        """drop tables if exist"""
+        self.cur.execute(
+            "DROP TABLE IF EXISTS products, users, sales, sales_has_products, blacklist CASCADE"
+        )
+        
