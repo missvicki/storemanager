@@ -260,42 +260,6 @@ class DatabaseConnection:
             return _sale
         except:
             return False
-
-    def getQuantity(self, id_):
-        """get qty"""
-
-        try:
-            self.cur.execute(
-                "SELECT quantity FROM products WHERE product_id = %s AND delete_status= FALSE", [id_]
-            )
-            return self.cur.fetchone()[0]
-        
-        except:
-            return False
-
-    def getPrice(self, id_):
-        """get price"""
-
-        try:
-            self.cur.execute(
-                "SELECT unit_price FROM products WHERE product_id = %s AND delete_status= FALSE", [id_]
-            )
-            return self.cur.fetchone()[0]
-        
-        except:
-            return False
-
-    def updateProductqty(self, qty, pdtid):
-        """update pdt qty"""
-
-        try:
-            self.cur.execute(
-                "UPDATE products SET quantity={}, date_modified=CURRENT_TIMESTAMP WHERE product_id = {} \
-                AND delete_status=False".format(qty, pdtid)
-            )
-        
-        except:
-            return False
     
     def get_one_sale(self, user_name):
         try:
