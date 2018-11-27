@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <!--Responsive webdesign link-->
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="HandheldFriendly" content="true">
+
+        <title>Login-V&M Shopping</title>
+        <!--css style link-->
+        <link rel="stylesheet" href="../css/index.css">
+        <!--Material icon link-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script src="../scripts/login.js"></script>
+    </head>
+        <body>
+            
+            <div class="container" style="background-image: url(../images/shoppingbackground.jpg)">
+                <header>
+                    <h1>V & M Shopping</h1>
+                </header>
+                <div class="login-content">
+                    <div class="login-form">
+                        <div class="login-section">
+                            <center><h1>Sign In</h1></center>
+                            <form>
+                                <div class="form-wrap">
+                                    <label>Username</label>
+                                    <input type = "text" name="username" placeholder="Enter your username" id="usernamefield" required>
+                                </div>
+
+                                <div class="form-wrap">
+                                    <label>Password</label> 
+                                    <input type="password" name="pswd" placeholder="Enter your Password" id = "passwordfield" required>
+                                </div>
+                                <div class="form-wrap">
+                                    <select name="role" id="role">
+                                        <option value="">Select Role</option>
+                                        <option value="admin">Store Owner</option>
+                                        <option value="attendant">Store Attendant</option>
+                                    </select>
+                                </div>
+                                <div class="form-wrap btn">
+                                    <input type="button" onclick="login()" name="signin" value="Sign In">
+                                </div>                                    
+                            </form>
+                            
+                        </div-class>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

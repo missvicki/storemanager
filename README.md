@@ -1,2 +1,58 @@
-# storemanager
-Project Overview Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store. Required Features Store attendant can search and add products to buyer’s cart. Store attendant can see his/her sale records but can’t modify them. App should show available products, quantity and price. Store owner can see sales and can filter by attendants. Store owner can add, modify and delete products.
+## Store Manager 
+Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.    
+
+## Getting Started
+
+For installation of this project:  `$ git clone 'https://github.com/missvicki/storemanager.git`
+
+## Features
+
+* Admin: 
+    * can create a product
+    * can get all products
+    * can get a specific product 
+    * can delete a product
+    * can modify a single product
+
+    * can get all sale orders
+    * can get a single sale made by attendant
+
+    * can create new users
+    * can login
+    * can view all users
+    * can view users under a role
+
+
+* Attendant:
+    * can login
+
+    * can create a sale order of a product
+    * can get a sales they made
+
+    * can get all products 
+    * can get a specific product
+    * can create a product
+
+## gh-pages link 
+    
+    `$ https://missvicki.github.io/storemanager/UI/templates`
+
+## Login Credentials
+
+| User Role | Username | Password |
+| ----------- | -------- | --------- |
+| Store Owner | admin | admin |
+| Store Attendant | attendant | attendant |
+  
+## Language
+
+**HTML5 & CSS3**
+**Vanilla JS**
+
+## Authors
+
+* **Victor Nomwesigwa**
+
+## Acknowledgments
+
+* Andela
