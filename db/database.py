@@ -170,17 +170,15 @@ class DatabaseConnection:
         except:
             return False
 
-    def modify_product(self, **kwargs):
+    def modify_product(self, category, unit_price, quantity, measure, product_id):
         """modify product"""
-        category = kwargs.get("category")
-        unit_price = kwargs.get("unit_price")
-        quantity = kwargs.get("quantity")
-        measure = kwargs.get("measure")
-        product_id = kwargs.get("product_id")
         try:
-            self.cur.execute("UPDATE products SET category=%s, unit_price=%s, quantity=%s, measure=%s, \
-                date_modified=CURRENT_TIMESTAMP WHERE product_id=%s", 
-                             (category, unit_price, quantity, measure, product_id))
+            self.cur.execute(
+                "UPDATE products SET category='{}', \
+                unit_price={}, quantity={}, measure = '{}', date_modified=CURRENT_TIMESTAMP\
+                WHERE product_id = {} AND delete_status = FALSE"
+                .format(category, unit_price, quantity, measure, product_id)
+            )
 
         except:
             return False
@@ -293,42 +291,6 @@ class DatabaseConnection:
             return _sale
         except:
             return False
-
-    def getQuantity(self, id_):
-        """get qty"""
-
-        try:
-            self.cur.execute(
-                "SELECT quantity FROM products WHERE product_id = %s AND delete_status= FALSE", [id_]
-            )
-            return self.cur.fetchone()[0]
-        
-        except:
-            return False
-
-    def getPrice(self, id_):
-        """get price"""
-
-        try:
-            self.cur.execute(
-                "SELECT unit_price FROM products WHERE product_id = %s AND delete_status= FALSE", [id_]
-            )
-            return self.cur.fetchone()[0]
-        
-        except:
-            return False
-
-    def updateProductqty(self, qty, pdtid):
-        """update pdt qty"""
-
-        try:
-            self.cur.execute(
-                "UPDATE products SET quantity={}, date_modified=CURRENT_TIMESTAMP WHERE product_id = {} \
-                AND delete_status=False".format(qty, pdtid)
-            )
-        
-        except:
-            return False
     
     def get_one_sale(self, user_name):
         try:
@@ -378,4 +340,3 @@ class DatabaseConnection:
         self.cur.execute(
             "DROP TABLE IF EXISTS products, users, sales, sales_has_products, blacklist CASCADE"
         )
-        

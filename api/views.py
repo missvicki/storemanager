@@ -112,7 +112,7 @@ class ProductsView(MethodView):
         if valprod:
             return valprod
         
-        database.modify_product(category=prod_cat, unit_price=prod_price, quantity=prod_qty, measure=prod_meas, product_id=product_id)
+        database.modify_product(prod_cat, prod_price, prod_qty, prod_meas, product_id)
         return jsonify({"Success": "product has been modified"}), 200
     
     @jwt_required
@@ -272,7 +272,7 @@ class SalesView(MethodView):
         product = database.getoneProduct(product_id)
 
         #update products table
-        database.modify_product(category=product["category"], unit_price=product["unit_price"], quantity=newqty, measure=product["measure"],product_id= product_id)             
+        database.modify_product(product["category"], product["unit_price"], newqty, product["measure"], product_id)             
 
         # insert into sales table
         obj_sales = Sales(user_name, product_id, quantity, total)
