@@ -9,6 +9,7 @@ queries = (
             quantity integer NOT NULL, 
             measure VARCHAR(12) NOT NULL,
             date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             delete_status BOOLEAN DEFAULT FALSE)
     """,
     """
@@ -19,7 +20,6 @@ queries = (
             password VARCHAR(12) UNIQUE NOT NULL, 
             role VARCHAR(15) NOT NULL,
             date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             delete_status BOOLEAN DEFAULT FALSE)
     """,
     """
@@ -139,17 +139,15 @@ class DatabaseConnection:
         except:
             return False
 
-    def modify_product(self, **kwargs):
+    def modify_product(self, category, unit_price, quantity, measure, product_id):
         """modify product"""
-        category = kwargs.get("category")
-        unit_price = kwargs.get("unit_price")
-        quantity = kwargs.get("quantity")
-        measure = kwargs.get("measure")
-        product_id = kwargs.get("product_id")
         try:
-            self.cur.execute("UPDATE products SET category=%s, unit_price=%s, quantity=%s, measure=%s, \
-                date_modified=CURRENT_TIMESTAMP WHERE product_id=%s", 
-                             (category, unit_price, quantity, measure, product_id))
+            self.cur.execute(
+                "UPDATE products SET category='{}', \
+                unit_price={}, quantity={}, measure = '{}', date_modified=CURRENT_TIMESTAMP\
+                WHERE product_id = {} AND delete_status = FALSE"
+                .format(category, unit_price, quantity, measure, product_id)
+            )
 
         except:
             return False
