@@ -41,11 +41,11 @@ function login(){
                     localStorage.setItem('token', token)
                     localStorage.setItem('username', userName)
                     if (userRole == 'admin'){
-                        alert("Login Successful...Redirecting to admin page")
+                        // alert("Login Successful...Redirecting to admin page")
                         redirect: window.location.replace("indexOwner.html") 
                     }
                     else if (userRole == 'attendant'){
-                        alert("Login Successful...Redirecting to attendants page")
+                        // alert("Login Successful...Redirecting to attendants page")
                         redirect: window.location.replace("indexAttendants.html") 
                     }
                     else{
