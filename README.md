@@ -1,5 +1,4 @@
 ## Store Manager 
-
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.    
 
 ## Getting Started
@@ -38,22 +37,22 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
     
     `$ https://missvicki.github.io/storemanager/UI/templates`
 
-
 ## Login Credentials
 
 | User Role | Username | Password |
 | ----------- | -------- | --------- |
-| Store Owner | admin | admin |
-| Store Attendant | attendant | attendant |
+| Store Owner | vickib | vibel |
+| Store Attendant | nicki_j | masterChef |
   
 ## Language
 
-* CSS3 & HTML5
-* Vanilla JS
+**HTML5 & CSS3**
+**Vanilla JS**
 
 ## Authors
 
 * **Victor Nomwesigwa**
 
 ## Acknowledgments
+
 * Andela
