@@ -41,8 +41,8 @@ For installation of this project:  `$ git clone 'https://github.com/missvicki/st
 
 | User Role | Username | Password |
 | ----------- | -------- | --------- |
-| Store Owner | admin | admin |
-| Store Attendant | attendant | attendant |
+| Store Owner | vickib | vibel |
+| Store Attendant | nicki_j | masterChef |
   
 ## Language
 
