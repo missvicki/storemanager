@@ -22,11 +22,11 @@ __pycache__
 venv/
 
 #others
-.travis
-codecov
-.coveralls
-config
+.travis.yml
+codecov.yml
+.coveralls.yml
+config.py
 Procfile
-requirements
-requirements
-_init_
+requirements.txt
+__init__.py
+run.py
