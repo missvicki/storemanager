@@ -6,63 +6,66 @@ function modProduct(){
     const pdtqt = document.getElementById("q").value;
     const pdtm = document.getElementById("pdtmeasure2").value;
 
+    const errorMessage = document.querySelector("span.errors");
     const newtoken = localStorage.getItem('token');
+    const url = 'https://store-manager-ap1.herokuapp.com/api/v2/products/'
+    const urlpdt = 'https://store-manager-ap1.herokuapp.com/api/v2/products'
 
     //validate
     if(pdtcat == ""){
-        alert("Product category required")
+        errorMessage.innerText = "Product category required"
         document.getElementById("pdtcategory2").focus()
         document.getElementById("pdtcategory2").value = ""
         document.getElementById("unitp").value = ""
         document.getElementById("q").value = ""
         document.getElementById("pdtmeasure2").value = ""
     }else if(pdtp == ""){
-        alert("Product Unit Price required")
+        errorMessage.innerText = "Product Unit Price required"
         document.getElementById("unitp").focus()
         document.getElementById("pdtcategory2").value = ""
         document.getElementById("unitp").value = ""
         document.getElementById("q").value = ""
         document.getElementById("pdtmeasure2").value = ""      
     }else if(pdtqt == ""){
-        alert("Product Quantity required")
+        errorMessage.innerText = "Product Quantity required"
         document.getElementById("q").focus()
         document.getElementById("pdtcategory2").value = ""
         document.getElementById("unitp").value = ""
         document.getElementById("q").value = ""
         document.getElementById("pdtmeasure2").value = ""       
     }else if(pdtm == ""){
-        alert("Product Measure required")
+        errorMessage.innerText = "Product Measure required"
         document.getElementById("pdtmeasure2").focus()
         document.getElementById("pdtcategory2").value = ""
         document.getElementById("unitp").value = ""
         document.getElementById("q").value = ""
         document.getElementById("pdtmeasure2").value = ""     
     }else if(isNaN(pdtp)){
-        alert("Product Price should be a number value")
+        errorMessage.innerText = "Product Price should be a number value"
         document.getElementById("unitp").focus()
         document.getElementById("unitp").value=""
     }else if(isNaN(pdtqt)){
-        alert("Product Quantity should be a number value")
+        errorMessage.innerText = "Product Quantity should be a number value"
         document.getElementById("q").focus()
         document.getElementById("q").value=""
     }else if(!isNaN(pdtcat) || !isNaN(pdtm)){
-        alert("Product category, measure should be strings")
+        errorMessage.innerText = "Product category, measure should be strings"
         document.getElementById("pdtmeasure2").focus()
         document.getElementById("pdtcategory2").value = ""
         document.getElementById("unitp").value = ""
         document.getElementById("q").value = ""
         document.getElementById("pdtmeasure2").value = "" 
     }else if(pdtp <= 0){
-        alert("Product Price should be greater than 0")
+        errorMessage.innerText = "Product Price should be greater than 0"
         document.getElementById("unitp").focus()
         document.getElementById("unitp").value=""
     }else if(pdtqt <= 0){
-        alert("Product Quantity should be greater than 0")
+        errorMessage.innerText = "Product Quantity should be greater than 0"
         document.getElementById("q").focus()
         document.getElementById("q").value=""
     }else{
         try{
-            fetch('https://store-manager-ap1.herokuapp.com/api/v2/products/'+pdtid,{
+            fetch(url+pdtid,{
             method:'PUT',
             headers: {
                 'Content-type': 'application/json',
@@ -74,7 +77,7 @@ function modProduct(){
             if (response.ok){
                 return response.text()
                 .then((data) => {
-                    alert(data)
+                    errorMessage.innerText = data
                     document.getElementById("pdtid").value = ""
                     document.getElementById("pname").value = ""
                     document.getElementById("pdtcategory2").value = ""
@@ -84,7 +87,7 @@ function modProduct(){
                     try{
                         formwrapped.style.display = "none"
 
-                        fetch('https://store-manager-ap1.herokuapp.com/api/v2/products',{
+                        fetch(urlpdt,{
                         method:'GET',
                         headers: {
                             'Content-type': 'application/json',
@@ -130,7 +133,7 @@ function modProduct(){
                                         $('#productTable').append(content)
                                 })
                             }else if(response.status == 404){
-                                alert(response.statusText + "-" + "no products found")
+                                errorMessage.innerText = response.statusText + "-" + "no products found"
                                 //clear table body data
                                 const productTableBody = document.querySelector("#productTable > tbody")
                                 while (productTableBody.firstChild){
@@ -138,9 +141,9 @@ function modProduct(){
                                 }
 
                             }else if(response.status == 401){
-                                alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                                errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
                             }else{
-                                alert(response.status + "-" + response.statusText)
+                                errorMessage.innerText = response.status + "-" + response.statusText
                             }                 
                         })
                     }catch(error){
@@ -148,7 +151,7 @@ function modProduct(){
                     }
                 })
             }else if(response.status == 404){
-                alert(response.statusText + "-" + "product not found")
+                errorMessage.innerText = response.statusText + "-" + "product not found"
                 //clear table body data
                 const productTableBody = document.querySelector("#productTable > tbody")
                 while (productTableBody.firstChild){
@@ -156,9 +159,9 @@ function modProduct(){
                 }
 
             }else if(response.status == 401){
-                alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
             }else{
-                alert(response.status + "-" + response.statusText)
+                errorMessage.innerText = response.status + "-" + response.statusText
             }                 
         })
         }catch (error){

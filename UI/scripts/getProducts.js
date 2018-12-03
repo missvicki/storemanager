@@ -1,10 +1,11 @@
 function allProducts(){
     formwrapped.style.display = "none"
-
+    const errorMessage = document.querySelector("span.errors");
     const newtoken = localStorage.getItem('token');
+    const url = 'https://store-manager-ap1.herokuapp.com/api/v2/products'
     // console.log(newtoken)
     try{
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/products',{
+        fetch(url,{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -50,11 +51,11 @@ function allProducts(){
                         $('#productTable').append(content)
                 })
             }else if(response.status == 404){
-                alert(response.statusText + "-" + "no products found")
+                errorMessage.innerText = response.statusText + "-" + "no products found"
             }else if(response.status == 401){
-                alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
             }else{
-                alert(response.status + "-" + response.statusText)
+                errorMessage.innerText = response.status + "-" + response.statusText
             }                 
         })
     }catch (error){
@@ -76,19 +77,20 @@ function displaySingleProduct(){
 
 function singleproduct(){
     const pdtid = document.getElementById("singleProduct").value
-
+    const errorMessage = document.querySelector("span.errors");
+    const url = 'https://store-manager-ap1.herokuapp.com/api/v2/products/'
     if (pdtid == ""){
-        alert("Please enter the Id for product you want to be displayed")
+        errorMessage.innerText = "Please enter the Id for product you want to be displayed"
         document.getElementById("singleProduct").focus()
     }else if(isNaN(pdtid)){
-        alert("ID is number value")
+        errorMessage.innerText = "ID is number value"
         document.getElementById("singleProduct").focus()
         document.getElementById("singleProduct").value=""
     }else{
         const newtoken = localStorage.getItem('token');
         // console.log(newtoken)
         try{
-            fetch('https://store-manager-ap1.herokuapp.com/api/v2/products/'+pdtid,{
+            fetch(url+pdtid,{
                 method:'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -133,21 +135,21 @@ function singleproduct(){
                         $('#productTable').append(content)
                     })
                 }else if(response.status == 404){
-                    alert(response.statusText + "-" + "product with that ID not found")
+                    errorMessage.innerText = response.statusText + "-" + "product with that ID not found"
                      //clear table body data
                      const productTableBody = document.querySelector("#productTable > tbody")
                      while (productTableBody.firstChild){
                          productTableBody.removeChild(productTableBody.firstChild)
                      }
                 }else if(response.status == 401){
-                    alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                    errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
                      //clear table body data
                      const productTableBody = document.querySelector("#productTable > tbody")
                      while (productTableBody.firstChild){
                          productTableBody.removeChild(productTableBody.firstChild)
                      }
                 }else{
-                    alert(response.status + "-" + response.statusText)
+                    errorMessage.innerText = response.status + "-" + response.statusText
                      //clear table body data
                      const productTableBody = document.querySelector("#productTable > tbody")
                      while (productTableBody.firstChild){

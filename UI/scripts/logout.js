@@ -1,10 +1,12 @@
 function logout(){
     const agree = confirm("Are you sure you wish to logout?");
     const newtoken = localStorage.getItem('token');
+    const url = 'https://store-manager-ap1.herokuapp.com/api/v2/auth/logout'
+    const errorMessage = document.querySelector("span.errors");
     // console.log(newtoken)
     if(agree){
         try{
-            fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/logout',{
+            fetch(url,{
             method:'DELETE',
             headers: {
                 'Content-type': 'application/json',
@@ -18,9 +20,9 @@ function logout(){
                             redirect: window.location.replace("index.html") 
                         })
                 }else if(response.status == 401){
-                    alert(response.statusText + "-" + "token was revoked")
+                    errorMessage.innerText = response.statusText + "-" + "token was revoked"
                 }else{
-                    alert(response.status + "-" + response.statusText)
+                    errorMessage.innerText = response.status + "-" + response.statusText
                 }                       
             })
         }catch (error){

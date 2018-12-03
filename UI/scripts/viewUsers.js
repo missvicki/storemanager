@@ -1,10 +1,11 @@
 function allUsers(){    
     formwrapped.style.display = "none"
-
+    const errorMessage = document.querySelector("span.errors");
     const newtoken = localStorage.getItem('token');
+    const urlusers = 'https://store-manager-ap1.herokuapp.com/api/v2/users'
     // console.log(newtoken)
     try{
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/users',{
+        fetch(urlusers,{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -47,11 +48,11 @@ function allUsers(){
                         $('#userTable').append(content)
                 })
             }else if(response.status == 404){
-                alert(response.statusText + "-" + "no users found")
+                errorMessage.innerText = response.statusText + "-" + "no users found"
             }else if(response.status == 401){
-                alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
             }else{
-                alert(response.status + "-" + response.statusText)
+                errorMessage.innerText = response.status + "-" + response.statusText
             }                 
         })
     }catch (error){
@@ -71,15 +72,17 @@ function displayroleUsers(){
 }
 function usersroles(){
     const roleforuser = document.getElementById("roleUser").value
+    const errorMessage = document.querySelector("span.errors");
 
     if (roleforuser == ""){
-        alert("Please enter the role for users you want to be displayed")
+        errorMessage.innerText = "Please enter the role for users you want to be displayed"
         document.getElementById("roleUser").focus()
     }else if(roleforuser == 'admin' || roleforuser == 'attendant'){
         const newtoken = localStorage.getItem('token');
+        const url = 'https://store-manager-ap1.herokuapp.com/api/v2/users/'
         // console.log(newtoken)
         try{
-            fetch('https://store-manager-ap1.herokuapp.com/api/v2/users/'+roleforuser,{
+            fetch(url+roleforuser,{
                 method:'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -122,21 +125,21 @@ function usersroles(){
                             $('#userTable').append(content)
                     })
                 }else if(response.status == 404){
-                    alert(response.statusText + "-" + "no users found")
+                    errorMessage.innerText = response.statusText + "-" + "no users found"
                     //clear table body data
                     const userTableBody = document.querySelector("#userTable > tbody")
                     while (userTableBody.firstChild){
                         userTableBody.removeChild(userTableBody.firstChild)
                     }
                 }else if(response.status == 401){
-                    alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                    errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
                     //clear table body data
                     const userTableBody = document.querySelector("#userTable > tbody")
                     while (userTableBody.firstChild){
                         userTableBody.removeChild(userTableBody.firstChild)
                     }
                 }else{
-                    alert(response.status + "-" + response.statusText)
+                    errorMessage.innerText = response.status + "-" + response.statusText
                     //clear table body data
                     const userTableBody = document.querySelector("#userTable > tbody")
                     while (userTableBody.firstChild){
@@ -148,9 +151,9 @@ function usersroles(){
             console.log(error)
         }
         }else{
-        alert("No such user role records")
-        document.getElementById("roleUser").focus()
-        document.getElementById("roleUser").value = ""
+            errorMessage.innerText = "No such user role records"
+            document.getElementById("roleUser").focus()
+            document.getElementById("roleUser").value = ""
     }
 
 }

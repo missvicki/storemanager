@@ -50,6 +50,7 @@
                                         <input type="radio" name="products" id="radio-one" class="form-radio" onclick="allProducts()"><label for="radio-one">All Products</label>
                                         <input type="radio" name="products" id="radio-two" class="form-radio" onclick="displaySingleProduct()"><label for="radio-two">Single Product</label>
                                     </div>
+                                    <span class="errors" style="color:#FF0000"></span>
                                     <div id="formwrapped" style="display: none">
                                         <input type="text" id="singleProduct" placeholder="Enter Product ID">
                                         <input type="button" id="pdtBtn" value="Search Product" onclick="singleproduct()">  
@@ -122,6 +123,7 @@
                                             <option value="Litres">Litres</option>
                                         </select>
                                     </div>
+                                    <span class="errors" style="color:#FF0000"></span>
                                     <div class="form-wrap btn">
                                         <input type="button" onclick="modProduct();" name="modbtn1" value="Modify Product">
                                         <input type="button" onclick="deleteProduct();" name="deletebtn1" value="Delete Product">

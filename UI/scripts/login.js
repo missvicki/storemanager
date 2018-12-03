@@ -2,21 +2,23 @@ function login(){
     const userName = document.getElementById("usernamefield").value;
     const userPassword = document.getElementById("passwordfield").value;
     const userRole = document.getElementById("role").value;
+    const errorMessage = document.querySelector("span.errors");
+    const url = 'https://store-manager-ap1.herokuapp.com/api/v2/auth/login';
 
     if(userName == ""){
-        alert("Username is required")
+        errorMessage.innerText ="Username is required"
         document.getElementById("usernamefield").focus()
         document.getElementById("usernamefield").value=""
         document.getElementById("passwordfield").value=""
         document.getElementById("role").value=""
     }else if(userPassword == ""){
-        alert("Password is required")
+        errorMessage.innerText ="Password is required"
         document.getElementById("passwordfield").focus()
         document.getElementById("usernamefield").value=""
         document.getElementById("passwordfield").value=""
         document.getElementById("role").value=""
     }else if(userRole == ""){
-        alert("Role is required")
+        errorMessage.innerText = "Role is required"
         document.getElementById("role").focus()
         document.getElementById("usernamefield").value=""
         document.getElementById("passwordfield").value=""
@@ -24,7 +26,7 @@ function login(){
     }else{
         //fetch url, define method of request and its parameters
         try{
-            fetch('https://store-manager-ap1.herokuapp.com/api/v2/auth/login',{
+            fetch(url,{
             method:'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -41,23 +43,23 @@ function login(){
                     localStorage.setItem('token', token)
                     localStorage.setItem('username', userName)
                     if (userRole == 'admin'){
-                        alert("Login Successful...Redirecting to admin page")
+                        // alert("Login Successful...Redirecting to admin page")
                         redirect: window.location.replace("indexOwner.html") 
                     }
                     else if (userRole == 'attendant'){
-                        alert("Login Successful...Redirecting to attendants page")
+                        // alert("Login Successful...Redirecting to attendants page")
                         redirect: window.location.replace("indexAttendants.html") 
                     }
                     else{
-                        alert("I don't know you")
+                        errorMessage.innerText ="I don't know you"
                     }
                 })
             }else if(response.status == 400){
-                alert(response.statusText + "-" + "either wrong username, password, role")
+                errorMessage.innerText = response.statusText + "-" + "either wrong username, password, role"
             }else if(response.status == 404){
-                alert(response.statusText + "-" + "user does not exist, please signup")
+                errorMessage.innerText = response.statusText + "-" + "user does not exist, please signup"
             }else{
-                alert(response.status + "-" + response.statusText)
+                errorMessage.innerText = response.status + "-" + response.statusText
             }                      
         })
         }catch (error){
