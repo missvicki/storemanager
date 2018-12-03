@@ -1,6 +1,7 @@
 function modProduct(){
     // get field values
     const pdtid = document.getElementById("pdtid").value;
+    const pdtnam = document.getElementById("pname").value;
     const pdtcat = document.getElementById("pdtcategory2").value;
     const pdtp = document.getElementById("unitp").value;
     const pdtqt = document.getElementById("q").value;
@@ -12,7 +13,25 @@ function modProduct(){
     const urlpdt = 'https://store-manager-ap1.herokuapp.com/api/v2/products'
 
     //validate
-    if(pdtcat == ""){
+    if(pdtid == ""){
+        errorMessage.innerText = "Product id required"
+        document.getElementById("pdtid").focus()
+        document.getElementById("pdtid").value = ""
+        document.getElementById("pname").value =""
+        document.getElementById("pdtcategory2").value = ""
+        document.getElementById("unitp").value = ""
+        document.getElementById("q").value = ""
+        document.getElementById("pdtmeasure2").value = ""
+    }else if(pdtnam == ""){
+        errorMessage.innerText = "Product name required"
+        document.getElementById("pname").focus()
+        document.getElementById("pdtid").value = ""
+        document.getElementById("pname").value =""
+        document.getElementById("pdtcategory2").value = ""
+        document.getElementById("unitp").value = ""
+        document.getElementById("q").value = ""
+        document.getElementById("pdtmeasure2").value = ""
+    }else if(pdtcat == ""){
         errorMessage.innerText = "Product category required"
         document.getElementById("pdtcategory2").focus()
         document.getElementById("pdtcategory2").value = ""
