@@ -7,7 +7,7 @@ function modProduct(){
     const pdtqt = document.getElementById("q").value;
     const pdtm = document.getElementById("pdtmeasure2").value;
 
-    const errorMessage = document.querySelector("span.errors");
+    const errorMessage = document.querySelector("span.error");
     const newtoken = localStorage.getItem('token');
     const url = 'https://store-manager-ap1.herokuapp.com/api/v2/products/'
     const urlpdt = 'https://store-manager-ap1.herokuapp.com/api/v2/products'

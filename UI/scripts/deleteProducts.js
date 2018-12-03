@@ -7,7 +7,7 @@ function deleteProduct(){
         const pdtqt = document.getElementById("q").value;
         const pdtm = document.getElementById("pdtmeasure2").value;
 
-        const errorMessage = document.querySelector("span.errors");
+        const errorMessage = document.querySelector("span.error");
         const newtoken = localStorage.getItem('token');
     
         //validate
