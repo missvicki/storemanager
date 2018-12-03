@@ -1,8 +1,10 @@
 function getSales(){
     const name = localStorage.getItem('username')
     const newtoken = localStorage.getItem('token');
+    const errorMessage = document.querySelector("span.errors");
+    const urlgetsalebyatttendant = 'https://store-manager-ap1.herokuapp.com/api/v2/sales/'
     try{
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/sales/' + name,{
+        fetch(urlgetsalebyatttendant + name,{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -49,11 +51,11 @@ function getSales(){
                 })      
               
             }else if(response.status == 404){
-                alert(response.statusText + "-" + "no sales found")
+                errorMessage.innerText= response.statusText + "-" + "no sales found"
             }else if(response.status == 401){
-                alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
             }else{
-                alert(response.status + "-" + response.statusText)
+                errorMessage.innerText = response.status + "-" + response.statusText
             }                 
         })
     }catch (error){
@@ -64,17 +66,19 @@ function getSales(){
 function getSale(){
     const attname = document.getElementById("saleAtt").value;
     const newtoken = localStorage.getItem('token');
+    const errorMessage = document.querySelector("span.errors");
+    const url = 'https://store-manager-ap1.herokuapp.com/api/v2/sales/'
     try{
         if(attname == ""){
-            alert("Please enter attendants name")
+            errorMessage.innerText = "Please enter attendants name"
             document.getElementById("saleAtt").focus()
             document.getElementById("saleAtt").value = "";
         }else if(!isNaN(attname)){
-            alert("Attendant name is not number value")
+            errorMessage.innerText = "Attendant name is not number value"
             document.getElementById("saleAtt").focus()
             document.getElementById("saleAtt").value = "";
         }else{
-            fetch('https://store-manager-ap1.herokuapp.com/api/v2/sales/' + attname,{
+            fetch(url + attname,{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -121,11 +125,11 @@ function getSale(){
                     })      
                 
                 }else if(response.status == 404){
-                    alert(response.statusText + "-" + "no sales found")
+                    errorMessage.innerText= response.statusText + "-" + "no sales found"
                 }else if(response.status == 401){
-                    alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                    errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
                 }else{
-                    alert(response.status + "-" + response.statusText)
+                    errorMessage.innerText= response.status + "-" + response.statusText
                 }                 
             })
         }
@@ -148,12 +152,13 @@ function displaySalesAtt(){
 }
 function allSales(){
     formwrapped.style.display = "none"
-
+    const errorMessage = document.querySelector("span.errors");
     const newtoken = localStorage.getItem('token');
+    const urlallsales = 'https://store-manager-ap1.herokuapp.com/api/v2/sales'
     // console.log(newtoken)
 
     try{
-        fetch('https://store-manager-ap1.herokuapp.com/api/v2/sales',{
+        fetch(urlallsales,{
             method:'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -198,11 +203,11 @@ function allSales(){
                         $('#saleTable').append(content)
                 })
             }else if(response.status == 404){
-                alert(response.statusText + "-" + "no sales found")
+                errorMessage.innerText = response.statusText + "-" + "no sales found"
             }else if(response.status == 401){
-                alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
             }else{
-                alert(response.status + "-" + response.statusText)
+                errorMessage.innerText = response.status + "-" + response.statusText
             }                 
         })
     }catch (error){

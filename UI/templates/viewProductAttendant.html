@@ -48,6 +48,7 @@
                                         <input type="radio" name="products" id="radio-one" class="form-radio" onclick="allProducts()"><label for="radio-one">All Products</label>
                                         <input type="radio" name="products" id="radio-two" class="form-radio" onclick="displaySingleProduct()"><label for="radio-two">Single Product</label>
                                     </div>
+                                    <span class="errors" style="color:#FF0000"></span>
                                     <div id="formwrapped" style="display: none">
                                         <input type="text" id="singleProduct" placeholder="Enter Product ID">
                                         <input type="button" id="pdtBtn" value="Search Product" onclick="singleproduct()">  
@@ -91,6 +92,7 @@
                                     <label>Quantity</label> 
                                     <input type="text" name="pdtqty" placeholder="Product Quantity" id="pdtqty" required>
                                 </div>
+                                <span class="errors" style="color:#FF0000"></span>
                                 <div class="form-wrap btn">
                                     <input type="button" onclick="saleProduct();" name="salebtn1" value="Make Sale">
                                     <input type="button" onclick="cancelSale();" name="salecancelbtn1" value="Cancel Sale">

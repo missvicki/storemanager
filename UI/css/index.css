@@ -666,3 +666,9 @@ aside ul.menu li a.selected{
 tbody tr:hover{
     background-color: #40e0d0;
 }
+.errors{
+    margin-left: 10px;
+}
+.error{
+    margin-left: 10px;
+}

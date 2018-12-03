@@ -6,12 +6,13 @@ function deleteProduct(){
         const pdtp = document.getElementById("unitp").value;
         const pdtqt = document.getElementById("q").value;
         const pdtm = document.getElementById("pdtmeasure2").value;
-    
+
+        const errorMessage = document.querySelector("span.error");
         const newtoken = localStorage.getItem('token');
     
         //validate
         if(pdtid == ""){
-            alert("Product id required")
+            errorMessage.innerText = "Product id required"
             document.getElementById("pdtid").focus()
             document.getElementById("pdtid").value = ""
             document.getElementById("pname").value =""
@@ -20,7 +21,7 @@ function deleteProduct(){
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""
         }else if(pdtnam == ""){
-            alert("Product name required")
+            errorMessage.innerText = "Product name required"
             document.getElementById("pname").focus()
             document.getElementById("pdtid").value = ""
             document.getElementById("pname").value =""
@@ -29,7 +30,7 @@ function deleteProduct(){
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""
         }else if(pdtcat == ""){
-            alert("Product category required")
+            errorMessage.innerText ="Product category required"
             document.getElementById("pdtcategory2").focus()
             document.getElementById("pdtcategory2").value = ""
             document.getElementById("pname").value =""
@@ -38,7 +39,7 @@ function deleteProduct(){
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""
         }else if(pdtp == ""){
-            alert("Product Unit Price required")
+            errorMessage.innerText ="Product Unit Price required"
             document.getElementById("unitp").focus()
             document.getElementById("pdtcategory2").value = ""
             document.getElementById("pname").value =""
@@ -47,7 +48,7 @@ function deleteProduct(){
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""      
         }else if(pdtqt == ""){
-            alert("Product Quantity required")
+            errorMessage.innerText ="Product Quantity required"
             document.getElementById("q").focus()
             document.getElementById("pdtcategory2").value = ""
             document.getElementById("pname").value =""
@@ -56,7 +57,7 @@ function deleteProduct(){
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""       
         }else if(pdtm == ""){
-            alert("Product Measure required")
+            errorMessage.innerText ="Product Measure required"
             document.getElementById("pdtmeasure2").focus()
             document.getElementById("pdtcategory2").value = ""
             document.getElementById("pname").value =""
@@ -65,26 +66,26 @@ function deleteProduct(){
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = ""     
         }else if(isNaN(pdtp)){
-            alert("Product Price should be a number value")
+            errorMessage.innerText ="Product Price should be a number value"
             document.getElementById("unitp").focus()
             document.getElementById("unitp").value=""
         }else if(isNaN(pdtqt)){
-            alert("Product Quantity should be a number value")
+            errorMessage.innerText ="Product Quantity should be a number value"
             document.getElementById("q").focus()
             document.getElementById("q").value=""
         }else if(!isNaN(pdtcat) || !isNaN(pdtm)){
-            alert("Product category, measure should be strings")
+            errorMessage.innerText ="Product category, measure should be strings"
             document.getElementById("pdtmeasure2").focus()
             document.getElementById("pdtcategory2").value = ""
             document.getElementById("unitp").value = ""
             document.getElementById("q").value = ""
             document.getElementById("pdtmeasure2").value = "" 
         }else if(pdtp <= 0){
-            alert("Product Price should be greater than 0")
+            errorMessage.innerText ="Product Price should be greater than 0"
             document.getElementById("unitp").focus()
             document.getElementById("unitp").value=""
         }else if(pdtqt <= 0){
-            alert("Product Quantity should be greater than 0")
+            errorMessage.innerText ="Product Quantity should be greater than 0"
             document.getElementById("q").focus()
             document.getElementById("q").value=""
         }else{
@@ -100,7 +101,7 @@ function deleteProduct(){
                 if (response.ok){
                     return response.text()
                     .then((data) => {
-                        alert(data)
+                        errorMessage.innerText = data
                         document.getElementById("pdtid").value = ""
                         document.getElementById("pname").value = ""
                         document.getElementById("pdtcategory2").value = ""
@@ -154,7 +155,7 @@ function deleteProduct(){
                                             $('#productTable').append(content)
                                     })
                                 }else if(response.status == 404){
-                                    alert(response.statusText + "-" + "no products found")
+                                    errorMessage.innerText =response.statusText + "-" + "no products found"
                                     //clear table body data
                                     const productTableBody = document.querySelector("#productTable > tbody")
                                     while (productTableBody.firstChild){
@@ -162,9 +163,9 @@ function deleteProduct(){
                                     }
 
                                 }else if(response.status == 401){
-                                    alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                                    errorMessage.innerText =response.statusText + "-" + "You are unauthorized to perform this action"
                                 }else{
-                                    alert(response.status + "-" + response.statusText)
+                                    errorMessage.innerText =response.status + "-" + response.statusText
                                 }                 
                             })
                         }catch(error){
@@ -172,7 +173,7 @@ function deleteProduct(){
                         }
                     })
                 }else if(response.status == 404){
-                    alert(response.statusText + "-" + "product does not exists")
+                    errorMessage.innerText = response.statusText + "-" + "product does not exists"
                     //clear table body data
                     const productTableBody = document.querySelector("#productTable > tbody")
                     while (productTableBody.firstChild){
@@ -180,9 +181,9 @@ function deleteProduct(){
                     }
 
                 }else if(response.status == 401){
-                    alert(response.statusText + "-" + "You are unauthorized to perform this action")
+                    errorMessage.innerText =response.statusText + "-" + "You are unauthorized to perform this action"
                 }else{
-                    alert(response.status + "-" + response.statusText)
+                    errorMessage.innerText =response.status + "-" + response.statusText
                 }                 
             }).catch(console.error)
             }catch (error) {
