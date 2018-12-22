@@ -10,50 +10,50 @@
 
         <title>V & M Shopping</title>
         <!--Stylesheet-->
-        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+        <link rel="stylesheet" type="text/css" href="../css/index-edit.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="../scripts/jquery-3.3.1.js"></script>
         <script src="../scripts/signup.js"></script>
         <script src="../scripts/logout.js"></script>
 
     </head>
     <body>
-        <header class="dashboard">
-            <div class="logo-section">
-                <a href="indexOwner.html"> V&M <span>Shopping</span></a>
-            </div>
-        </header>
-
-        <div class="main-section">
-            <aside id="side-menu">
-                <ul class="menu">                        
-                    <li><a href="indexOwner.html">Dashboard</a> </li>
-                    <li><a href="sales.html">Sales</a> </li>
-                    <li><a class="selected" href="employess.html">Employees</a> </li>
-                    <li><a href="manageProducts.html">Products</a> </li>                                    
-                    <li><a onclick="logout()">Logout</a> </li> 
-                </ul>
-            </aside>
-            <div class="content">
-                <div class="main-info">
-                    <div class="down-section">
-                        <div class="add-form">
-                            <div class="add-section">
+        <div style="position:absolute;opacity:0.9;width:auto;left:8px;right:10px;">
+            <div>
+                <div class="gridwrapper" style="height:10%;">
+                    <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                        <header><h1 style="color:white; text-align: center;">V & M SHOPPING</h1></header>
+                    </div>
+                    <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                        <ul id="menu">
+                            <li><a href="indexOwner.html">Home</a></li> |
+                            <li><a href="sales.html">Sales</a></li> |
+                            <li><a class="selected" href="employess.html">Employees</a></li> |
+                            <li><a href="manageProducts.html">Products</a></li> |
+                            <li><a href="#" onclick="logout()">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                      <div class="gridwrapper">
+                        <div class="gridcontent" style="margin-top:15px; text-align: center;width:100%;background:white;border-right-color:transparent;">
+                            <div id="add-form">
                                 <form>   
-                                    <h5>Create a new User</h5>                            
-                                    <div class="form-wrap">
+                                    <h5>Create a new User</h5> 
+                                    <hr>                           
+                                    <div id="form-wrap">
                                         <label>Employee Name</label>
                                         <input type = "text" id = "name_employee" name="name_employee" placeholder="Name" required>
                                     </div>
-                                    <div class="form-wrap">
+                                    <div id="form-wrap">
                                         <label>Username</label>
                                         <input type = "text" id = "name_user" name="name_user" placeholder="Username" required>
                                     </div>
-                                    <div class="form-wrap">
+                                    <div id="form-wrap">
                                         <label>Password</label> 
                                         <input type="password" id="password_employee" name="password_employee" placeholder="Password" required>
                                     </div>
-                                    <div class="form-wrap">
+                                    <div id="form-wrap">
                                         <label>Verify Password</label> 
                                         <input type="password" id="psd_verified" name="psd_verified" placeholder="Verify Password" required>
                                     </div>
@@ -66,14 +66,15 @@
                                     <br>
                                     <span class="errors" style="color:#FF0000"></span>
                                     <br>
-                                    <div class="form-wrap btn">
-                                        <input type="button" onclick="signup()" name="add1" value="Add New User">
+                                    <div id="form-wrap">
+                                        <input type="button" onclick="signup()" name="add1" value="Create User">
                                     </div>       
                                 </form>
                             </div>
-                        </div>                           
+                        </div>
+                      </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </body>

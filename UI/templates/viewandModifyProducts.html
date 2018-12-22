@@ -10,131 +10,124 @@
 
         <title>V & M Shopping</title>
         <!--Stylesheet-->
-        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+        <link rel="stylesheet" type="text/css" href="../css/index-edit.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
         <script src="../scripts/jquery-3.3.1.js"></script>
-        <script src = "../scripts/logout.js"></script>
-        <script src = "../scripts/getProducts.js"></script>
+        <script src="../scripts/getProducts.js"></script>
         <script src="../scripts/modifyProducts.js"></script>
         <script src="../scripts/deleteProducts.js"></script>
+        <script src="../scripts/logout.js"></script>
 
     </head>
     <body>
-        <header class="dashboard">
-            <div class="logo-section">
-                <a href="indexOwner.html"> V&M <span>Shopping</span></a>
-            </div>
-        </header>
-
-        <div class="main-section">
-            <aside id="side-menu">
-                <ul class="menu">
-                    <li><a href="indexOwner.html">Dashboard</a> </li>
-                    <li><a href="sales.html">Sales</a> </li>
-                    <li><a  href="employess.html">Employees</a> </li>
-                    <li><a class="selected" href="manageProducts.html">Products</a> </li>                                    
-                    <li><a onclick="logout()">Logout</a> </li>     
-                </ul>
-            </aside>
-            <div class="content">
-                <div class="main-info">
-                    <div class="down-section">
-                        <div class="view-form">
-                            <div class="products">
-                                <h5>View Products</h5> 
-                                <br>
+        <div style="position:absolute;opacity:0.9;width:auto;left:8px;right:10px;">
+            <div>
+                <div class="gridwrapper" style="height:10%;">
+                    <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                        <header><h1 style="color:white; text-align: center;">V & M SHOPPING</h1></header>
+                    </div>
+                    <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                        <ul id="menu">
+                            <li><a href="indexOwner.html">Home</a></li> |
+                            <li><a href="sales.html">Sales</a></li> |
+                            <li><a href="employess.html">Employees</a></li> |
+                            <li><a class="selected" href="manageProducts.html">Products</a></li> |
+                            <li><a href="#" onclick="logout()">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="gridwrapper">
+                    <div class="gridcontent" style="background-color:#ffffff;border:none;width:100%;padding-top:15px;">
+                        <div style="display: block;border:none;padding-top:5px;width:100%;height:17%;margin-bottom:10px;text-align: center;">
+                            <div id="add-form">
                                 <form>
-                                    <div class="form-wrap">
-                                        <h5>Products</h5>
-                                        <input type="radio" name="products" id="radio-one" class="form-radio" onclick="allProducts()"><label for="radio-one">All Products</label>
-                                        <input type="radio" name="products" id="radio-two" class="form-radio" onclick="displaySingleProduct()"><label for="radio-two">Single Product</label>
-                                    </div>
                                     <span class="errors" style="color:#FF0000"></span>
-                                    <div id="formwrapped" style="display: none">
+                                    <div id="form-wrap">
                                         <input type="text" id="singleProduct" placeholder="Enter Product ID">
                                         <input type="button" id="pdtBtn" value="Search Product" onclick="singleproduct()">  
                                     </div>
-                                </form>
-                                <br>
-                                <table id="productTable">
-                                    <thead>
-                                        <tr style="background-color: #090a25; color:#FFF; padding:10px 10px 10px 10px ;">
-                                            <th>Product ID</th>
-                                            <th>Product Name</th>
-                                            <th>Category</th>
-                                            <th>Unit Price</th>
-                                            <th>Quantity</th>
-                                            <th>Measure</th>  
-                                            <th>Select</th>                                         
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table_body">
-                                        <tr  style="border-bottom:1px solid #3CC; background-color:#C0C0C0; color:#000;"></tr>
-                                    </tbody>
-                                </table>      
-                            </div>
-                        </div>
-                        <br>
-                        <div class="modify-form">
-                            <div class="modify-section">
-                                <form>     
-                                    <center><h5>Modify a Product</h5></center>
-                                    <div class="form-wrap">
-                                        <label>Product ID</label> 
-                                        <input type="text" name="pdtid" placeholder="Product ID" id="pdtid" readonly>
-                                    </div>
-                                    <div class="form-wrap">
-                                        <label>Product Name</label> 
-                                        <input type="text" name="pname" id="pname" placeholder="Product Name" readonly>
-                                    </div>     
-                                    <div class="form-wrap">
-                                        <label>Category</label>                                        
-                                        <select name="pdt_categories" id="pdtcategory2">
-                                            <option value="">Select Category</option>
-                                            <option value="Food">Food</option>
-                                            <option value="Detergent">Detergent</option>
-                                            <option value="Home Utilities">Home Utilities</option>
-                                            <option value="Scholastic Materials">Scholastic Materials</option>
-                                            <option value="Baked Goodies">Baked Goodies</option>
-                                            <option value="Women Poducts">Women Products</option>
-                                            <option value="Men Products">Men Products</option>
-                                    </select>
-                                    </div>
-                                    <div class="form-wrap">
-                                        <label>Unit Price</label> 
-                                        <input type="text" name="unitp" id="unitp" placeholder="Unit Price" required>
-                                    </div>
-                                    <div class="form-wrap">
-                                        <label>Quantity</label> 
-                                        <input type="text" name="q" id="q" placeholder="Quantity" required>
-                                    </div>
-                                    <div class="form-wrap">
-                                        <label>Measure</label>                                        
-                                        <select name="pdt_measure" id="pdtmeasure2">
-                                            <option value="">Select Measure</option>
-                                            <option value="Kilograms">Kilograms</option>
-                                            <option value="Boxes">Boxes</option>
-                                            <option value="Cartons">Cartons</option>
-                                            <option value="Dozen">Dozen</option>
-                                            <option value="Ounces">Ounces</option>
-                                            <option value="Packets">Packets</option>
-                                            <option value="Pieces">Pieces</option>
-                                            <option value="Litres">Litres</option>
-                                        </select>
-                                    </div>
-                                    <span class="error" style="color:#FF0000"></span>
-                                    <div class="form-wrap btn">
-                                        <input type="button" onclick="modProduct();" name="modbtn1" value="Modify Product">
-                                        <input type="button" onclick="deleteProduct();" name="deletebtn1" value="Delete Product">
-                                    </div>       
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="gridwrapper">
+                    <div class="gridcontent" style="overflow-x:auto; margin-top:15px; margin-left:10px;text-align: center;width:75%;background:white;border-right-color:transparent;">
+                        <table id="productTable">
+                            <thead>
+                                <tr style="background-color: #262626; color:#FFF; padding:10px 10px 10px 10px ;">
+                                    <th>Product ID</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Unit Price</th>
+                                    <th>Quantity</th>
+                                    <th>Measure</th>  
+                                    <th>Select</th>                                         
+                                </tr>
+                            </thead>
+                            <tbody id="table_body">
+                                <tr  style="border-bottom:1px solid grey; background-color:#C0C0C0; color:#000;">
+                                    
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+                <div class="gridwrapper">
+                    <div class="gridcontent" style="background-color:#ffffff;border:none;width:100%;padding-top:15px;">
+                        <div id="add-form">
+                            <form>     
+                                <h5>Modify a Product</h5>
+                                <hr>
+                                <div id="form-wrap">
+                                    <label>Product ID</label> 
+                                    <input type="text" name="pdtid" placeholder="Product ID" id="pdtid" readonly>
+                                </div>
+                                <div id="form-wrap">
+                                    <label>Product Name</label> 
+                                    <input type="text" name="pname" id="pname" placeholder="Product Name" readonly>
+                                </div>                                             
+                                <select name="pdt_categories" id="pdtcategory2">
+                                    <option value="">Select Category</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Detergent">Detergent</option>
+                                    <option value="Home Utilities">Home Utilities</option>
+                                    <option value="Scholastic Materials">Scholastic Materials</option>
+                                    <option value="Baked Goodies">Baked Goodies</option>
+                                    <option value="Women Poducts">Women Products</option>
+                                    <option value="Men Products">Men Products</option>
+                                </select>
+                                <div id="form-wrap">
+                                    <label>Unit Price</label> 
+                                    <input type="text" name="unitp" id="unitp" placeholder="Unit Price" required>
+                                </div>
+                                <div id="form-wrap">
+                                    <label>Quantity</label> 
+                                    <input type="text" name="q" id="q" placeholder="Quantity" required>
+                                </div>                                      
+                                <select name="pdt_measure" id="pdtmeasure2">
+                                    <option value="">Select Measure</option>
+                                    <option value="Kilograms">Kilograms</option>
+                                    <option value="Boxes">Boxes</option>
+                                    <option value="Cartons">Cartons</option>
+                                    <option value="Dozen">Dozen</option>
+                                    <option value="Ounces">Ounces</option>
+                                    <option value="Packets">Packets</option>
+                                    <option value="Pieces">Pieces</option>
+                                    <option value="Litres">Litres</option>
+                                </select>
+                                <br>
+                                <span class="error" style="color:#FF0000"></span>
+                                <div id="form-wrap">
+                                    <input type="button" onclick="modProduct();" name="modbtn1" value="Modify Product">
+                                    <input type="button" onclick="delProduct();" name="deletebtn1" value="Delete Product">
+                                </div>       
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </body>
 </html>

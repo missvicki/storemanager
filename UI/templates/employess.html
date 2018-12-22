@@ -10,45 +10,44 @@
 
         <title>V & M Shopping</title>
         <!--Stylesheet-->
-        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+        <link rel="stylesheet" type="text/css" href="../css/index-edit.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="../scripts/jquery-3.3.1.js"></script>
+        <script src="../scripts/viewUsers.js"></script>
         <script src="../scripts/logout.js"></script>
-
         <script>
             function newempl(){
                 window.location = "addEmployee.html"; // Redirecting to other page.
-            }
-            function viewemp(){
-                window.location = "viewEmployees.html"; // Redirecting to other page.
             }
         </script>
 
     </head>
     <body>
-        <header class="dashboard">
-            <div class="logo-section">
-                <a href="indexOwner.html"> V&M <span>Shopping</span></a>
-            </div>
-        </header>
-
-        <div class="main-section">
-            <aside id="side-menu">
-                <ul class="menu">                        
-                    <li><a href="indexOwner.html">Dashboard</a> </li>
-                    <li><a href="sales.html">Sales</a> </li>
-                    <li><a class="selected" href="employess.html">Employees</a> </li>
-                    <li><a href="manageProducts.html">Products</a> </li>                                    
-                    <li><a onclick="logout()">Logout</a> </li>  
-                </ul>
-            </aside>
-            <div class="content">
-                <div class="main-info">
-                    <div class="top-section">
-                        <ul class="employee">
-                            <li class="newEmployees" onclick="newempl()">Add Employees</li>
-                            <li class="allEmployees" onclick="viewemp()">View Employees</li>            
+        <div style="position:absolute;opacity:0.9;width:auto;left:8px;right:10px;">
+            <div>
+                <div class="gridwrapper" style="height:10%;">
+                    <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                        <header><h1 style="color:white; text-align: center;">V & M SHOPPING</h1></header>
+                    </div>
+                    <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                        <ul id="menu">
+                            <li><a href="indexOwner.html">Home</a></li> |
+                            <li><a href="sales.html" >Sales</a></li> |
+                            <li><a class="selected" href="employess.html">Employees</a></li> |
+                            <li><a href="manageProducts.html">Products</a></li> |
+                            <li><a href="#" onclick="logout()">Logout</a></li>
                         </ul>
+                    </div>
+                </div>
+                      <div class="gridwrapper">
+                        <div class="gridcontent" style="margin-top:15px; text-align: center;width:100%;background:white;border-right-color:transparent;">
+                            <ul class="employee">
+                                <li class="newEmployees" onclick="newempl()">Add Employees</li>
+                                <li class="allEmployees" onclick="viewemp()">View Employees</li>            
+                            </ul>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>

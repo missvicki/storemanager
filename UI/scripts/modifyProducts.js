@@ -96,7 +96,7 @@ function modProduct(){
             if (response.ok){
                 return response.text()
                 .then((data) => {
-                    errorMessage.innerText = data
+                    errorMessage.innerText = "Product has been modified"
                     document.getElementById("pdtid").value = ""
                     document.getElementById("pname").value = ""
                     document.getElementById("pdtcategory2").value = ""
@@ -104,8 +104,6 @@ function modProduct(){
                     document.getElementById("q").value = ""
                     document.getElementById("pdtmeasure2").value = ""
                     try{
-                        formwrapped.style.display = "none"
-
                         fetch(urlpdt,{
                         method:'GET',
                         headers: {
@@ -150,6 +148,8 @@ function modProduct(){
                                         })      
                                         //populate table                 
                                         $('#productTable').append(content)
+
+                                        errorMessage.innerText = ""
                                 })
                             }else if(response.status == 404){
                                 errorMessage.innerText = response.statusText + "-" + "no products found"

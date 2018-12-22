@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,600,600i,700|Niramit:200,400,500i,600|Roboto+Mono:100,100i,400|Roboto:100,400,400i,500,700|Source+Sans+Pro');
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+      url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+      url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+@media (max-width: 411px){
+
+}
+@media (max-width:720px){
+
+}
+* {
+    box-sizing: border-box;
+}
+.gridwrapper {
+    overflow: auto;
+    position: relative;
+    /* height: 250px; */
+}
+  
+.gridcontent {
+    width: 8.33%;
+    margin: 0;
+    border-right: 1px solid grey;
+    height: 100%;
+    float: left;
+    background-color: #84c754;
+    background-color: #f1f1f1;
+}
+body{
+    font-family: Muli;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+#menu{
+    text-align: center;
+}
+#menu li{
+    text-decoration: none;
+    display: inline;
+    list-style: none;
+}
+a:hover{
+    color:grey;
+}
+.tabs{
+    text-align: center;
+}
+.tabs h3{
+    color: #262626;
+}
+.container{
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    text-align: center;
+}
+header{
+    overflow: auto;
+    width: 100%;
+    text-align: center;
+}
+.selected{
+    color: aqua;
+}
+#login-content #login-form form{
+    text-align: center;
+    margin-top: 60px;
+}
+#login-content #login-form form #form-wrap label{
+    display: block;
+    color:  #334d4d; 
+    margin-top: 10px;  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5em;
+}
+#login-content #login-form form #form-wrap input[type="text"],
+#login-content #login-form form #form-wrap input[type="password"]{
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1.5px solid grey;
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 1em;
+}
+#login-content #login-form form #form-wrap select{
+    padding: 8px 10px;
+    border: 1.5px solid grey;
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 1em;
+}
+#login-content #login-form form #form-wrap input[type="button"]{
+    border: none;
+    background-color: #262626;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    color: white;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+#login-content #login-form form #form-wrap input[type="button"]:hover{
+    background: grey;
+}
+.employee{
+    text-align: center;
+}
+.employee li{
+    color: white;
+    background: #262626;
+    margin-right: 5px; 
+    display: inline;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    list-style: none;
+    cursor: pointer;
+}
+#add-form form{
+    text-align: center;
+}
+#add-form form #form-wrap label{
+    color:  #334d4d; 
+    display: inline;  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+}
+#add-form form #form-wrap input[type="text"],
+#add-form form #form-wrap input[type="password"]{
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1.5px solid grey;
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 1em;
+}
+#add-form form select{
+    padding: 8px 10px;
+    border: 1.5px solid grey;
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 1em;
+}
+#add-form form #form-wrap input[type="button"]{
+    border: none;
+    background-color: #262626;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    color: white;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+#add-form form #form-wrap input[type="button"]:hover{
+    background: grey;
+}

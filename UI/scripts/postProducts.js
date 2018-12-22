@@ -88,7 +88,7 @@ function addProducts(){
             if (response.ok){
                 return response.text()
                 .then((data) => {
-                    errorMessage.innerText = data
+                    errorMessage.innerText = "Product has been added"
                     document.getElementById("pdtname").value=""
                     document.getElementById("pdtcategory").value=""
                     document.getElementById("unitprice").value=""

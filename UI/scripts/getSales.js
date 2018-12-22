@@ -95,11 +95,11 @@ function getSale(){
                             
                         var content = '';
 
-                        //clear table body data
-                        const saleTableBody = document.querySelector("#saleTable > tbody")
-                        while (saleTableBody.firstChild){
-                            saleTableBody.removeChild(saleTableBody.firstChild)
-                        }
+                            // clear table body data
+                            const saleTableBody = document.querySelector("#saleTable > tbody")
+                            while (saleTableBody.firstChild){
+                                saleTableBody.removeChild(saleTableBody.firstChild)
+                            }
 
                         //get each row in json
                         sale.forEach((row) => {
@@ -151,12 +151,12 @@ function displaySalesAtt(){
     formwrapped.style.display = saleTableChecked.checked ? "block" : "none"
 }
 function allSales(){
-    formwrapped.style.display = "none"
+    // formwrapped.style.display = "none"
     const errorMessage = document.querySelector("span.errors");
     const newtoken = localStorage.getItem('token');
     const urlallsales = 'https://store-manager-ap1.herokuapp.com/api/v2/sales'
     // console.log(newtoken)
-
+    
     try{
         fetch(urlallsales,{
             method:'GET',
@@ -174,7 +174,7 @@ function allSales(){
                          
                     var content = '';
 
-                    //clear table body data
+                    // //clear table body data
                     const saleTableBody = document.querySelector("#saleTable > tbody")
                     while (saleTableBody.firstChild){
                         saleTableBody.removeChild(saleTableBody.firstChild)
@@ -213,4 +213,7 @@ function allSales(){
     }catch (error){
         console.log(error)
     }
+}
+window.onload = function(){
+    allSales();
 }

@@ -20,8 +20,8 @@ function logout(){
                             redirect: window.location.replace("index.html") 
                         })
                 }else if(response.status == 401){
-                    errorMessage.innerText = response.statusText + "-" + "token was revoked"
-                    redirect: window.location.replace("index.html")
+                    // errorMessage.innerText = response.statusText + "-" + "token was revoked"
+                    redirect: window.location.replace("index.html") 
                 }else{
                     errorMessage.innerText = response.status + "-" + response.statusText
                 }                       
