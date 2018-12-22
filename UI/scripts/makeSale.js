@@ -59,6 +59,10 @@ function saleProduct(){
                 if (response.ok){
                     return response.text()
                     .then((data) => {
+                        errorMessage.innerText = "sale has been made"
+                        document.getElementById("usname").value=""
+                        document.getElementById("pdtid").value=""
+                        document.getElementById("pdtqty").value=""
                         try{
                             fetch(urlpdt,{
                             method:'GET',
@@ -99,7 +103,7 @@ function saleProduct(){
                                             content += '<td>' + pprice + '</td>';
                                             content += '<td>' + pqty + '</td>';
                                             content += '<td>' + pmeasure + '</td>';
-                                            content += '<td><input type="radio" name="radio" onclick="return modifyProduct('+pid+', \'' + pname + '\', \'' + pcategory + '\', '+pprice+', '+pqty+', \'' + pmeasure + '\');"/></td>';
+                                            content += '<td><input type="radio" name="radio" onclick="return makeSale('+pid+');"/></td>';
                                             content += '</tr>';
                                             })      
                                             //populate table                 
@@ -122,10 +126,8 @@ function saleProduct(){
                         }catch(error){
                             console.log(error)
                         }
-                        errorMessage.innerText = data
-                        document.getElementById("usname").value=""
-                        document.getElementById("pdtid").value=""
-                        document.getElementById("pdtqty").value=""
+                        
+                        
                     })
                 }else if(response.status == 404){
                     errorMessage.innerText = response.statusText + "-" + "product does not exist"
@@ -148,4 +150,9 @@ function cancelSale(){
         document.getElementById("pdtid").value=""
         document.getElementById("pdtqty").value=""
     }
+}
+function makeSale(pdid){
+    const name = localStorage.getItem('username')
+    document.getElementById("pdtid").value = pdid
+    document.getElementById("usname").value = name
 }

@@ -1,5 +1,4 @@
 function allProducts(){
-    formwrapped.style.display = "none"
     const errorMessage = document.querySelector("span.errors");
     const newtoken = localStorage.getItem('token');
     const url = 'https://store-manager-ap1.herokuapp.com/api/v2/products'
@@ -65,17 +64,6 @@ function allProducts(){
     }
 
 }
-function displaySingleProduct(){
-    // clear table data
-    const productTableBody = document.querySelector("#productTable > tbody")
-    while (productTableBody.firstChild){
-        productTableBody.removeChild(productTableBody.firstChild)
-    }
-
-    // display text field
-    const productChecked = document.getElementById("radio-two")
-    formwrapped.style.display = productChecked.checked ? "block" : "none"
-}
 
 function singleproduct(){
     const pdtid = document.getElementById("singleProduct").value
@@ -104,6 +92,7 @@ function singleproduct(){
                     return response.text()
                     .then((data) => {
                         // console.log(data)
+                        errorMessage.innerText=""
                         const productData = JSON.parse(data)
                         const products = productData["product"]
                         console.log(products.category)
@@ -172,5 +161,11 @@ function makeSale(pdid){
     const name = localStorage.getItem('username')
     document.getElementById("pdtid").value = pdid
     document.getElementById("usname").value = name
+}
+function viewProducts(){
+    window.location = "viewProductAttendant.html"; // Redirecting to other page.
+}
+window.onload = function(){
+    allProducts();
 }
 

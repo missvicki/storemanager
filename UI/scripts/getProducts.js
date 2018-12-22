@@ -1,5 +1,4 @@
 function allProducts(){
-    formwrapped.style.display = "none"
     const errorMessage = document.querySelector("span.errors");
     const newtoken = localStorage.getItem('token');
     const url = 'https://store-manager-ap1.herokuapp.com/api/v2/products'
@@ -21,11 +20,11 @@ function allProducts(){
                          
                     var content = '';
 
-                    //clear table body data
-                    const productTableBody = document.querySelector("#productTable > tbody")
-                    while (productTableBody.firstChild){
-                        productTableBody.removeChild(productTableBody.firstChild)
-                    }
+                    // //clear table body data
+                    // const productTableBody = document.querySelector("#productTable > tbody")
+                    // while (productTableBody.firstChild){
+                    //     productTableBody.removeChild(productTableBody.firstChild)
+                    // }
 
                     //get each row in json
                     products.forEach((row) => {
@@ -63,17 +62,6 @@ function allProducts(){
     }
 
 }
-function displaySingleProduct(){
-    // clear table data
-    const productTableBody = document.querySelector("#productTable > tbody")
-    while (productTableBody.firstChild){
-        productTableBody.removeChild(productTableBody.firstChild)
-    }
-
-    // display text field
-    const productChecked = document.getElementById("radio-two")
-    formwrapped.style.display = productChecked.checked ? "block" : "none"
-}
 
 function singleproduct(){
     const pdtid = document.getElementById("singleProduct").value
@@ -101,6 +89,7 @@ function singleproduct(){
                     return response.text()
                     .then((data) => {
                         // console.log(data)
+                        errorMessage.innerText = ""
                         const productData = JSON.parse(data)
                         const products = productData["product"]
                         // console.log(products.category)
@@ -141,6 +130,7 @@ function singleproduct(){
                      while (productTableBody.firstChild){
                          productTableBody.removeChild(productTableBody.firstChild)
                      }
+                     
                 }else if(response.status == 401){
                     errorMessage.innerText = response.statusText + "-" + "You are unauthorized to perform this action"
                      //clear table body data
@@ -155,7 +145,7 @@ function singleproduct(){
                      while (productTableBody.firstChild){
                          productTableBody.removeChild(productTableBody.firstChild)
                      }
-                }                 
+                }                
             })
         }catch (error){
             console.log(error)
@@ -171,4 +161,9 @@ function modifyProduct(id, name, cat, price, qty, meas){
     document.getElementById("q").value = qty
     document.getElementById("pdtmeasure2").value = meas
 }
-
+function viewandmodifyProducts(){
+    window.location = "viewandModifyProducts.html";
+}
+window.onload = function(){
+    allProducts();
+}

@@ -10,57 +10,54 @@
 
         <title>V & M Shopping</title>
         <!--Stylesheet-->
-        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+        <link rel="stylesheet" type="text/css" href="../css/index-edit.css" />
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="../scripts/jquery-3.3.1.js"></script>
         <script src="../scripts/logout.js"></script>
+
     </head>
     <body>
-        <header class="dashboard">
-            <div class="logo-section">
-                <a href="indexOwner.html"> V&M <span>Shopping</span></a>
-            </div>
-            <div class="search-section">
-                <input class="search-text" type="text" name="" placeholder="Search">
-                <a class="search-btn" href="#"><i class ="fas fa-search"></i></a> 
-            </div>
-        </header>
-
-        <div class="main-section">
-            <aside id="side-menu">
-                <ul class="menu">
-                    <li><a class="selected" href="indexOwner.html">Dashboard</a> </li>
-                    <li><a href="sales.html">Sales</a> </li>
-                    <li><a href="employess.html">Employees</a> </li>
-                    <li><a href="manageProducts.html">Products</a> </li>                                     
-                    <li><a onclick="logout()">Logout</a> </li>                        
-                </ul>
-            </aside>
-            <div class="content">
-                <div class="main-info">
-                    <div class="top-section">
-                        <h3>Admin</h3>
+        <div style="position:absolute;opacity:0.9;width:auto;left:8px;right:10px;">
+            
+                <div>
+                    <div class="gridwrapper" style="height:10%;">
+                        <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                            <header><h1 style="color:white; text-align: center;">V & M SHOPPING</h1></header>
+                        </div>
+                        <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                            <ul id="menu">
+                                <li><a class="selected" href="indexOwner.html">Home</a></li> |
+                                <li><a href="sales.html">Sales</a></li> |
+                                <li><a href="employess.html">Employees</a></li> |
+                                <li><a href="manageProducts.html">Products</a></li> |
+                                <li><a href="#" onclick="logout()">Logout</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <span class="errors" style="color:#FF0000"></span>
-                    <div class="down-section">
-                        <div class="tab section">
-                            <div class="tabs attendants">
-                                <h1>000</h1>
-                                <p>No. of Employees</p>
-                            </div>
-                            <div class="tabs sale">
-                                <h1>000</h1>
-                                <p>Total Sales</p>
+                
+                      <div class="gridwrapper">
+                        <div class="gridcontent" style="text-align: center;width:100%;background:white;border-right-color:transparent;">
+                            <div class="tab section">
+                                <div class="tabs attendants">
+                                    <h3>000</h3>
+                                    <p>No. of Employees</p>
                                 </div>
-                            <div class="tabs products">
-                                <h1>000</h1>
-                                <p>Products Available</p>
-                            </div>
-                            <div class="tabs productsun">
-                                <h1>000</h1>
-                                <p>Products Unavailable</p>
+                                <div class="tabs sale">
+                                    <h3>000</h3>
+                                    <p>Total Sales</p>
+                                </div>
+                                <div class="tabs products">
+                                    <h3>000</h3>
+                                    <p>Products Available</p>
+                                </div>
+                                <div class="tabs productsun">
+                                    <h3>000</h3>
+                                    <p>Products Unavailable</p>
+                                </div>
                             </div>
                         </div>
+                      </div>
                     </div>
                 </div>
             </div>

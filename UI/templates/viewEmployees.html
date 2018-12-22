@@ -10,53 +10,51 @@
 
         <title>V & M Shopping</title>
         <!--Stylesheet-->
-        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+        <link rel="stylesheet" type="text/css" href="../css/index-edit.css" />
 
-        <script defer src="http://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
         <script src="../scripts/jquery-3.3.1.js"></script>
         <script src="../scripts/viewUsers.js"></script>
-        <script src="../scripts/logout.js"></script>   
+        <script src="../scripts/logout.js"></script>
+
     </head>
     <body>
-        <header class="dashboard">
-            <div class="logo-section">
-                <a href="indexOwner.html"> V&M <span>Shopping</span></a>
-            </div>
-        </header>
-
-        <div class="main-section">
-            <aside id="side-menu">
-                <ul class="menu">                        
-                    <li><a href="indexOwner.html">Dashboard</a> </li>
-                    <li><a href="sales.html">Sales</a> </li>
-                    <li><a class="selected" href="employess.html">Employees</a> </li>
-                    <li><a href="manageProducts.html">Products</a> </li>                                    
-                    <li><a onclick="logout()">Logout</a> </li>    
-                </ul>
-            </aside>
-            <div class="content">
-                <div class="main-info">
-                    <div class="down-section">             
-                        <div class="view-form">
-                            <div class="employees">
-                                <h5>View Employees</h5>
-                                <br>
-                                <form>
-                                    <span class="errors" style="color:#FF0000"></span>
-                                    <div class="form-wrap">
-                                        <h5>Users</h5>
-                                        <input type="radio" name="users" id="radio-one" class="form-radio" onclick="allUsers()"><label for="radio-one">All Users</label>
-                                        <input type="radio" name="users" id="radio-two" class="form-radio" onclick="displayroleUsers()"><label for="radio-two">Users under a Role</label>
-                                    </div>
-                                    <div id="formwrapped" style="display: none">
-                                        <input type="text" id="roleUser" placeholder="Enter User Role">
-                                        <input type="button" id="roleBtn" value="Search Users" onclick="usersroles()">  
-                                    </div>
-                                </form>
-                                <br>
+        <div style="position:absolute;opacity:0.9;width:auto;left:8px;right:10px;">
+            <div>
+                <div class="gridwrapper" style="height:10%;">
+                    <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                        <header><h1 style="color:white; text-align: center;">V & M SHOPPING</h1></header>
+                    </div>
+                    <div class="gridcontent" style="width:100%;background:#262626;border-right-color:transparent;">
+                        <ul id="menu">
+                            <li><a href="indexOwner.html">Home</a></li> |
+                            <li><a href="sales.html">Sales</a></li> |
+                            <li><a class="selected" href="employess.html">Employees</a></li> |
+                            <li><a href="manageProducts.html">Products</a></li> |
+                            <li><a href="#" onclick="logout()">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                    <div class="gridwrapper">
+                        <div class="gridcontent" style="background-color:#ffffff;border:none;width:100%;padding-top:15px;">
+                            <div style="display: block;border:none;padding-top:5px;width:100%;height:17%;margin-bottom:10px;text-align: center;">
+                                <div id="add-form">
+                                    <form>
+                                        <span class="errors" style="color:#FF0000"></span>
+                                            <div id="form-wrap">
+                                                <input type="text" id="roleUser" placeholder="Enter Role">
+                                                <input type="button" id="roleBtn" value="Search Role" onclick="usersroles()">  
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="gridwrapper">
+                            <div class="gridcontent" style="overflow-x:auto; margin-top:15px; margin-left:10px;text-align: center;width:75%;background:white;border-right-color:transparent;">
                                 <table id="userTable">
                                     <thead>
-                                        <tr style="background-color: #090a25; color:#FFF; padding:10px 10px 10px 10px ;">
+                                        <tr style="background-color: #262626; color:#FFF; padding:10px 10px 10px 10px ;">
                                             <th>Employee ID</th>
                                             <th>Employee Name</th>
                                             <th>Employee Username</th>
@@ -65,14 +63,16 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
-                                        <tr  style="border-bottom:1px solid #3CC; background-color:#C0C0C0;  color:#000;"></tr>
+                                        <tr  style="border-bottom:1px solid grey; background-color:#C0C0C0;  color:#000;">
+                    
+                                        </tr>
                                     </tbody>
-                                </table>      
+                                </table> 
                             </div>
-                        </div>   
+                        </div>
                     </div>
+                        
                 </div>
             </div>
-        </div>
     </body>
 </html>

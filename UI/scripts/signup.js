@@ -75,7 +75,7 @@ function signup(){
             if (response.ok){
                 return response.text()
                 .then((data) => {
-                    errorMessage.innerText = "Successfuly added a new user"
+                    errorMessage.innerText = "User has been added"
                     document.getElementById("name_employee").value=""
                     document.getElementById("name_user").value=""
                     document.getElementById("password_employee").value=""

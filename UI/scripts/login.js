@@ -44,10 +44,12 @@ function login(){
                     localStorage.setItem('username', userName)
                     if (userRole == 'admin'){
                         // alert("Login Successful...Redirecting to admin page")
+                        errorMessage.innerText = "Login Successful"
                         redirect: window.location.replace("indexOwner.html") 
                     }
                     else if (userRole == 'attendant'){
                         // alert("Login Successful...Redirecting to attendants page")
+                        errorMessage.innerText = "Login Successful"
                         redirect: window.location.replace("indexAttendants.html") 
                     }
                     else{
@@ -57,7 +59,7 @@ function login(){
             }else if(response.status == 400){
                 errorMessage.innerText = response.statusText + "-" + "either wrong username, password, role"
             }else if(response.status == 404){
-                errorMessage.innerText = response.statusText + "-" + "user does not exist, please signup"
+                errorMessage.innerText = "User Not Found! Please, Contact Admin"
             }else{
                 errorMessage.innerText = response.status + "-" + response.statusText
             }                      

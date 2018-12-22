@@ -1,15 +1,17 @@
-function deleteProduct(){
-        // get field values
-        const pdtid = document.getElementById("pdtid").value;
-        const pdtnam = document.getElementById("pname").value;
-        const pdtcat = document.getElementById("pdtcategory2").value;
-        const pdtp = document.getElementById("unitp").value;
-        const pdtqt = document.getElementById("q").value;
-        const pdtm = document.getElementById("pdtmeasure2").value;
+function delProduct(){
+    const agree = confirm("Are you sure you want to delete this product?");
 
-        const errorMessage = document.querySelector("span.error");
-        const newtoken = localStorage.getItem('token');
+    const pdtid = document.getElementById("pdtid").value;
+    const pdtnam = document.getElementById("pname").value;
+    const pdtcat = document.getElementById("pdtcategory2").value;
+    const pdtp = document.getElementById("unitp").value;
+    const pdtqt = document.getElementById("q").value;
+    const pdtm = document.getElementById("pdtmeasure2").value;
+
+    const errorMessage = document.querySelector("span.error");
+    const newtoken = localStorage.getItem('token');
     
+    if(agree){
         //validate
         if(pdtid == ""){
             errorMessage.innerText = "Product id required"
@@ -101,7 +103,7 @@ function deleteProduct(){
                 if (response.ok){
                     return response.text()
                     .then((data) => {
-                        errorMessage.innerText = data
+                        errorMessage.innerText = "Product has been deleted"
                         document.getElementById("pdtid").value = ""
                         document.getElementById("pname").value = ""
                         document.getElementById("pdtcategory2").value = ""
@@ -190,5 +192,8 @@ function deleteProduct(){
                 console.log(error)
             }
         }
+    }else{
+        return false;
     }
+}
     

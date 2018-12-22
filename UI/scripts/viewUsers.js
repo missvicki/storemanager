@@ -1,5 +1,4 @@
 function allUsers(){    
-    formwrapped.style.display = "none"
     const errorMessage = document.querySelector("span.errors");
     const newtoken = localStorage.getItem('token');
     const urlusers = 'https://store-manager-ap1.herokuapp.com/api/v2/users'
@@ -59,16 +58,6 @@ function allUsers(){
         console.log(error)
     }
     
-}
-function displayroleUsers(){
-    // clear table data
-    const userTableBody = document.querySelector("#userTable > tbody")
-    while (userTableBody.firstChild){
-        userTableBody.removeChild(userTableBody.firstChild)
-    }
-    // display text field
-    const userChecked = document.getElementById("radio-two")
-    formwrapped.style.display = userChecked.checked ? "block" : "none"
 }
 function usersroles(){
     const roleforuser = document.getElementById("roleUser").value
@@ -156,4 +145,10 @@ function usersroles(){
             document.getElementById("roleUser").value = ""
     }
 
+}
+function viewemp(){
+    window.location = "viewEmployees.html"; // Redirecting to other page.
+}
+window.onload = function(){
+    allUsers();
 }
