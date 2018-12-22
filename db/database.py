@@ -121,9 +121,8 @@ class DatabaseConnection:
         """delete one product"""
         try:
             self.cur.execute(
-                "DELETE FROM products WHERE product_id = %s", [_pid]
-                # "UPDATE products SET delete_status=TRUE , date_modified =CURRENT_TIMESTAMP WHERE product_id = {}".format(_pid
-                # )
+                #"DELETE FROM products WHERE product_id = %s", [_pid]
+                "UPDATE products SET delete_status=TRUE , date_modified =CURRENT_TIMESTAMP WHERE product_id = {}".format(_pid )
             )
         except:
             return False
